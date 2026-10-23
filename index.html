@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الاختبار الشهري التفاعلي - المهارات الرقمية (الصف السابع)</title>
+    <!-- Firebase App (Modular SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #f8fafc; margin: 0; padding: 15px; direction: rtl; min-height: 100vh; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .card { background-color: rgba(30, 41, 59, 0.95); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px; padding: 20px; margin-bottom: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); backdrop-filter: blur(10px); }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #06b6d4; padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+        .badge { background: linear-gradient(90deg, #06b6d4, #3b82f6); color: #0f172a; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; }
+        .btn { background: linear-gradient(90deg, #06b6d4, #0284c7); color: #0f172a; border: none; padding: 12px 24px; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 14px; transition: all 0.2s ease-in-out; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(6, 182, 212, 0.4); }
+        .btn-secondary { background: #334155; color: #cbd5e1; border: 1px solid #475569; }
+        .btn-success { background: linear-gradient(90deg, #10b981, #059669); color: #0f172a; }
+        .btn-danger { background: #ef4444; color: #fff; }
+        .form-group { margin-bottom: 15px; text-align: right; }
+        label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 6px; color: #cbd5e1; }
+        input[type="text"], select { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #475569; background-color: #0f172a; color: #fff; font-size: 14px; }
+        .question-card { background-color: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 18px; margin-bottom: 18px; }
+        .question-header { display: flex; justify-content: space-between; font-size: 13px; font-weight: bold; color: #38bdf8; margin-bottom: 10px; }
+        .option-label { display: flex; align-items: center; padding: 10px; margin-top: 8px; background-color: #0f172a; border: 1px solid #334155; border-radius: 10px; cursor: pointer; font-size: 13px; transition: 0.2s; }
+        .option-label:hover { background-color: #1e293b; border-color: #06b6d4; }
+        .option-label input { margin-left: 12px; accent-color: #06b6d4; }
+        .hidden { display: none !important; }
+        .img-illustration { max-width: 100%; height: auto; max-height: 160px; display: block; margin: 10px auto; border-radius: 12px; border: 2px solid #334155; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: right; font-size: 13px; }
+        th, td { padding: 12px; border-bottom: 1px solid #334155; }
+        th { background-color: #0f172a; color: #94a3b8; }
+        .grid-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .stat-box { background-color: #0f172a; border: 1px solid #334155; padding: 15px; border-radius: 14px; text-align: center; }
+        .stat-val { font-size: 26px; font-weight: bold; margin-top: 5px; color: #38bdf8; }
+        .model-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: bold; background: #334155; color: #fbbf24; }
+        .timer-box { background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #f87171; padding: 8px 15px; border-radius: 10px; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- الشريط العلوي -->
+        <div class="card header">
+            <div>
+                <span class="badge">وكالة الغوث الدولية (UNRWA) - مدرسة ذكور وادي السير الإعدادية</span>
+                <h2 style="margin: 6px 0 0 0; font-size: 19px; color: #fff;">الاختبار الإلكتروني - المهارات الرقمية (20 علامة)</h2>
+                <span style="font-size: 12px; color: #94a3b8;">الصف السابع | تصميم وإعداد المعلم: عامر كراجه</span>
+            </div>
+            <div>
+                <button onclick="switchView('student')" id="btn-tab-student" class="btn">شاشة الطالب</button>
+                <button onclick="promptTeacherLogin()" id="btn-tab-teacher" class="btn btn-secondary">لوحة المعلم 🔒</button>
+            </div>
+        </div>
+
+        <!-- شاشة الطالب -->
+        <div id="view-student">
+            <!-- كرت التسجيل واختيار النموذج -->
+            <div id="student-reg-card" class="card" style="text-align: center; max-width: 500px; margin: 0 auto;">
+                <div style="font-size: 45px; margin-bottom: 8px;">🖥️</div>
+                <h3 style="color: #38bdf8; margin-top: 0;">أهلاً بك عزيزي الطالب</h3>
+                <p style="font-size: 12px; color: #94a3b8; margin-bottom: 20px;">ملاحظة هامة: مسموح لك بمحاولة واحدة فقط لإجراء الاختبار.</p>
+
+                <form onsubmit="startExam(event)">
+                    <div class="form-group">
+                        <label>اسم الطالب الرباعي:</label>
+                        <input type="text" id="input-student-name" required placeholder="أدخل اسمك كاملاً...">
+                    </div>
+                    <div class="form-group">
+                        <label>الشعبة الدراسية:</label>
+                        <select id="select-student-section" required>
+                            <option value="">اختر الشعبة...</option>
+                            <option value="السابع (1)">السابع (1)</option>
+                            <option value="السابع (2)">السابع (2)</option>
+                            <option value="السابع (3)">السابع (3)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>نموذج الاختبار (حسب تحديد المعلم):</label>
+                        <select id="select-exam-model" required style="border-color: #06b6d4;">
+                            <option value="">اختر النموذج...</option>
+                            <option value="1">النموذج الأول (A)</option>
+                            <option value="2">النموذج الثاني (B)</option>
+                            <option value="3">النموذج الثالث (C)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%; padding: 12px; margin-top: 10px;">بدء الاختبار الآن 🚀</button>
+                </form>
+            </div>
+
+            <!-- رسالة منع المحاولة الثانية -->
+            <div id="student-blocked-card" class="card hidden" style="text-align: center; max-width: 500px; margin: 0 auto;">
+                <div style="font-size: 50px;">⚠️</div>
+                <h3 style="color: #ef4444; margin-bottom: 10px;">عذراً، لقد قمت بإجراء الاختبار مسبقاً!</h3>
+                <p style="font-size: 13px; color: #cbd5e1;">مسموح لك بمحاولة واحدة فقط من هذا الجهاز وقد تم تسليمها بنجاح.</p>
+                <div style="background-color: #0f172a; border: 1px solid #334155; padding: 15px; border-radius: 12px; margin: 15px 0; text-align: right;">
+                    <div style="font-size: 13px; color: #94a3b8;" id="blocked-info-name"></div>
+                    <div style="font-size: 16px; font-weight: bold; color: #fbbf24; margin-top: 5px;" id="blocked-info-score"></div>
+                </div>
+            </div>
+
+            <!-- منطقة الأسئلة والمؤقت -->
+            <div id="student-exam-area" class="card hidden">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 10px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                    <div>
+                        <span id="display-student-info" style="font-size: 13px; font-weight: bold; color: #38bdf8;"></span>
+                        <span id="display-model-info" class="model-badge" style="margin-right: 8px;"></span>
+                    </div>
+                    <div class="timer-box">
+                        <span>⏳ الوقت المتبقي:</span>
+                        <span id="timer-countdown" style="font-family: monospace; font-size: 16px;">15:00</span>
+                    </div>
+                </div>
+
+                <form id="exam-form" onsubmit="submitExam(event)">
+                    <div id="questions-container"></div>
+                    <button type="submit" class="btn btn-success" style="width: 100%; padding: 14px; font-size: 16px; margin-top: 15px;">تسليم الاختبار وإظهار النتيجة 🏁</button>
+                </form>
+            </div>
+
+            <!-- كرت النتيجة -->
+            <div id="student-result-card" class="card hidden" style="text-align: center; max-width: 450px; margin: 0 auto;">
+                <div style="font-size: 50px;">🏆</div>
+                <h3 style="color: #38bdf8; margin-bottom: 5px;">تم تسليم الاختبار وحفظ النتيجة!</h3>
+                <p id="result-student-name" style="font-size: 14px; font-weight: bold;"></p>
+                <div style="background-color: #0f172a; border: 2px solid #06b6d4; padding: 20px; border-radius: 14px; margin: 15px 0;">
+                    <span style="font-size: 12px; color: #94a3b8; display: block;">العلامة النهائية</span>
+                    <span id="result-score-display" style="font-size: 38px; font-weight: bold; color: #fbbf24;">0 / 20</span>
+                </div>
+                <p id="result-feedback-msg" style="font-size: 13px; font-weight: bold;"></p>
+            </div>
+        </div>
+
+        <!-- شاشة المعلم -->
+        <div id="view-teacher" class="card hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 15px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                <div>
+                    <h3 style="margin: 0; color: #fbbf24;">📊 لوحة المعلم - سجل علامات الطلاب (قاعدة البيانات السحابية)</h3>
+                    <span style="font-size: 12px; color: #94a3b8;">تصميم المعلم: عامر كراجه</span>
+                </div>
+                <div>
+                    <button onclick="exportScoresExcel()" class="btn btn-success" style="font-size: 12px;">تصدير إلى Excel 📄</button>
+                    <button onclick="loadTeacherDashboard()" class="btn btn-secondary" style="font-size: 12px;">تحديث القائمة 🔄</button>
+                </div>
+            </div>
+
+            <div class="grid-stats">
+                <div class="stat-box">
+                    <span style="font-size: 12px; color: #94a3b8;">إجمالي المتقدمين</span>
+                    <div id="stat-total-students" class="stat-val">0</div>
+                </div>
+                <div class="stat-box">
+                    <span style="font-size: 12px; color: #94a3b8;">متوسط العلامات</span>
+                    <div id="stat-avg-score" class="stat-val" style="color: #fbbf24;">0 / 20</div>
+                </div>
+                <div class="stat-box">
+                    <span style="font-size: 12px; color: #94a3b8;">نسبة النجاح (≥ 10)</span>
+                    <div id="stat-pass-rate" class="stat-val" style="color: #34d399;">0%</div>
+                </div>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>اسم الطالب</th>
+                            <th>الشعبة</th>
+                            <th>النموذج</th>
+                            <th>العلامة (من 20)</th>
+                            <th>وقت التسليم</th>
+                        </tr>
+                    </thead>
+                    <tbody id="teacher-scores-tbody">
+                        <tr><td colspan="6" style="text-align: center; color: #94a3b8;">جاري جلب البيانات من السحابة...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- SheetJS library for Excel Export -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+    <script>
+        // إعدادات Firebase السحابية (استبدل القيم بمعلومات مشروعك الخاص على Firebase إن أردت)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDummyKeyForDemo-DigitalSkills7",
+            authDomain: "unrwa-exam-7.firebaseapp.com",
+            projectId: "unrwa-exam-7",
+            storageBucket: "unrwa-exam-7.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef"
+        };
+
+        // تهيئة Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        // فحص ما إذا كان الطالب قد أدى الاختبار من قبل على هذا الجهاز
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedAttempt = localStorage.getItem('unrwa_exam_submitted_v1');
+            if (savedAttempt) {
+                const data = JSON.parse(savedAttempt);
+                document.getElementById('student-reg-card').classList.add('hidden');
+                document.getElementById('student-blocked-card').classList.remove('hidden');
+                document.getElementById('blocked-info-name').innerText = `اسم الطالب: ${data.name} (${data.section})`;
+                document.getElementById('blocked-info-score').innerText = `النتيجة المسجلة: ${data.score} / 20`;
+            }
+        });
+
+        const examModels = {
+            "1": [
+                { id: 1, marks: 3, title: "السؤال 1 (اختر الإجابة - بصري):", question: "تأمل الشكل التوضيحي المرفق للمكون المسؤول عن معالجة البيانات وإجراء العمليات الحسابية والمنطقية (دماغ الحاسوب):", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='100' viewBox='0 0 260 100'><rect width='260' height='100' fill='%230f172a'/><rect x='80' y='15' width='100' height='70' fill='%23334155' stroke='%2306b6d4' stroke-width='3' rx='8'/><text x='130' y='55' fill='%2322d3ee' font-size='16' font-weight='bold' text-anchor='middle'>CPU</text></svg>", options: ["وحدة المعالجة المركزية (CPU)", "القرص الصلب (Hard Disk)", "ذاكرة القراءة فقط (ROM)", "لوحة المفاتيح"], correct: 0 },
+                { id: 2, marks: 3, title: "السؤال 2 (صح وخطأ):", question: "العبارة التالية: 'البيانات هي معلومات تم تنظيمها وتحليلها لتصبح ذات معنى لاتخاذ القرار.' هل هذه العبارة صحيحة أم خاطئة؟", options: ["صح", "خطأ"], correct: 1 },
+                { id: 3, marks: 3, title: "السؤال 3 (أكمل الفراغ):", question: "الحاسوب ذو القدرة العالية جداً والذي يُستخدم في مراكز الأبحاث الكبرى والتنبؤ بالطقس يُسمى الحاسوب الـ ......", options: ["المدمج (Embedded)", "الفائق (Supercomputer)", "المكتبي البسيط", "الشخصي"], correct: 1 },
+                { id: 4, marks: 3, title: "السؤال 4 (فسر / علل):", question: "لماذا تُعتبر ذاكرة الوصول العشوائي (RAM) ذاكرة مؤقتة؟", options: ["لأنها تفقد محتوياتها فور انقطاع التيار الكهربائي وإطفاء الجهاز", "لأنها تحتفظ بالبيانات للأبد على القرص الصلب", "لأنها بطيئة جداً في القراءة", "لأنها تخدم وحدات الإخراج فقط"], correct: 0 },
+                { id: 5, marks: 4, title: "السؤال 5 (تصنيف البرمجيات):", question: "أي من البرمجيات التالية يُعد من (برمجيات النظام System Software) الأساسية لتشغيل الحاسوب؟", options: ["برنامج الرسام (Paint)", "نظام التشغيل (Windows)", "لعبة ماينكرافت", "معالج النصوص (Word)"], correct: 1 },
+                { id: 6, marks: 4, title: "السؤال 6 (المواطنة والأمان):", question: "التصرف الصحيح عند الانتهاء من استخدام حاسوب مشترك في المختبر المدرسي هو:", options: ["ترك الحساب مفتوحاً لزميلك", "حفظ كلمة المرور على المتصفح العام", "تسجيل الخروج من الحسابات وإغلاق الجهاز أصولاً", "تنزيل برامج غير مأمونة"], correct: 2 }
+            ],
+            "2": [
+                { id: 1, marks: 3, title: "السؤال 1 (اختر الإجابة - بصري):", question: "تأمل الشكل التوضيحي لجهاز مصغر مدمج داخل آلة أوتوماتيكية لأداء وظيفة محددة:", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='100' viewBox='0 0 260 100'><rect width='260' height='100' fill='%230f172a'/><circle cx='130' cy='50' r='30' fill='%231e293b' stroke='%2338bdf8' stroke-width='3'/><text x='130' y='55' fill='%23fbbf24' font-size='13' font-weight='bold' text-anchor='middle'>Embedded</text></svg>", options: ["الحاسوب المدمج (Embedded Computer)", "الحاسوب المركزي (Mainframe)", "الحاسوب المكتبي", "الشاشة الذكية"], correct: 0 },
+                { id: 2, marks: 3, title: "السؤال 2 (صح وخطأ):", question: "العبارة التالية: 'نظام التشغيل يعد الوسيط البرمجي بين المستخدم والمكونات المادية للحاسوب.' هل العبارة صحيحة أم خاطئة؟", options: ["صح", "خطأ"], correct: 0 },
+                { id: 3, marks: 3, title: "السؤال 3 (أكمل الفراغ):", question: "الذاكرة التي تحتفظ بتعليمات الإقلاع الأساسية ولا تفقد محتوياتها عند إطفاء الجهاز هي ذاكرة الـ ......", options: ["RAM", "ROM", "Cache", "Flash"], correct: 1 },
+                { id: 4, marks: 3, title: "السؤال 4 (فسر / علل):", question: "لماذا تلجأ البنوك الكبرى لاستخدام الحواسيب المركزية (Mainframe)؟", options: ["لقدرتها العالية على معالجة آلاف المعاملات لمستخدمين كثر في نفس الوقت", "لأن حجمها صغير ويسهل حملها باليد", "لأنها رخيصة الثمن ومخصصة للألعاب الفردية", "لأنها لا تحتاج إلى كهرباء"], correct: 0 },
+                { id: 5, marks: 4, title: "السؤال 5 (البرمجيات التطبيقية):", question: "أي من البرامج التالية يُصنف ضمن (البرمجيات التطبيقية Application Software)؟", options: ["برنامج مايكروسوفت وورد (MS Word)", "نظام ويندوز 11", "نظام تشغيل الهواتف", "مشغلات التعريفات الداخلية"], correct: 0 },
+                { id: 6, marks: 4, title: "السؤال 6 (مبدأ العمل):", question: "الترتيب الصحيح لمراحل معالجة البيانات في نظام الحاسوب هو:", options: ["إخراج ➔ معالجة ➔ إدخال", "إدخال ➔ معالجة ➔ إخراج", "تخزين ➔ إخراج ➔ معالجة", "معالجة ➔ تخزين ➔ إدخال"], correct: 1 }
+            ],
+            "3": [
+                { id: 1, marks: 3, title: "السؤال 1 (اختر الإجابة - بصري):", question: "تأمل الرسم التوضيحي لوحدة الإخراج التي تترجم النتائج الرقمية إلى ورق مطبوع:", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='100' viewBox='0 0 260 100'><rect width='260' height='100' fill='%230f172a'/><rect x='80' y='25' width='100' height='50' fill='%23334155' stroke='%2334d399' stroke-width='3'/><text x='130' y='55' fill='%2334d399' font-size='14' font-weight='bold' text-anchor='middle'>Printer</text></svg>", options: ["وحدة الإخراج (الطابعة)", "وحدة الإدخال (اللوحة)", "المعالج (CPU)", "القرص الصلب"], correct: 0 },
+                { id: 2, marks: 3, title: "السؤال 2 (صح وخطأ):", question: "العبارة التالية: 'علامات الطلبة المدونة بشكل عشوائي قبل ترتيبها تُسمى معلومات.' هل العبارة صحيحة أم خاطئة؟", options: ["صح", "خطأ"], correct: 1 },
+                { id: 3, marks: 3, title: "السؤال 3 (أكمل الفراغ):", question: "تؤثر زيادة سعة ذاكرة الوصول العشوائي (......) مباشرة على سرعة تنفيذ البرامج وتعدد المهام.", options: ["RAM", "ROM", "CPU", "USB"], correct: 0 },
+                { id: 4, marks: 3, title: "السؤال 4 (فسر / علل):", question: "لماذا تعد الغسالة الأوتوماتيكية مثالاً على الحواسيب المدمجة؟", options: ["لأنها تحتوي معالجاً مصغراً مخصصاً للتحكم بدورة الغسيل فقط", "لأنها تستخدم لتصفح الإنترنت وممارسة الألعاب", "لأنها تحتاج شاشة عرض ضخمة", "لأنها تعمل كحاسوب فائق"], correct: 0 },
+                { id: 5, marks: 4, title: "السؤال 5 (التكامل الوظيفي):", question: "عند النقر على زر طباعة تقرير، ما هو العنصر المسؤول عن التنسيق وإرسال الأمر للطابعة؟", options: ["نظام التشغيل (برمجيات النظام)", "السماعات الصوتية", "شاشة العرض فقط", "لوحة المفاتيح وحدها"], correct: 0 },
+                { id: 6, marks: 4, title: "السؤال 6 (الأمان الرقمي):", question: "من قواعد الحفاظ على الخصوصية الرقمية عند استخدام الحواسيب المدرسية:", options: ["مشاركة كلمة المرور مع الجميع", "عدم حفظ كلمات المرور على الأجهزة المشتركة وتسجيل الخروج", "تنزيل برامج غير موثوقة", "ترك الحساب متاحاً"], correct: 1 }
+            ]
+        };
+
+        let currentStudent = { name: "", section: "", model: "1" };
+        let timerInterval = null;
+        let timeLeft = 15 * 60; // 15 دقيقة بالثواني
+
+        function renderQuestions(modelId) {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            const questions = examModels[modelId];
+
+            questions.forEach((q) => {
+                const card = document.createElement('div');
+                card.className = "question-card";
+                card.innerHTML = `
+                    <div class="question-header">
+                        <span>${q.title}</span>
+                        <span class="badge" style="background: rgba(6,182,212,0.15); color: #22d3ee;">${q.marks} علامات</span>
+                    </div>
+                    <p style="font-size: 14px; font-weight: bold; margin: 6px 0 10px 0; line-height: 1.5; color: #fff;">${q.question}</p>
+                    ${q.img ? `<img src="${q.img}" class="img-illustration" alt="شكل توضيحي">` : ''}
+                    <div>
+                        ${q.options.map((opt, optIdx) => `
+                            <label class="option-label">
+                                <input type="radio" name="q_${q.id}" value="${optIdx}" required>
+                                <span>${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function startExam(e) {
+            e.preventDefault();
+            const name = document.getElementById('input-student-name').value.trim();
+            const section = document.getElementById('select-student-section').value;
+            const model = document.getElementById('select-exam-model').value;
+
+            if (name && section && model) {
+                currentStudent = { name, section, model };
+                document.getElementById('display-student-info').innerText = `الطالب: ${name} | ${section}`;
+                document.getElementById('display-model-info').innerText = `النموذج (${model})`;
+                document.getElementById('student-reg-card').classList.add('hidden');
+                document.getElementById('student-exam-area').classList.remove('hidden');
+                renderQuestions(model);
+                startTimer();
+            }
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert("انتهى الوقت المحدد للاختبار! سيتم تسليم الإجابات تلقائياً.");
+                    submitExam(new Event('submit'));
+                } else {
+                    timeLeft--;
+                    const minutes = Math.floor(timeLeft / 60);
+                    const seconds = timeLeft % 60;
+                    document.getElementById('timer-countdown').innerText = 
+                        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        function submitExam(e) {
+            if (e) e.preventDefault();
+            if (timerInterval) clearInterval(timerInterval);
+
+            let totalScore = 0;
+            const questions = examModels[currentStudent.model];
+
+            questions.forEach(q => {
+                const selected = document.querySelector(`input[name="q_${q.id}"]:checked`);
+                if (selected && parseInt(selected.value) === q.correct) {
+                    totalScore += q.marks;
+                }
+            });
+
+            const record = {
+                name: currentStudent.name,
+                section: currentStudent.section,
+                model: currentStudent.model,
+                score: totalScore,
+                time: new Date().toLocaleString('ar-EG'),
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            // حفظ في قيد الجهاز لمنع المحاولة الثانية
+            localStorage.setItem('unrwa_exam_submitted_v1', JSON.stringify(record));
+
+            // حفظ في قاعدة البيانات السحابية Firebase Firestore
+            db.collection("exam_scores").add(record)
+              .then(() => { console.log("Score saved to Cloud Firestore successfully."); })
+              .catch((error) => { console.error("Error writing document: ", error); });
+
+            document.getElementById('student-exam-area').classList.add('hidden');
+            document.getElementById('result-student-name').innerText = `الطالب: ${currentStudent.name} (${currentStudent.section}) - نموذج ${currentStudent.model}`;
+            document.getElementById('result-score-display').innerText = `${totalScore} / 20`;
+            
+            const msgEl = document.getElementById('result-feedback-msg');
+            if (totalScore >= 16) {
+                msgEl.innerText = "🌟 ممتاز جداً! أداء متميز في الاختبار الإلكتروني.";
+                msgEl.style.color = "#34d399";
+            } else if (totalScore >= 10) {
+                msgEl.innerText = "👍 جيد جداً! أداء طيب ومقبول.";
+                msgEl.style.color = "#38bdf8";
+            } else {
+                msgEl.innerText = "⚠️ بحاجة لمراجعة المفاهيم النظرية ومتابعة المادة.";
+                msgEl.style.color = "#fbbf24";
+            }
+
+            document.getElementById('student-result-card').classList.remove('hidden');
+        }
+
+        function promptTeacherLogin() {
+            const password = prompt("أدخل كلمة المرور لدخول لوحة المعلم:");
+            if (password === "exam2618") {
+                switchView('teacher');
+                loadTeacherDashboard();
+            } else if (password !== null) {
+                alert("كلمة المرور غير صحيحة!");
+            }
+        }
+
+        function switchView(view) {
+            if (view === 'student') {
+                document.getElementById('view-student').classList.remove('hidden');
+                document.getElementById('view-teacher').classList.add('hidden');
+                document.getElementById('btn-tab-student').className = "btn";
+                document.getElementById('btn-tab-teacher').className = "btn btn-secondary";
+            } else {
+                document.getElementById('view-student').classList.add('hidden');
+                document.getElementById('view-teacher').classList.remove('hidden');
+                document.getElementById('btn-tab-student').className = "btn btn-secondary";
+                document.getElementById('btn-tab-teacher').className = "btn";
+            }
+        }
+
+        function loadTeacherDashboard() {
+            const tbody = document.getElementById('teacher-scores-tbody');
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #94a3b8;">جاري جلب البيانات من السحابة...</td></tr>`;
+
+            db.collection("exam_scores").orderBy("timestamp", "desc").get().then((querySnapshot) => {
+                tbody.innerHTML = '';
+                let totalMarks = 0;
+                let passCount = 0;
+                let count = 0;
+
+                querySnapshot.forEach((doc) => {
+                    const rec = doc.data();
+                    count++;
+                    totalMarks += rec.score;
+                    if (rec.score >= 10) passCount++;
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td style="color: #94a3b8;">${count}</td>
+                        <td style="font-weight: bold; color: #fff;">${rec.name}</td>
+                        <td>${rec.section}</td>
+                        <td><span class="model-badge">نموذج ${rec.model}</span></td>
+                        <td style="font-weight: bold; color: #fbbf24;">${rec.score} / 20</td>
+                        <td style="color: #94a3b8; font-size: 11px;">${rec.time || 'منذ قليل'}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                document.getElementById('stat-total-students').innerText = count;
+                document.getElementById('stat-avg-score').innerText = count ? `${Math.round(totalMarks / count)} / 20` : '0 / 20';
+                document.getElementById('stat-pass-rate').innerText = count ? `${Math.round((passCount / count) * 100)}%` : '0%';
+                
+                if (count === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #94a3b8;">لا توجد نتائج مسجلة حتى الآن.</td></tr>`;
+                }
+            }).catch((error) => {
+                console.error("Error getting documents: ", error);
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #ef4444;">حدث خطأ في الاتصال بقاعدة البيانات.</td></tr>`;
+            });
+        }
+
+        function exportScoresExcel() {
+            db.collection("exam_scores").get().then((querySnapshot) => {
+                if (querySnapshot.empty) {
+                    alert("لا توجد بيانات لتصديرها!");
+                    return;
+                }
+
+                let dataToExport = [];
+                let index = 1;
+                querySnapshot.forEach((doc) => {
+                    const r = doc.data();
+                    dataToExport.push({
+                        "الرقم": index++,
+                        "اسم الطالب": r
