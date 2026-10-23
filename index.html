@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الاختبار الشهري التفاعلي - المهارات الرقمية (الصف السابع)</title>
-    <!-- Firebase App (Modular SDK) -->
+    <!-- Firebase SDK (Compat) -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <!-- SheetJS for Excel Export -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #f8fafc; margin: 0; padding: 15px; direction: rtl; min-height: 100vh; }
@@ -61,7 +63,7 @@
             <div id="student-reg-card" class="card" style="text-align: center; max-width: 500px; margin: 0 auto;">
                 <div style="font-size: 45px; margin-bottom: 8px;">🖥️</div>
                 <h3 style="color: #38bdf8; margin-top: 0;">أهلاً بك عزيزي الطالب</h3>
-                <p style="font-size: 12px; color: #94a3b8; margin-bottom: 20px;">ملاحظة هامة: مسموح لك بمحاولة واحدة فقط لإجراء الاختبار.</p>
+                <p style="font-size: 12px; color: #94a3b8; margin-bottom: 20px;">ملاحظة هامة: مسموح لك بمحاولة واحدة فقط لإجراء الاختبار (15 دقيقة).</p>
 
                 <form onsubmit="startExam(event)">
                     <div class="form-group">
@@ -137,12 +139,13 @@
         <div id="view-teacher" class="card hidden">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 15px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
                 <div>
-                    <h3 style="margin: 0; color: #fbbf24;">📊 لوحة المعلم - سجل علامات الطلاب (قاعدة البيانات السحابية)</h3>
+                    <h3 style="margin: 0; color: #fbbf24;">📊 لوحة المعلم - سجل علامات الطلاب</h3>
                     <span style="font-size: 12px; color: #94a3b8;">تصميم المعلم: عامر كراجه</span>
                 </div>
                 <div>
                     <button onclick="exportScoresExcel()" class="btn btn-success" style="font-size: 12px;">تصدير إلى Excel 📄</button>
                     <button onclick="loadTeacherDashboard()" class="btn btn-secondary" style="font-size: 12px;">تحديث القائمة 🔄</button>
+                    <button onclick="clearAllScores()" class="btn btn-danger" style="font-size: 12px; margin-right: 5px;">مسح السجل 🗑️</button>
                 </div>
             </div>
 
@@ -173,35 +176,33 @@
                             <th>وقت التسليم</th>
                         </tr>
                     </thead>
-                    <tbody id="teacher-scores-tbody">
-                        <tr><td colspan="6" style="text-align: center; color: #94a3b8;">جاري جلب البيانات من السحابة...</td></tr>
-                    </tbody>
+                    <tbody id="teacher-scores-tbody"></tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- SheetJS library for Excel Export -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-
     <script>
-        // إعدادات Firebase السحابية (استبدل القيم بمعلومات مشروعك الخاص على Firebase إن أردت)
-        const firebaseConfig = {
-            apiKey: "AIzaSyDummyKeyForDemo-DigitalSkills7",
-            authDomain: "unrwa-exam-7.firebaseapp.com",
-            projectId: "unrwa-exam-7",
-            storageBucket: "unrwa-exam-7.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abcdef"
-        };
-
-        // تهيئة Firebase
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
+        // إعدادات Firebase الاختيارية (محمية في حزمة try/catch لتجنب توقف الصفحة)
+        let db = null;
+        try {
+            const firebaseConfig = {
+                apiKey: "AIzaSyDummyKeyForDemo-DigitalSkills7",
+                authDomain: "unrwa-exam-7.firebaseapp.com",
+                projectId: "unrwa-exam-7",
+                storageBucket: "unrwa-exam-7.appspot.com",
+                messagingSenderId: "123456789",
+                appId: "1:123456789:web:abcdef"
+            };
+            if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.firestore();
+            }
+        } catch(e) {
+            console.log("Firebase initialized in offline mode.");
         }
-        const db = firebase.firestore();
 
-        // فحص ما إذا كان الطالب قد أدى الاختبار من قبل على هذا الجهاز
+        // فحص ما إذا كان الطالب قد أدى الاختبار مسبقاً
         window.addEventListener('DOMContentLoaded', () => {
             const savedAttempt = localStorage.getItem('unrwa_exam_submitted_v1');
             if (savedAttempt) {
@@ -242,7 +243,7 @@
 
         let currentStudent = { name: "", section: "", model: "1" };
         let timerInterval = null;
-        let timeLeft = 15 * 60; // 15 دقيقة بالثواني
+        let timeLeft = 15 * 60; // 15 دقيقة
 
         function renderQuestions(modelId) {
             const container = document.getElementById('questions-container');
@@ -282,19 +283,23 @@
                 currentStudent = { name, section, model };
                 document.getElementById('display-student-info').innerText = `الطالب: ${name} | ${section}`;
                 document.getElementById('display-model-info').innerText = `النموذج (${model})`;
+                
+                // الانتقال الفوري لشاشة الأسئلة
                 document.getElementById('student-reg-card').classList.add('hidden');
                 document.getElementById('student-exam-area').classList.remove('hidden');
+                
                 renderQuestions(model);
                 startTimer();
             }
         }
 
         function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
             timerInterval = setInterval(() => {
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    alert("انتهى الوقت المحدد للاختبار! سيتم تسليم الإجابات تلقائياً.");
-                    submitExam(new Event('submit'));
+                    alert("انتهى الوقت المحدد للاختبار (15 دقيقة)! سيتم تسليم إجاباتك تلقائياً.");
+                    submitExam();
                 } else {
                     timeLeft--;
                     const minutes = Math.floor(timeLeft / 60);
@@ -319,22 +324,32 @@
                 }
             });
 
+            const timeNow = new Date().toLocaleString('ar-EG');
             const record = {
                 name: currentStudent.name,
                 section: currentStudent.section,
                 model: currentStudent.model,
                 score: totalScore,
-                time: new Date().toLocaleString('ar-EG'),
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                time: timeNow
             };
 
-            // حفظ في قيد الجهاز لمنع المحاولة الثانية
+            // 1. القيد المحلي لحظر المحاولة الثانية
             localStorage.setItem('unrwa_exam_submitted_v1', JSON.stringify(record));
 
-            // حفظ في قاعدة البيانات السحابية Firebase Firestore
-            db.collection("exam_scores").add(record)
-              .then(() => { console.log("Score saved to Cloud Firestore successfully."); })
-              .catch((error) => { console.error("Error writing document: ", error); });
+            // 2. الحفظ المحلي في قاعدة البيانات المحلية
+            const allScores = JSON.parse(localStorage.getItem('unrwa_all_scores_db') || '[]');
+            allScores.unshift(record);
+            localStorage.setItem('unrwa_all_scores_db', JSON.stringify(allScores));
+
+            // 3. الحفظ في Firebase (إذا كان متوفراً)
+            if (db) {
+                try {
+                    db.collection("exam_scores").add({
+                        ...record,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                } catch(err) { console.log("Firebase sync skipped."); }
+            }
 
             document.getElementById('student-exam-area').classList.add('hidden');
             document.getElementById('result-student-name').innerText = `الطالب: ${currentStudent.name} (${currentStudent.section}) - نموذج ${currentStudent.model}`;
@@ -381,56 +396,67 @@
 
         function loadTeacherDashboard() {
             const tbody = document.getElementById('teacher-scores-tbody');
-            tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #94a3b8;">جاري جلب البيانات من السحابة...</td></tr>`;
+            tbody.innerHTML = '';
 
-            db.collection("exam_scores").orderBy("timestamp", "desc").get().then((querySnapshot) => {
-                tbody.innerHTML = '';
-                let totalMarks = 0;
-                let passCount = 0;
-                let count = 0;
+            const localResults = JSON.parse(localStorage.getItem('unrwa_all_scores_db') || '[]');
+            
+            let totalMarks = 0;
+            let passCount = 0;
 
-                querySnapshot.forEach((doc) => {
-                    const rec = doc.data();
-                    count++;
-                    totalMarks += rec.score;
-                    if (rec.score >= 10) passCount++;
+            localResults.forEach((rec, idx) => {
+                totalMarks += rec.score;
+                if (rec.score >= 10) passCount++;
 
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td style="color: #94a3b8;">${count}</td>
-                        <td style="font-weight: bold; color: #fff;">${rec.name}</td>
-                        <td>${rec.section}</td>
-                        <td><span class="model-badge">نموذج ${rec.model}</span></td>
-                        <td style="font-weight: bold; color: #fbbf24;">${rec.score} / 20</td>
-                        <td style="color: #94a3b8; font-size: 11px;">${rec.time || 'منذ قليل'}</td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-
-                document.getElementById('stat-total-students').innerText = count;
-                document.getElementById('stat-avg-score').innerText = count ? `${Math.round(totalMarks / count)} / 20` : '0 / 20';
-                document.getElementById('stat-pass-rate').innerText = count ? `${Math.round((passCount / count) * 100)}%` : '0%';
-                
-                if (count === 0) {
-                    tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #94a3b8;">لا توجد نتائج مسجلة حتى الآن.</td></tr>`;
-                }
-            }).catch((error) => {
-                console.error("Error getting documents: ", error);
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #ef4444;">حدث خطأ في الاتصال بقاعدة البيانات.</td></tr>`;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="color: #94a3b8;">${idx + 1}</td>
+                    <td style="font-weight: bold; color: #fff;">${rec.name}</td>
+                    <td>${rec.section}</td>
+                    <td><span class="model-badge">نموذج ${rec.model}</span></td>
+                    <td style="font-weight: bold; color: #fbbf24;">${rec.score} / 20</td>
+                    <td style="color: #94a3b8; font-size: 11px;">${rec.time}</td>
+                `;
+                tbody.appendChild(tr);
             });
+
+            document.getElementById('stat-total-students').innerText = localResults.length;
+            document.getElementById('stat-avg-score').innerText = localResults.length ? `${Math.round(totalMarks / localResults.length)} / 20` : '0 / 20';
+            document.getElementById('stat-pass-rate').innerText = localResults.length ? `${Math.round((passCount / localResults.length) * 100)}%` : '0%';
+
+            if (localResults.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #94a3b8;">لا توجد نتائج مسجلة حتى الآن.</td></tr>`;
+            }
         }
 
         function exportScoresExcel() {
-            db.collection("exam_scores").get().then((querySnapshot) => {
-                if (querySnapshot.empty) {
-                    alert("لا توجد بيانات لتصديرها!");
-                    return;
-                }
+            const localResults = JSON.parse(localStorage.getItem('unrwa_all_scores_db') || '[]');
+            if (!localResults.length) {
+                alert("لا توجد نتائج مسجلة لتصديرها!");
+                return;
+            }
 
-                let dataToExport = [];
-                let index = 1;
-                querySnapshot.forEach((doc) => {
-                    const r = doc.data();
-                    dataToExport.push({
-                        "الرقم": index++,
-                        "اسم الطالب": r
+            let dataToExport = localResults.map((r, i) => ({
+                "الرقم": i + 1,
+                "اسم الطالب": r.name,
+                "الشعبة": r.section,
+                "النموذج": `نموذج ${r.model}`,
+                "العلامة (من 20)": r.score,
+                "وقت التسليم": r.time
+            }));
+
+            const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "نتائج الاختبار");
+            XLSX.writeFile(workbook, "نتائج_المهارات_الرقمية_الصف_السابع.xlsx");
+        }
+
+        function clearAllScores() {
+            if (confirm("هل أنت متأكد من مسح كافة النتائج المسجلة من السجل؟")) {
+                localStorage.removeItem('unrwa_all_scores_db');
+                localStorage.removeItem('unrwa_exam_submitted_v1');
+                loadTeacherDashboard();
+            }
+        }
+    </script>
+</body>
+</html>
