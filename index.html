@@ -11,15 +11,10 @@
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes floatEffect {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
-        }
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background: linear-gradient(135deg, #090d16 0%, #1e1b4b 50%, #0f172a 100%); color: #f8fafc; margin: 0; padding: 15px; direction: rtl; min-height: 100vh; }
         .container { max-width: 900px; margin: 0 auto; animation: fadeIn 0.6s ease-out; }
-        .card { background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 24px; padding: 24px; margin-bottom: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); backdrop-filter: blur(12px); transition: 0.3s; }
+        .card { background: rgba(30, 41, 59, 0.9); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 24px; padding: 24px; margin-bottom: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); backdrop-filter: blur(12px); }
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #06b6d4; padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
         .badge { background: linear-gradient(90deg, #06b6d4, #8b5cf6); color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 800; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3); }
         .btn { background: linear-gradient(90deg, #06b6d4, #6366f1); color: #fff; border: none; padding: 14px 28px; border-radius: 14px; font-weight: bold; cursor: pointer; font-size: 15px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
@@ -31,13 +26,13 @@
         label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 8px; color: #38bdf8; }
         input[type="text"], select { width: 100%; padding: 14px; border-radius: 14px; border: 2px solid #475569; background-color: #0f172a; color: #fff; font-size: 15px; transition: 0.3s; }
         input[type="text"]:focus, select:focus { border-color: #06b6d4; outline: none; box-shadow: 0 0 10px rgba(6, 182, 212, 0.3); }
-        .question-card { background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 20px; margin-bottom: 20px; animation: fadeIn 0.4s ease-out; }
+        .question-card { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 18px; padding: 20px; margin-bottom: 20px; }
         .question-header { display: flex; justify-content: space-between; font-size: 15px; font-weight: bold; color: #38bdf8; margin-bottom: 12px; }
-        .option-label { display: flex; align-items: center; padding: 14px; margin-top: 10px; background-color: rgba(30, 41, 59, 0.6); border: 2px solid #334155; border-radius: 12px; cursor: pointer; font-size: 15px; transition: all 0.2s ease; }
-        .option-label:hover { background-color: rgba(6, 182, 212, 0.1); border-color: #06b6d4; transform: translateX(-4px); }
+        .option-label { display: flex; align-items: center; padding: 14px; margin-top: 10px; background-color: rgba(30, 41, 59, 0.7); border: 2px solid #334155; border-radius: 12px; cursor: pointer; font-size: 15px; transition: all 0.2s ease; }
+        .option-label:hover { background-color: rgba(6, 182, 212, 0.15); border-color: #06b6d4; transform: translateX(-4px); }
         .option-label input { margin-left: 12px; accent-color: #06b6d4; transform: scale(1.2); }
         .hidden { display: none !important; }
-        .img-illustration { max-width: 100%; height: auto; max-height: 180px; display: block; margin: 12px auto; border-radius: 14px; border: 2px solid #06b6d4; animation: floatEffect 3s ease-in-out infinite; }
+        .visual-box { background: linear-gradient(135deg, #1e293b, #0f172a); border: 2px dashed #06b6d4; padding: 15px; border-radius: 14px; text-align: center; margin: 12px 0; font-size: 18px; color: #38bdf8; font-weight: bold; }
         table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: right; font-size: 14px; }
         th, td { padding: 14px; border-bottom: 1px solid #334155; }
         th { background-color: #0f172a; color: #38bdf8; }
@@ -46,8 +41,7 @@
         .stat-val { font-size: 28px; font-weight: bold; margin-top: 5px; color: #38bdf8; }
         .model-badge { display: inline-block; padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: bold; background: #334155; color: #fbbf24; }
         .scenario-tag { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: bold; background: rgba(139, 92, 246, 0.25); color: #c084fc; border: 1px solid #a855f7; margin-left: 8px; }
-        .timer-box { background: rgba(239, 68, 68, 0.2); border: 1.5px solid #ef4444; color: #f87171; padding: 10px 18px; border-radius: 12px; font-weight: bold; font-size: 15px; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); }
-        .ai-banner { text-align: center; margin-bottom: 15px; }
+        .timer-box { background: rgba(239, 68, 68, 0.2); border: 1.5px solid #ef4444; color: #f87171; padding: 10px 18px; border-radius: 12px; font-weight: bold; font-size: 15px; display: flex; align-items: center; gap: 8px; }
     </style>
 </head>
 <body>
@@ -70,15 +64,9 @@
         <div id="view-student">
             <!-- كرت التسجيل واختيار النموذج -->
             <div id="student-reg-card" class="card" style="text-align: center; max-width: 520px; margin: 0 auto;">
-                <div class="ai-banner">
-                    <svg width="70" height="70" viewBox="0 0 100 100" style="margin: 0 auto; display: block;">
-                        <circle cx="50" cy="50" r="45" fill="none" stroke="#06b6d4" stroke-width="4" stroke-dasharray="8 4"/>
-                        <circle cx="50" cy="50" r="25" fill="#3b82f6" opacity="0.8"/>
-                        <path d="M35 50 L45 60 L65 38" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
-                    </svg>
-                </div>
+                <div style="font-size: 50px; margin-bottom: 10px;">💻⚡</div>
                 <h3 style="color: #38bdf8; margin-top: 0; font-size: 22px;">أهلاً بك يا بطل المستقبل 🚀</h3>
-                <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 20px; line-height: 1.6;">⚠️ تنبيه هامة: متاح لك محاولة واحدة فقط مدتها 12 دقيقة للإجابة على الأسئلة الشمولية وسيناريوهات التفكير الناقد!</p>
+                <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 20px; line-height: 1.6;">⚠️ تنبيه: متاح لك محاولة واحدة فقط مدتها 12 دقيقة للإجابة على الأسئلة الشمولية وسيناريوهات التفكير الناقد!</p>
 
                 <form onsubmit="startExam(event)">
                     <div class="form-group">
@@ -205,7 +193,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
 
-        // إعدادات Firebase الخاصة بك
         const firebaseConfig = {
             apiKey: "AIzaSyBmBqblt9btr7wJafY5Mh6mY5h2u9YE7o8",
             authDomain: "g7-exam.firebaseapp.com",
@@ -261,16 +248,16 @@
             }
         });
 
-        // بنك الأسئلة الشامل (16 سؤالاً لكل نموذج من بينها 4 أسئلة سيناريو واقعية)
+        // بنك الأسئلة الشامل (16 سؤالاً لكل نموذج بـ أشكال مرئية نصية واضحة)
         const examModels = {
             "1": [
-                { id: 1, marks: 1, title: "س 1 (اختر - بصري):", question: "تأمل الشكل التوضيحي للمكون المسؤول عن معالجة البيانات وإجراء العمليات الحسابية والمنطقية (دماغ الحاسوب):", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='100' viewBox='0 0 280 100'><rect width='280' height='100' fill='%230f172a' rx='12'/><rect x='80' y='18' width='120' height='64' fill='%231e293b' stroke='%2306b6d4' stroke-width='4' rx='10'/><text x='140' y='58' fill='%2338bdf8' font-size='20' font-weight='bold' text-anchor='middle'>AI & CPU</text></svg>", options: ["وحدة المعالجة المركزية (CPU)", "القرص الصلب", "ذاكرة القراءة ROM", "لوحة المفاتيح"], correct: 0 },
+                { id: 1, marks: 1, title: "س 1 (اختر - بصري):", question: "تأمل الشكل التوضيحي للمكون المسؤول عن معالجة البيانات وإجراء العمليات الحسابية والمنطقية (دماغ الحاسوب):", visual: "🖥️ [ وحدة المعالجة المركزية CPU ] 🧠", options: ["وحدة المعالجة المركزية (CPU)", "القرص الصلب", "ذاكرة القراءة ROM", "لوحة المفاتيح"], correct: 0 },
                 { id: 2, marks: 1, title: "س 2 (صح وخطأ):", question: "البيانات هي معلومات تم تنظيمها وتحليلها لتصبح ذات معنى واضح.", options: ["صح", "خطأ"], correct: 1 },
                 { id: 3, marks: 1, title: "س 3 (أكمل الفراغ):", question: "الحاسوب ذو القدرة الهائلة المستخدم في مراكز الأبحاث الكبرى والتنبؤ بالطقس يُسمى الحاسوب الـ ......", options: ["المدمج", "الفائق (Supercomputer)", "المكتبي", "الشخصي"], correct: 1 },
                 { id: 4, marks: 1, title: "س 4 (فسر):", question: "لماذا تُعتبر ذاكرة الوصول العشوائي (RAM) ذاكرة مؤقتة؟", options: ["لأنها تفقد محتوياتها فور انقطاع الكهرباء", "لأنها تحتفظ بالملفات للأبد", "لأنها بطيئة جداً", "لأنها تخص الصوت فقط"], correct: 0 },
                 { id: 5, marks: 1.5, title: "س 5 (سيناريو واقعي 1):", isScenario: true, question: "كان زميلك أحمد يكتب بحثاً مدرسياً على حاسوب المختبر، وفجأة انقطع التيار الكهربائي قبل أن يحفظ الملف. عندما أعدنا تشغيل الجهاز لم يجد البحث! ما المكون المسؤول عن هذا الفقدان وكيف يتجنب ذلك مستقبلاً؟", options: ["السبب ذاكرة ROM، ويتجنب ذلك بشراء شاشة جديدة", "السبب ذاكرة RAM لأنها مؤقتة، ويتجنب ذلك بالنقر المستمر على حفظ (Save) على القرص الصلب", "السبب لوحة المفاتيح، ويتجنب ذلك بالكتابة بشكل أسرع", "السبب نظام التشغيل ويندوز"], correct: 1 },
                 { id: 6, marks: 1.5, title: "س 6 (سيناريو واقعي 2):", isScenario: true, question: "أراد والدك شراء حاسوب لمهندس معماري يحتاج إلى تشغيل برامج رسم ثلاثية الأبعاد ثقيلة جداً. أي المواصفات التالية هي الأكثر أهمية للنصح بها؟", options: ["سعة ذاكرة RAM عالية (16GB فأكثر) ومعالج CPU قوي بطاقة شاشة منفصلة", "شاشة كبيرة فقط بدون الاهتمام بالمعالج", "حاسوب مدمج مثل الموجود في الغسالة", "ذاكرة ROM كبيرة فقط"], correct: 0 },
-                { id: 7, marks: 1.5, title: "س 7 (سيناريو واقعي 3):", isScenario: true, question: "أثناء دراستك على منصة المدرسة الإلكترونية، ظهرت لك نافذة منبثقة ملونة تقول: 'لقد فزت بهاتف ذكي! اضغط هنا وأدخل كلمة مرور حسابك المدرسي لتستلم الجائزة'. كيف تتصرف بحكمة؟", options: ["أدخل كلمة المرور فوراً لأحصل على الهاتف", "أغلق النافذة فاقوراً ولا أشارك كلمة مروري أبداً لحماية حسابي من الاختراق", "أرسل الرابط لجميع أصدقائي في الصف", "أعطي كلمة المرور لزميلي ليجرب بدلاً مني"], correct: 1 },
+                { id: 7, marks: 1.5, title: "س 7 (سيناريو واقعي 3):", isScenario: true, question: "أثناء دراستك على منصة المدرسة الإلكترونية، ظهرت لك نافذة منبثقة ملونة تقول: 'لقد فزت بهاتف ذكي! اضغط هنا وأدخل كلمة مرور حسابك المدرسي لتستلم الجائزة'. كيف تتصرف بحكمة؟", options: ["أدخل كلمة المرور فوراً لأحصل على الهاتف", "أغلق النافذة فوراً ولا أشارك كلمة مروري أبداً لحماية حسابي من الاختراق", "أرسل الرابط لجميع أصدقائي في الصف", "أعطي كلمة المرور لزميلي ليجرب بدلاً مني"], correct: 1 },
                 { id: 8, marks: 1.5, title: "س 8 (سيناريو واقعي 4):", isScenario: true, question: "أقامت المدرسة حصة افتراضية عبر الإنترنت، لكن صوت المعلم كان يتقطع والتطبيق يتوقف باستمرار رغم أن الجهاز جديد. قام معلم الحاسوب بإغلاق 10 تطبيقات كانت تعمل في الخلفية فعاد الصوت واضحاً! فسر ما حدث:", options: ["التطبيقات الكثيرة كانت تستهلك سعة ذاكرة RAM والمعالج مما أبطأ الجهاز", "الطابعة كانت مطفأة", "نظام التشغيل كان بحاجة لإعادة تثبيت", "الشاشة كانت غير نظيفة"], correct: 0 },
                 { id: 9, marks: 1, title: "س 9 (برمجيات):", question: "نظام التشغيل (Windows) يُصنف ضمن:", options: ["برمجيات النظام (System Software)", "البرامج التطبيقية", "أدوات الإدخال", "التخزين الخارجي"], correct: 0 },
                 { id: 10, marks: 1, title: "س 10 (مواطنة رقمية):", question: "التصرف الصحيح عند الانتهاء من استخدام حاسوب مشترك هو:", options: ["ترك الحساب مفتوحاً", "حفظ كلمة المرور بالمتصفح", "تسجيل الخروج من الحسابات وإغلاق الجهاز أصولاً", "تنزيل برامج غريبة"], correct: 2 },
@@ -282,7 +269,7 @@
                 { id: 16, marks: 1, title: "س 16 (حواسيب مدمجة):", question: "المعالج المصغر داخل الغسالة الأوتوماتيكية يسمى:", options: ["حاسوب مدمج", "حاسوب فائق", "خادم رئيسي", "حاسوب محمول"], correct: 0 }
             ],
             "2": [
-                { id: 1, marks: 1, title: "س 1 (اختر - بصري):", question: "تأمل الرسم التوضيحي لجهاز مصغر داخل آلة أوتوماتيكية لأداء وظيفة محددة:", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='100' viewBox='0 0 280 100'><rect width='280' height='100' fill='%230f172a' rx='12'/><circle cx='140' cy='50' r='30' fill='%231e293b' stroke='%2338bdf8' stroke-width='4'/><text x='140' y='56' fill='%23fbbf24' font-size='14' font-weight='bold' text-anchor='middle'>Smart Chip</text></svg>", options: ["الحاسوب المدمج (Embedded)", "الحاسوب المركزي", "الحاسوب المكتبي", "الشاشة الذكية"], correct: 0 },
+                { id: 1, marks: 1, title: "س 1 (اختر - بصري):", question: "تأمل الرسم التوضيحي لجهاز مصغر داخل آلة أوتوماتيكية لأداء وظيفة محددة:", visual: "⚙️ [ شريحة الحاسوب المدمج Embedded Chip ] 🔄", options: ["الحاسوب المدمج (Embedded)", "الحاسوب المركزي", "الحاسوب المكتبي", "الشاشة الذكية"], correct: 0 },
                 { id: 2, marks: 1, title: "س 2 (صح وخطأ):", question: "نظام التشغيل يعد الوسيط البرمجي بين المستخدم والمكونات المادية للحاسوب.", options: ["صح", "خطأ"], correct: 0 },
                 { id: 3, marks: 1, title: "س 3 (أكمل الفراغ):", question: "الذاكرة التي تحتفظ بتعليمات الإقلاع الأساسية ولا تفقد محتوياتها عند إطفاء الجهاز هي ذاكرة الـ ......", options: ["RAM", "ROM", "Cache", "Flash"], correct: 1 },
                 { id: 4, marks: 1, title: "س 4 (فسر):", question: "لماذا تلجأ البنوك الكبرى لاستخدام الحواسيب المركزية (Mainframe)؟", options: ["لقدرتها على معالجة آلاف المعاملات لمستخدمين كثر بنفس الوقت", "لصغر حجمها", "لرخص ثمنها", "لأنها لا تحتاج كهرباء"], correct: 0 },
@@ -300,7 +287,7 @@
                 { id: 16, marks: 1, title: "س 16 (حواسيب شخصية):", question: "الحاسوب المكتبي (Desktop) يُصنف ضمن الحواسيب:", options: ["الشخصية", "الفائقة", "المركزية", "المدمجة"], correct: 0 }
             ],
             "3": [
-                { id: 1, marks: 1, title: "س 1 (اختر - بصري):", question: "تأمل الرسم التوضيحي لوحدة الإخراج التي تترجم النتائج الرقمية إلى ورق مطبوع:", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='100' viewBox='0 0 280 100'><rect width='280' height='100' fill='%230f172a' rx='12'/><rect x='70' y='25' width='140' height='50' fill='%231e293b' stroke='%2334d399' stroke-width='4' rx='8'/><text x='140' y='57' fill='%2334d399' font-size='16' font-weight='bold' text-anchor='middle'>Printer Output</text></svg>", options: ["وحدة الإخراج (الطابعة)", "وحدة الإدخال", "المعالج", "القرص الصلب"], correct: 0 },
+                { id: 1, marks: 1, title: "س 1 (اختر - بصري):", question: "تأمل الرسم التوضيحي لوحدة الإخراج التي تترجم النتائج الرقمية إلى ورق مطبوع:", visual: "🖨️ [ طابعة المستندات والرسومات Printer Output ] 📄", options: ["وحدة الإخراج (الطابعة)", "وحدة الإدخال", "المعالج", "القرص الصلب"], correct: 0 },
                 { id: 2, marks: 1, title: "س 2 (صح وخطأ):", question: "علامات الطلبة المدونة بشكل عشوائي قبل ترتيبها وتحليلها تُسمى معلومات.", options: ["صح", "خطأ"], correct: 1 },
                 { id: 3, marks: 1, title: "س 3 (أكمل الفراغ):", question: "تؤثر زيادة سعة ذاكرة الوصول العشوائي (......) مباشرة على سرعة تنفيذ البرامج.", options: ["RAM", "ROM", "CPU", "USB"], correct: 0 },
                 { id: 4, marks: 1, title: "س 4 (فسر):", question: "لماذا تعد الغسالة الأوتوماتيكية مثالاً على الحواسيب المدمجة؟", options: ["لأنها تحتوي معالجاً مصغراً للتحكم بدورة الغسيل فقط", "لأنها تستخدم لتصفح الإنترنت", "لأنها تحتاج شاشة ضخمة", "لأنها حاسوب فائق"], correct: 0 },
@@ -340,7 +327,7 @@
                         <span class="badge" style="background: rgba(6,182,212,0.15); color: #22d3ee;">${q.marks} علامات</span>
                     </div>
                     <p style="font-size: 16px; font-weight: bold; margin: 8px 0 12px 0; line-height: 1.6; color: #fff;">${q.question}</p>
-                    ${q.img ? `<img src="${q.img}" class="img-illustration" alt="شكل توضيحي ذكي">` : ''}
+                    ${q.visual ? `<div class="visual-box">${q.visual}</div>` : ''}
                     <div>
                         ${q.options.map((opt, optIdx) => `
                             <label class="option-label">
@@ -373,13 +360,20 @@
 
         function startExam(e) {
             e.preventDefault();
-            const name = document.getElementById('input-student-name').value.trim();
+            const fullName = document.getElementById('input-student-name').value.trim();
+            const nameParts = fullName.split(/\s+/);
+
+            if (nameParts.length < 3) {
+                alert("الرجاء التأكد من كتابة الاسم الرباعي الصحيح (من 3 مقاطع على الأقل)!");
+                return;
+            }
+
             const section = document.getElementById('select-student-section').value;
             const model = document.getElementById('select-exam-model').value;
 
-            if (name && section && model) {
-                currentStudent = { name, section, model };
-                document.getElementById('display-student-info').innerText = `الطالب: ${name} | ${section}`;
+            if (fullName && section && model) {
+                currentStudent = { name: fullName, section, model };
+                document.getElementById('display-student-info').innerText = `الطالب: ${fullName} | ${section}`;
                 document.getElementById('display-model-info').innerText = `النموذج (${model})`;
                 
                 document.getElementById('student-reg-card').classList.add('hidden');
@@ -387,16 +381,28 @@
                 
                 renderQuestions(model);
                 startTimer();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
         function submitExam(e) {
             if (e) e.preventDefault();
+            
+            // التحقق من أن جميع الأسئلة تم الإجابة عليها قبل التسليم النهائي
+            const questions = examModels[currentStudent.model];
+            for (let q of questions) {
+                const checked = document.querySelector(`input[name="q_${q.id}"]:checked`);
+                if (!checked) {
+                    alert(`⚠️ تنبيه: يرجى الإجابة على السؤال رقم (${q.id}) قبل تسليم الواجب النهائي.`);
+                    const el = document.querySelector(`input[name="q_${q.id}"]`);
+                    if (el) el.closest('.question-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+            }
+
             if (timerInterval) clearInterval(timerInterval);
 
             let totalScore = 0;
-            const questions = examModels[currentStudent.model];
-
             questions.forEach(q => {
                 const selected = document.querySelector(`input[name="q_${q.id}"]:checked`);
                 if (selected && parseInt(selected.value) === q.correct) {
@@ -437,6 +443,7 @@
             }
 
             document.getElementById('student-result-card').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function promptTeacherLogin() {
