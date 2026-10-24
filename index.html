@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الاختبار الشهري التفاعلي - المهارات الرقمية (الصف السابع)</title>
+    <title>الواجب البيتي المحوسب - المهارات الرقمية (الصف السابع)</title>
     <!-- Firebase SDK (Compat) -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
@@ -30,7 +30,7 @@
         .option-label:hover { background-color: #1e293b; border-color: #06b6d4; }
         .option-label input { margin-left: 12px; accent-color: #06b6d4; }
         .hidden { display: none !important; }
-        .img-illustration { max-width: 100%; height: auto; max-height: 160px; display: block; margin: 10px auto; border-radius: 12px; border: 2px solid #334155; }
+        .img-illustration { max-width: 100%; height: auto; max-height: 150px; display: block; margin: 10px auto; border-radius: 12px; border: 2px solid #334155; }
         table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: right; font-size: 13px; }
         th, td { padding: 12px; border-bottom: 1px solid #334155; }
         th { background-color: #0f172a; color: #94a3b8; }
@@ -38,7 +38,8 @@
         .stat-box { background-color: #0f172a; border: 1px solid #334155; padding: 15px; border-radius: 14px; text-align: center; }
         .stat-val { font-size: 26px; font-weight: bold; margin-top: 5px; color: #38bdf8; }
         .model-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: bold; background: #334155; color: #fbbf24; }
-        .timer-box { background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #f87171; padding: 8px 15px; border-radius: 10px; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .timer-box { background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #f87171; padding: 8px 15px; border-radius: 10px; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 8px; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.75; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -48,7 +49,7 @@
         <div class="card header">
             <div>
                 <span class="badge">وكالة الغوث الدولية (UNRWA) - مدرسة ذكور وادي السير الإعدادية</span>
-                <h2 style="margin: 6px 0 0 0; font-size: 19px; color: #fff;">الاختبار الإلكتروني - المهارات الرقمية (20 علامة)</h2>
+                <h2 style="margin: 6px 0 0 0; font-size: 19px; color: #fff;">الواجب البيتي المحوسب - المهارات الرقمية (20 علامة)</h2>
                 <span style="font-size: 12px; color: #94a3b8;">الصف السابع | تصميم وإعداد المعلم: عامر كراجه</span>
             </div>
             <div>
@@ -61,9 +62,9 @@
         <div id="view-student">
             <!-- كرت التسجيل واختيار النموذج -->
             <div id="student-reg-card" class="card" style="text-align: center; max-width: 500px; margin: 0 auto;">
-                <div style="font-size: 45px; margin-bottom: 8px;">🖥️</div>
-                <h3 style="color: #38bdf8; margin-top: 0;">أهلاً بك عزيزي الطالب</h3>
-                <p style="font-size: 12px; color: #94a3b8; margin-bottom: 20px;">ملاحظة هامة: مسموح لك بمحاولة واحدة فقط لإجراء الاختبار (15 دقيقة).</p>
+                <div style="font-size: 45px; margin-bottom: 8px;">🏠⚡</div>
+                <h3 style="color: #38bdf8; margin-top: 0;">تسجيل دخول الواجب البيتي</h3>
+                <p style="font-size: 12px; color: #94a3b8; margin-bottom: 15px;">⚠️ تنبيه صارم: لديك محاولة واحدة فقط و**12 دقيقة محددة بالمؤقت** للإجابة على 12 سؤالاً فور اضغط على بدء الاختبار!</p>
 
                 <form onsubmit="startExam(event)">
                     <div class="form-group">
@@ -80,23 +81,23 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>نموذج الاختبار (حسب تحديد المعلم):</label>
+                        <label>نموذج الواجب (اختر النموذج الخاص بك):</label>
                         <select id="select-exam-model" required style="border-color: #06b6d4;">
                             <option value="">اختر النموذج...</option>
-                            <option value="1">النموذج الأول (A)</option>
-                            <option value="2">النموذج الثاني (B)</option>
-                            <option value="3">النموذج الثالث (C)</option>
+                            <option value="1">النموذج الأول (A - 12 سؤالاً)</option>
+                            <option value="2">النموذج الثاني (B - 12 سؤالاً)</option>
+                            <option value="3">النموذج الثالث (C - 12 سؤالاً)</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn" style="width: 100%; padding: 12px; margin-top: 10px;">بدء الاختبار الآن 🚀</button>
+                    <button type="submit" class="btn" style="width: 100%; padding: 12px; margin-top: 10px;">بدء الواجب والمؤقت (12 دقيقة) 🚀</button>
                 </form>
             </div>
 
             <!-- رسالة منع المحاولة الثانية -->
             <div id="student-blocked-card" class="card hidden" style="text-align: center; max-width: 500px; margin: 0 auto;">
                 <div style="font-size: 50px;">⚠️</div>
-                <h3 style="color: #ef4444; margin-bottom: 10px;">عذراً، لقد قمت بإجراء الاختبار مسبقاً!</h3>
-                <p style="font-size: 13px; color: #cbd5e1;">مسموح لك بمحاولة واحدة فقط من هذا الجهاز وقد تم تسليمها بنجاح.</p>
+                <h3 style="color: #ef4444; margin-bottom: 10px;">عذراً، لقد قمت بإجراء تسليم الواجب مسبقاً!</h3>
+                <p style="font-size: 13px; color: #cbd5e1;">مسموح لك بمحاولة واحدة فقط من هذا الجهاز وقد تم حفظ إجاباتك بنجاح.</p>
                 <div style="background-color: #0f172a; border: 1px solid #334155; padding: 15px; border-radius: 12px; margin: 15px 0; text-align: right;">
                     <div style="font-size: 13px; color: #94a3b8;" id="blocked-info-name"></div>
                     <div style="font-size: 16px; font-weight: bold; color: #fbbf24; margin-top: 5px;" id="blocked-info-score"></div>
@@ -112,23 +113,23 @@
                     </div>
                     <div class="timer-box">
                         <span>⏳ الوقت المتبقي:</span>
-                        <span id="timer-countdown" style="font-family: monospace; font-size: 16px;">15:00</span>
+                        <span id="timer-countdown" style="font-family: monospace; font-size: 16px;">12:00</span>
                     </div>
                 </div>
 
                 <form id="exam-form" onsubmit="submitExam(event)">
                     <div id="questions-container"></div>
-                    <button type="submit" class="btn btn-success" style="width: 100%; padding: 14px; font-size: 16px; margin-top: 15px;">تسليم الاختبار وإظهار النتيجة 🏁</button>
+                    <button type="submit" class="btn btn-success" style="width: 100%; padding: 14px; font-size: 16px; margin-top: 15px;">تسليم الواجب النهائي وإظهار النتيجة 🏁</button>
                 </form>
             </div>
 
             <!-- كرت النتيجة -->
             <div id="student-result-card" class="card hidden" style="text-align: center; max-width: 450px; margin: 0 auto;">
                 <div style="font-size: 50px;">🏆</div>
-                <h3 style="color: #38bdf8; margin-bottom: 5px;">تم تسليم الاختبار وحفظ النتيجة!</h3>
+                <h3 style="color: #38bdf8; margin-bottom: 5px;">تم تسليم الواجب وحفظ النتيجة!</h3>
                 <p id="result-student-name" style="font-size: 14px; font-weight: bold;"></p>
                 <div style="background-color: #0f172a; border: 2px solid #06b6d4; padding: 20px; border-radius: 14px; margin: 15px 0;">
-                    <span style="font-size: 12px; color: #94a3b8; display: block;">العلامة النهائية</span>
+                    <span style="font-size: 12px; color: #94a3b8; display: block;">علامتك النهائية في الواجب</span>
                     <span id="result-score-display" style="font-size: 38px; font-weight: bold; color: #fbbf24;">0 / 20</span>
                 </div>
                 <p id="result-feedback-msg" style="font-size: 13px; font-weight: bold;"></p>
@@ -139,8 +140,8 @@
         <div id="view-teacher" class="card hidden">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 15px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
                 <div>
-                    <h3 style="margin: 0; color: #fbbf24;">📊 لوحة المعلم - سجل علامات الطلاب</h3>
-                    <span style="font-size: 12px; color: #94a3b8;">تصميم المعلم: عامر كراجه</span>
+                    <h3 style="margin: 0; color: #fbbf24;">📊 لوحة المعلم - سجل تسليمات الواجب البيتي</h3>
+                    <span style="font-size: 12px; color: #94a3b8;">إعداد وتصميم المعلم: عامر كراجه</span>
                 </div>
                 <div>
                     <button onclick="exportScoresExcel()" class="btn btn-success" style="font-size: 12px;">تصدير إلى Excel 📄</button>
@@ -151,7 +152,7 @@
 
             <div class="grid-stats">
                 <div class="stat-box">
-                    <span style="font-size: 12px; color: #94a3b8;">إجمالي المتقدمين</span>
+                    <span style="font-size: 12px; color: #94a3b8;">إجمالي الطلاب المسلمين</span>
                     <div id="stat-total-students" class="stat-val">0</div>
                 </div>
                 <div class="stat-box">
@@ -159,7 +160,7 @@
                     <div id="stat-avg-score" class="stat-val" style="color: #fbbf24;">0 / 20</div>
                 </div>
                 <div class="stat-box">
-                    <span style="font-size: 12px; color: #94a3b8;">نسبة النجاح (≥ 10)</span>
+                    <span style="font-size: 12px; color: #94a3b8;">نسبة الإنجاز الناجح (≥ 10)</span>
                     <div id="stat-pass-rate" class="stat-val" style="color: #34d399;">0%</div>
                 </div>
             </div>
@@ -183,7 +184,7 @@
     </div>
 
     <script>
-        // إعدادات Firebase الاختيارية (محمية في حزمة try/catch لتجنب توقف الصفحة)
+        // إعدادات Firebase
         let db = null;
         try {
             const firebaseConfig = {
@@ -199,51 +200,70 @@
                 db = firebase.firestore();
             }
         } catch(e) {
-            console.log("Firebase initialized in offline mode.");
+            console.log("Firebase system running in local mode.");
         }
 
-        // فحص ما إذا كان الطالب قد أدى الاختبار مسبقاً
+        // منع التكرار والمحاولة الثانية
         window.addEventListener('DOMContentLoaded', () => {
-            const savedAttempt = localStorage.getItem('unrwa_exam_submitted_v1');
+            const savedAttempt = localStorage.getItem('unrwa_homework_submitted_v2');
             if (savedAttempt) {
                 const data = JSON.parse(savedAttempt);
                 document.getElementById('student-reg-card').classList.add('hidden');
                 document.getElementById('student-blocked-card').classList.remove('hidden');
                 document.getElementById('blocked-info-name').innerText = `اسم الطالب: ${data.name} (${data.section})`;
-                document.getElementById('blocked-info-score').innerText = `النتيجة المسجلة: ${data.score} / 20`;
+                document.getElementById('blocked-info-score').innerText = `علامتك المسجلة: ${data.score} / 20`;
             }
         });
 
+        // النماذج الثلاثة الموسعة - 12 سؤالاً لكل نموذج (المجموع = 20 علامة لكل نموذج)
         const examModels = {
             "1": [
-                { id: 1, marks: 3, title: "السؤال 1 (اختر الإجابة - بصري):", question: "تأمل الشكل التوضيحي المرفق للمكون المسؤول عن معالجة البيانات وإجراء العمليات الحسابية والمنطقية (دماغ الحاسوب):", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='100' viewBox='0 0 260 100'><rect width='260' height='100' fill='%230f172a'/><rect x='80' y='15' width='100' height='70' fill='%23334155' stroke='%2306b6d4' stroke-width='3' rx='8'/><text x='130' y='55' fill='%2322d3ee' font-size='16' font-weight='bold' text-anchor='middle'>CPU</text></svg>", options: ["وحدة المعالجة المركزية (CPU)", "القرص الصلب (Hard Disk)", "ذاكرة القراءة فقط (ROM)", "لوحة المفاتيح"], correct: 0 },
-                { id: 2, marks: 3, title: "السؤال 2 (صح وخطأ):", question: "العبارة التالية: 'البيانات هي معلومات تم تنظيمها وتحليلها لتصبح ذات معنى لاتخاذ القرار.' هل هذه العبارة صحيحة أم خاطئة؟", options: ["صح", "خطأ"], correct: 1 },
-                { id: 3, marks: 3, title: "السؤال 3 (أكمل الفراغ):", question: "الحاسوب ذو القدرة العالية جداً والذي يُستخدم في مراكز الأبحاث الكبرى والتنبؤ بالطقس يُسمى الحاسوب الـ ......", options: ["المدمج (Embedded)", "الفائق (Supercomputer)", "المكتبي البسيط", "الشخصي"], correct: 1 },
-                { id: 4, marks: 3, title: "السؤال 4 (فسر / علل):", question: "لماذا تُعتبر ذاكرة الوصول العشوائي (RAM) ذاكرة مؤقتة؟", options: ["لأنها تفقد محتوياتها فور انقطاع التيار الكهربائي وإطفاء الجهاز", "لأنها تحتفظ بالبيانات للأبد على القرص الصلب", "لأنها بطيئة جداً في القراءة", "لأنها تخدم وحدات الإخراج فقط"], correct: 0 },
-                { id: 5, marks: 4, title: "السؤال 5 (تصنيف البرمجيات):", question: "أي من البرمجيات التالية يُعد من (برمجيات النظام System Software) الأساسية لتشغيل الحاسوب؟", options: ["برنامج الرسام (Paint)", "نظام التشغيل (Windows)", "لعبة ماينكرافت", "معالج النصوص (Word)"], correct: 1 },
-                { id: 6, marks: 4, title: "السؤال 6 (المواطنة والأمان):", question: "التصرف الصحيح عند الانتهاء من استخدام حاسوب مشترك في المختبر المدرسي هو:", options: ["ترك الحساب مفتوحاً لزميلك", "حفظ كلمة المرور على المتصفح العام", "تسجيل الخروج من الحسابات وإغلاق الجهاز أصولاً", "تنزيل برامج غير مأمونة"], correct: 2 }
+                { id: 1, marks: 1.5, title: "س 1 (اختر - بصري):", question: "تأمل الشكل التوضيحي للمكون المسؤول عن معالجة البيانات وإجراء العمليات الحسابية والمنطقية (دماغ الحاسوب):", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='90' viewBox='0 0 240 90'><rect width='240' height='90' fill='%230f172a'/><rect x='70' y='15' width='100' height='60' fill='%23334155' stroke='%2306b6d4' stroke-width='3' rx='8'/><text x='120' y='52' fill='%2322d3ee' font-size='16' font-weight='bold' text-anchor='middle'>CPU</text></svg>", options: ["وحدة المعالجة المركزية (CPU)", "القرص الصلب", "ذاكرة القراءة ROM", "لوحة المفاتيح"], correct: 0 },
+                { id: 2, marks: 1.5, title: "س 2 (صح وخطأ):", question: "البيانات هي معلومات تم تنظيمها وتحليلها لتصبح ذات معنى واضح.", options: ["صح", "خطأ"], correct: 1 },
+                { id: 3, marks: 1.5, title: "س 3 (أكمل الفراغ):", question: "الحاسوب ذو القدرة الهائلة المستخدم في مراكز الأبحاث الكبرى والتنبؤ بالطقس يُسمى الحاسوب الـ ......", options: ["المدمج", "الفائق (Supercomputer)", "المكتبي", "الشخصي"], correct: 1 },
+                { id: 4, marks: 1.5, title: "س 4 (فسر):", question: "لماذا تُعتبر ذاكرة الوصول العشوائي (RAM) ذاكرة مؤقتة؟", options: ["لأنها تفقد محتوياتها فور انقطاع الكهرباء", "لأنها تحتفظ بالملفات للأبد", "لأنها بطيئة جداً", "لأنها تخص الصوت فقط"], correct: 0 },
+                { id: 5, marks: 2, title: "س 5 (برمجيات):", question: "نظام التشغيل (Windows) يُصنف ضمن:", options: ["برمجيات النظام (System Software)", "البرامج التطبيقية", "أدوات الإدخال", "التخزين الخارجي"], correct: 0 },
+                { id: 6, marks: 2, title: "س 6 (مواطنة رقمية):", question: "التصرف الصحيح عند الانتهاء من استخدام حاسوب مشترك هو:", options: ["ترك الحساب مفتوحاً", "حفظ كلمة المرور بالمتصفح", "تسجيل الخروج من الحسابات وإغلاق الجهاز أصولاً", "تنزيل برامج غريبة"], correct: 2 },
+                { id: 7, marks: 1.5, title: "س 7 (مبدأ عمل):", question: "المرحلة الأولى من مراحل عمل الحاسوب الأساسية هي:", options: ["الإخراج", "الإدخال (Input)", "المعالجة", "التخزين"], correct: 1 },
+                { id: 8, marks: 1.5, title: "س 8 (ذاكرة ROM):", question: "ذاكرة تحتفظ بتعليمات التشغيل الأساسية ولا تتأثر بانقطاع الكهرباء:", options: ["RAM", "ROM", "Cache", "Buffer"], correct: 1 },
+                { id: 9, marks: 1.5, title: "س 9 (تطبيقات):", question: "أي مما يلي يُعد مثالاً على البرمجيات التطبيقية؟", options: ["برنامج الرسام (Paint)", "نظام Windows", "نظام Linux", "مشغل التعريفات"], correct: 0 },
+                { id: 10, marks: 1.5, title: "س 10 (إدخال وإخراج):", question: "لوحة المفاتيح تعتبر وحدة:", options: ["إدخال", "إخراج", "تخزين", "معالجة"], correct: 0 },
+                { id: 11, marks: 1.5, title: "س 11 (تفكير ناقد):", question: "عند انقطاع التيار الكهربائي فجأة، البيانات غير المنسوخة تفقد من:", options: ["القرص الصلب", "ذاكرة الوصول العشوائي RAM", "ذاكرة ROM", "اللوحة الأم"], correct: 1 },
+                { id: 12, marks: 1.5, title: "س 12 (حواسيب مدمجة):", question: "المعالج المصغر داخل الغسالة الأوتوماتيكية يسمى:", options: ["حاسوب مدمج", "حاسوب فائق", "خادم رئيسي", "حاسوب محمول"], correct: 0 }
             ],
             "2": [
-                { id: 1, marks: 3, title: "السؤال 1 (اختر الإجابة - بصري):", question: "تأمل الشكل التوضيحي لجهاز مصغر مدمج داخل آلة أوتوماتيكية لأداء وظيفة محددة:", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='100' viewBox='0 0 260 100'><rect width='260' height='100' fill='%230f172a'/><circle cx='130' cy='50' r='30' fill='%231e293b' stroke='%2338bdf8' stroke-width='3'/><text x='130' y='55' fill='%23fbbf24' font-size='13' font-weight='bold' text-anchor='middle'>Embedded</text></svg>", options: ["الحاسوب المدمج (Embedded Computer)", "الحاسوب المركزي (Mainframe)", "الحاسوب المكتبي", "الشاشة الذكية"], correct: 0 },
-                { id: 2, marks: 3, title: "السؤال 2 (صح وخطأ):", question: "العبارة التالية: 'نظام التشغيل يعد الوسيط البرمجي بين المستخدم والمكونات المادية للحاسوب.' هل العبارة صحيحة أم خاطئة؟", options: ["صح", "خطأ"], correct: 0 },
-                { id: 3, marks: 3, title: "السؤال 3 (أكمل الفراغ):", question: "الذاكرة التي تحتفظ بتعليمات الإقلاع الأساسية ولا تفقد محتوياتها عند إطفاء الجهاز هي ذاكرة الـ ......", options: ["RAM", "ROM", "Cache", "Flash"], correct: 1 },
-                { id: 4, marks: 3, title: "السؤال 4 (فسر / علل):", question: "لماذا تلجأ البنوك الكبرى لاستخدام الحواسيب المركزية (Mainframe)؟", options: ["لقدرتها العالية على معالجة آلاف المعاملات لمستخدمين كثر في نفس الوقت", "لأن حجمها صغير ويسهل حملها باليد", "لأنها رخيصة الثمن ومخصصة للألعاب الفردية", "لأنها لا تحتاج إلى كهرباء"], correct: 0 },
-                { id: 5, marks: 4, title: "السؤال 5 (البرمجيات التطبيقية):", question: "أي من البرامج التالية يُصنف ضمن (البرمجيات التطبيقية Application Software)؟", options: ["برنامج مايكروسوفت وورد (MS Word)", "نظام ويندوز 11", "نظام تشغيل الهواتف", "مشغلات التعريفات الداخلية"], correct: 0 },
-                { id: 6, marks: 4, title: "السؤال 6 (مبدأ العمل):", question: "الترتيب الصحيح لمراحل معالجة البيانات في نظام الحاسوب هو:", options: ["إخراج ➔ معالجة ➔ إدخال", "إدخال ➔ معالجة ➔ إخراج", "تخزين ➔ إخراج ➔ معالجة", "معالجة ➔ تخزين ➔ إدخال"], correct: 1 }
+                { id: 1, marks: 1.5, title: "س 1 (اختر - بصري):", question: "تأمل الرسم التوضيحي لجهاز مصغر داخل آلة أوتوماتيكية لأداء وظيفة محددة:", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='90' viewBox='0 0 240 90'><rect width='240' height='90' fill='%230f172a'/><circle cx='120' cy='45' r='25' fill='%231e293b' stroke='%2338bdf8' stroke-width='3'/><text x='120' y='50' fill='%23fbbf24' font-size='12' font-weight='bold' text-anchor='middle'>Embedded</text></svg>", options: ["الحاسوب المدمج (Embedded)", "الحاسوب المركزي", "الحاسوب المكتبي", "الشاشة الذكية"], correct: 0 },
+                { id: 2, marks: 1.5, title: "س 2 (صح وخطأ):", question: "نظام التشغيل يعد الوسيط البرمجي بين المستخدم والمكونات المادية للحاسوب.", options: ["صح", "خطأ"], correct: 0 },
+                { id: 3, marks: 1.5, title: "س 3 (أكمل الفراغ):", question: "الذاكرة التي تحتفظ بتعليمات الإقلاع الأساسية ولا تفقد محتوياتها عند إطفاء الجهاز هي ذاكرة الـ ......", options: ["RAM", "ROM", "Cache", "Flash"], correct: 1 },
+                { id: 4, marks: 1.5, title: "س 4 (فسر):", question: "لماذا تلجأ البنوك الكبرى لاستخدام الحواسيب المركزية (Mainframe)؟", options: ["لقدرتها على معالجة آلاف المعاملات لمستخدمين كثر بنفس الوقت", "لصغر حجمها", "لرخص ثمنها", "لأنها لا تحتاج كهرباء"], correct: 0 },
+                { id: 5, marks: 2, title: "س 5 (تطبيقات):", question: "أي من البرامج التالية يُعتبر برنامجاً تطبيقياً (Application)؟", options: ["برنامج معالج النصوص MS Word", "نظام Windows", "نظام Linux", "نظام Android"], correct: 0 },
+                { id: 6, marks: 2, title: "س 6 (أمان رقمي):", question: "من قواعد الحفاظ على سرية حسابك المدرسي:", options: ["مشاركة كلمة المرور", "استخدام كلمة مرور قوية وعدم إعطائها لأحد", "كتابة الباسورد على الطاولة", "ترك الحساب مفتوحاً"], correct: 1 },
+                { id: 7, marks: 1.5, title: "س 7 (ترتيب العمليات):", question: "التسلسل الصحيح لمراحل عمل الحاسوب هو:", options: ["إخراج ➔ معالجة ➔ إدخال", "إدخال ➔ معالجة ➔ إخراج", "تخزين ➔ إخراج ➔ معالجة", "معالجة ➔ تخزين"], correct: 1 },
+                { id: 8, marks: 1.5, title: "س 8 (تعريفات):", question: "الأرقام والحقائق الخام التي لم يتم معالجتها تسمى:", options: ["معلومات", "بيانات (Data)", "تقارير", "برمجيات"], correct: 1 },
+                { id: 9, marks: 1.5, title: "س 9 (أجهزة إخراج):", question: "الشاشة (Monitor) تعتبر وحدة:", options: ["إدخال", "إخراج", "تخزين", "معالجة"], correct: 1 },
+                { id: 10, marks: 1.5, title: "س 10 (سرعة الجهاز):", question: "تؤثر سعة ذاكرة الوصول العشوائي RAM مباشرة على:", options: ["سرعة تنفيذ التطبيقات وتعدد المهام", "لون الشاشة الخارجي", "حجم لوحة المفاتيح", "سرعة الإنترنت"], correct: 0 },
+                { id: 11, marks: 1.5, title: "س 11 (برمجيات النظام):", question: "أي مما يلي يعتبر جزءاً من برمجيات النظام؟", options: ["أنظمة التشغيل", "الألعاب الترفيهية", "برامج الرسم", "متصفحات الصور"], correct: 0 },
+                { id: 12, marks: 1.5, title: "س 12 (حواسيب شخصية):", question: "الحاسوب المكتبي (Desktop) يُصنف ضمن الحواسيب:", options: ["الشخصية", "الفائقة", "المركزية", "المدمجة"], correct: 0 }
             ],
             "3": [
-                { id: 1, marks: 3, title: "السؤال 1 (اختر الإجابة - بصري):", question: "تأمل الرسم التوضيحي لوحدة الإخراج التي تترجم النتائج الرقمية إلى ورق مطبوع:", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='100' viewBox='0 0 260 100'><rect width='260' height='100' fill='%230f172a'/><rect x='80' y='25' width='100' height='50' fill='%23334155' stroke='%2334d399' stroke-width='3'/><text x='130' y='55' fill='%2334d399' font-size='14' font-weight='bold' text-anchor='middle'>Printer</text></svg>", options: ["وحدة الإخراج (الطابعة)", "وحدة الإدخال (اللوحة)", "المعالج (CPU)", "القرص الصلب"], correct: 0 },
-                { id: 2, marks: 3, title: "السؤال 2 (صح وخطأ):", question: "العبارة التالية: 'علامات الطلبة المدونة بشكل عشوائي قبل ترتيبها تُسمى معلومات.' هل العبارة صحيحة أم خاطئة؟", options: ["صح", "خطأ"], correct: 1 },
-                { id: 3, marks: 3, title: "السؤال 3 (أكمل الفراغ):", question: "تؤثر زيادة سعة ذاكرة الوصول العشوائي (......) مباشرة على سرعة تنفيذ البرامج وتعدد المهام.", options: ["RAM", "ROM", "CPU", "USB"], correct: 0 },
-                { id: 4, marks: 3, title: "السؤال 4 (فسر / علل):", question: "لماذا تعد الغسالة الأوتوماتيكية مثالاً على الحواسيب المدمجة؟", options: ["لأنها تحتوي معالجاً مصغراً مخصصاً للتحكم بدورة الغسيل فقط", "لأنها تستخدم لتصفح الإنترنت وممارسة الألعاب", "لأنها تحتاج شاشة عرض ضخمة", "لأنها تعمل كحاسوب فائق"], correct: 0 },
-                { id: 5, marks: 4, title: "السؤال 5 (التكامل الوظيفي):", question: "عند النقر على زر طباعة تقرير، ما هو العنصر المسؤول عن التنسيق وإرسال الأمر للطابعة؟", options: ["نظام التشغيل (برمجيات النظام)", "السماعات الصوتية", "شاشة العرض فقط", "لوحة المفاتيح وحدها"], correct: 0 },
-                { id: 6, marks: 4, title: "السؤال 6 (الأمان الرقمي):", question: "من قواعد الحفاظ على الخصوصية الرقمية عند استخدام الحواسيب المدرسية:", options: ["مشاركة كلمة المرور مع الجميع", "عدم حفظ كلمات المرور على الأجهزة المشتركة وتسجيل الخروج", "تنزيل برامج غير موثوقة", "ترك الحساب متاحاً"], correct: 1 }
+                { id: 1, marks: 1.5, title: "س 1 (اختر - بصري):", question: "تأمل الرسم التوضيحي لوحدة الإخراج التي تترجم النتائج الرقمية إلى ورق مطبوع:", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='90' viewBox='0 0 240 90'><rect width='240' height='90' fill='%230f172a'/><rect x='70' y='20' width='100' height='50' fill='%23334155' stroke='%2334d399' stroke-width='3'/><text x='120' y='50' fill='%2334d399' font-size='14' font-weight='bold' text-anchor='middle'>Printer</text></svg>", options: ["وحدة الإخراج (الطابعة)", "وحدة الإدخال", "المعالج", "القرص الصلب"], correct: 0 },
+                { id: 2, marks: 1.5, title: "س 2 (صح وخطأ):", question: "علامات الطلبة المدونة بشكل عشوائي قبل ترتيبها وتحليلها تُسمى معلومات.", options: ["صح", "خطأ"], correct: 1 },
+                { id: 3, marks: 1.5, title: "س 3 (أكمل الفراغ):", question: "تؤثر زيادة سعة ذاكرة الوصول العشوائي (......) مباشرة على سرعة تنفيذ البرامج.", options: ["RAM", "ROM", "CPU", "USB"], correct: 0 },
+                { id: 4, marks: 1.5, title: "س 4 (فسر):", question: "لماذا تعد الغسالة الأوتوماتيكية مثالاً على الحواسيب المدمجة؟", options: ["لأنها تحتوي معالجاً مصغراً للتحكم بدورة الغسيل فقط", "لأنها تستخدم لتصفح الإنترنت", "لأنها تحتاج شاشة ضخمة", "لأنها حاسوب فائق"], correct: 0 },
+                { id: 5, marks: 2, title: "س 5 (تكامل وظيفي):", question: "عند النقر على زر طباعة تقرير، ما المسؤول عن تنسيق وإرسال الأمر للطابعة؟", options: ["نظام التشغيل (برمجيات النظام)", "السماعات", "الشاشة وحدها", "لوحة المفاتيح"], correct: 0 },
+                { id: 6, marks: 2, title: "س 6 (أمان):", question: "من قواعد الحفاظ على الخصوصية الرقمية:", options: ["مشاركة كلمة المرور مع الجميع", "عدم حفظ كلمات المرور على الأجهزة المشتركة", "تنزيل برامج غير موثوقة", "ترك الحساب مفتوحاً"], correct: 1 },
+                { id: 7, marks: 1.5, title: "س 7 (حواسيب فائقة):", question: "تُستخدم الحواسيب الفائقة في:", options: ["التنبؤ بالطقس والأبحاث العلمية المعقدة", "كتابة النصوص المدرسية البسيطة", "الألعاب الخفيفة", "تصفح البريد فقط"], correct: 0 },
+                { id: 8, marks: 1.5, title: "س 8 (تعريف المعلومات):", question: "البيانات بعد معالجتها وتنظيمها تصبح:", options: ["معلومات (Information)", "أرقاماً خاماً", "أخطاء برمجية", "ملفات تالفة"], correct: 0 },
+                { id: 9, marks: 1.5, title: "س 9 (التخزين الثانوي):", question: "القرص الصلب (Hard Disk) يُستخدم بشكل أساسي في:", options: ["التخزين دائم السعة والاحتفاظ بالملفات", "المعالجة السريعة المؤقتة", "إدخال النصوص", "عرض الصور"], correct: 0 },
+                { id: 10, marks: 1.5, title: "س 10 (مكونات مادية):", question: "أية وحدة تعتبر من وحدات الإدخال الأساسية:", options: ["الفأرة (Mouse)", "الطابعة", "السماعة", "العارض الضوئي"], correct: 0 },
+                { id: 11, marks: 1.5, title: "س 11 (برمجيات):", question: "برامج العروض التقديمية (PowerPoint) تعتبر:", options: ["برمجيات تطبيقية", "برمجيات نظام", "أجزاء مادية صلبة", "ذاكرة تخزين"], correct: 0 },
+                { id: 12, marks: 1.5, title: "س 12 (استخدامات الحاسوب):", question: "المؤسسات الكبرى كالبنوك تستخدم:", options: ["الحواسيب المركزية Mainframe", "الحواسيب اللوحية فقط", "الأجهزة المدمجة البسيطة", "الساعات الذكية"], correct: 0 }
             ]
         };
 
         let currentStudent = { name: "", section: "", model: "1" };
         let timerInterval = null;
-        let timeLeft = 15 * 60; // 15 دقيقة
+        let timeLeft = 12 * 60; // 12 دقيقة محددة صارمة
 
         function renderQuestions(modelId) {
             const container = document.getElementById('questions-container');
@@ -284,7 +304,6 @@
                 document.getElementById('display-student-info').innerText = `الطالب: ${name} | ${section}`;
                 document.getElementById('display-model-info').innerText = `النموذج (${model})`;
                 
-                // الانتقال الفوري لشاشة الأسئلة
                 document.getElementById('student-reg-card').classList.add('hidden');
                 document.getElementById('student-exam-area').classList.remove('hidden');
                 
@@ -294,11 +313,13 @@
         }
 
         function startTimer() {
+            timeLeft = 12 * 60; // 12 دقيقة
             if (timerInterval) clearInterval(timerInterval);
+            
             timerInterval = setInterval(() => {
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    alert("انتهى الوقت المحدد للاختبار (15 دقيقة)! سيتم تسليم إجاباتك تلقائياً.");
+                    alert("⏰ انتهى الوقت المحدد للواجب (12 دقيقة)! سيتم تسليم إجاباتك تلقائياً الآن.");
                     submitExam();
                 } else {
                     timeLeft--;
@@ -323,6 +344,7 @@
                     totalScore += q.marks;
                 }
             });
+            totalScore = Math.round(totalScore * 10) / 10;
 
             const timeNow = new Date().toLocaleString('ar-EG');
             const record = {
@@ -334,21 +356,21 @@
             };
 
             // 1. القيد المحلي لحظر المحاولة الثانية
-            localStorage.setItem('unrwa_exam_submitted_v1', JSON.stringify(record));
+            localStorage.setItem('unrwa_homework_submitted_v2', JSON.stringify(record));
 
-            // 2. الحفظ المحلي في قاعدة البيانات المحلية
-            const allScores = JSON.parse(localStorage.getItem('unrwa_all_scores_db') || '[]');
+            // 2. الحفظ المحلي في قاعدة البيانات
+            const allScores = JSON.parse(localStorage.getItem('unrwa_homework_all_scores') || '[]');
             allScores.unshift(record);
-            localStorage.setItem('unrwa_all_scores_db', JSON.stringify(allScores));
+            localStorage.setItem('unrwa_homework_all_scores', JSON.stringify(allScores));
 
             // 3. الحفظ في Firebase (إذا كان متوفراً)
             if (db) {
                 try {
-                    db.collection("exam_scores").add({
+                    db.collection("homework_scores").add({
                         ...record,
                         timestamp: firebase.firestore.FieldValue.serverTimestamp()
                     });
-                } catch(err) { console.log("Firebase sync skipped."); }
+                } catch(err) { console.log("Firebase sync fallback activated."); }
             }
 
             document.getElementById('student-exam-area').classList.add('hidden');
@@ -357,13 +379,13 @@
             
             const msgEl = document.getElementById('result-feedback-msg');
             if (totalScore >= 16) {
-                msgEl.innerText = "🌟 ممتاز جداً! أداء متميز في الاختبار الإلكتروني.";
+                msgEl.innerText = "🌟 ممتاز جداً! إنجاز رائع ومتميز في الواجب المنزلي.";
                 msgEl.style.color = "#34d399";
             } else if (totalScore >= 10) {
                 msgEl.innerText = "👍 جيد جداً! أداء طيب ومقبول.";
                 msgEl.style.color = "#38bdf8";
             } else {
-                msgEl.innerText = "⚠️ بحاجة لمراجعة المفاهيم النظرية ومتابعة المادة.";
+                msgEl.innerText = "⚠️ بحاجة لمراجعة المفاهيم النظرية بالكتاب المدرسي.";
                 msgEl.style.color = "#fbbf24";
             }
 
@@ -398,7 +420,7 @@
             const tbody = document.getElementById('teacher-scores-tbody');
             tbody.innerHTML = '';
 
-            const localResults = JSON.parse(localStorage.getItem('unrwa_all_scores_db') || '[]');
+            const localResults = JSON.parse(localStorage.getItem('unrwa_homework_all_scores') || '[]');
             
             let totalMarks = 0;
             let passCount = 0;
@@ -420,18 +442,18 @@
             });
 
             document.getElementById('stat-total-students').innerText = localResults.length;
-            document.getElementById('stat-avg-score').innerText = localResults.length ? `${Math.round(totalMarks / localResults.length)} / 20` : '0 / 20';
+            document.getElementById('stat-avg-score').innerText = localResults.length ? `${Math.round((totalMarks / localResults.length) * 10) / 10} / 20` : '0 / 20';
             document.getElementById('stat-pass-rate').innerText = localResults.length ? `${Math.round((passCount / localResults.length) * 100)}%` : '0%';
 
             if (localResults.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #94a3b8;">لا توجد نتائج مسجلة حتى الآن.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #94a3b8;">لا توجد تسليمات مسجلة حتى الآن.</td></tr>`;
             }
         }
 
         function exportScoresExcel() {
-            const localResults = JSON.parse(localStorage.getItem('unrwa_all_scores_db') || '[]');
+            const localResults = JSON.parse(localStorage.getItem('unrwa_homework_all_scores') || '[]');
             if (!localResults.length) {
-                alert("لا توجد نتائج مسجلة لتصديرها!");
+                alert("لا توجد تسليمات مسجلة لتصديرها!");
                 return;
             }
 
@@ -446,14 +468,14 @@
 
             const worksheet = XLSX.utils.json_to_sheet(dataToExport);
             const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "نتائج الاختبار");
-            XLSX.writeFile(workbook, "نتائج_المهارات_الرقمية_الصف_السابع.xlsx");
+            XLSX.utils.book_append_sheet(workbook, worksheet, "نتائج الواجب البيت");
+            XLSX.writeFile(workbook, "نتائج_الواجب_البيتي_الصف_السابع.xlsx");
         }
 
         function clearAllScores() {
-            if (confirm("هل أنت متأكد من مسح كافة النتائج المسجلة من السجل؟")) {
-                localStorage.removeItem('unrwa_all_scores_db');
-                localStorage.removeItem('unrwa_exam_submitted_v1');
+            if (confirm("هل أنت متأكد من مسح كافة السجلات والنتائج المسجلة للواجب البيتي؟")) {
+                localStorage.removeItem('unrwa_homework_all_scores');
+                localStorage.removeItem('unrwa_homework_submitted_v2');
                 loadTeacherDashboard();
             }
         }
