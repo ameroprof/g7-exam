@@ -119,10 +119,9 @@
                     </div>
                 </div>
 
-                <form id="exam-form" onsubmit="submitExam(event)">
-                    <div id="questions-container"></div>
-                    <button type="submit" class="btn btn-success" style="width: 100%; padding: 16px; font-size: 17px; margin-top: 20px;">تسليم الواجب النهائي 🏁</button>
-                </form>
+                <div id="questions-container"></div>
+                <!-- تم تحويل زر التسليم إلى دالة onclick مباشرة لتجنب أي مشاكل في النماذج -->
+                <button type="button" onclick="submitExamDirect()" class="btn btn-success" style="width: 100%; padding: 16px; font-size: 17px; margin-top: 20px;">تسليم الواجب النهائي 🏁</button>
             </div>
 
             <!-- كرت النتيجة -->
@@ -188,7 +187,7 @@
         </div>
     </div>
 
-    <!-- كود ربط Firebase المحدث (Modular SDK) -->
+    <!-- كود ربط Firebase (Modular SDK) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
@@ -248,7 +247,7 @@
             }
         });
 
-        // بنك الأسئلة الشامل (16 سؤالاً لكل نموذج بـ أشكال مرئية نصية واضحة)
+        // بنك الأسئلة الشامل (16 سؤالاً لكل نموذج)
         const examModels = {
             "1": [
                 { id: 1, marks: 1, title: "س 1 (اختر - بصري):", question: "تأمل الشكل التوضيحي للمكون المسؤول عن معالجة البيانات وإجراء العمليات الحسابية والمنطقية (دماغ الحاسوب):", visual: "🖥️ [ وحدة المعالجة المركزية CPU ] 🧠", options: ["وحدة المعالجة المركزية (CPU)", "القرص الصلب", "ذاكرة القراءة ROM", "لوحة المفاتيح"], correct: 0 },
@@ -331,7 +330,7 @@
                     <div>
                         ${q.options.map((opt, optIdx) => `
                             <label class="option-label">
-                                <input type="radio" name="q_${q.id}" value="${optIdx}" required>
+                                <input type="radio" name="q_${q.id}" value="${optIdx}">
                                 <span>${opt}</span>
                             </label>
                         `).join('')}
@@ -347,7 +346,7 @@
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
                     alert("انتهى الوقت المحدد للواجب (12 دقيقة)! سيتم تسليم إجاباتك تلقائياً.");
-                    submitExam();
+                    submitExamDirect();
                 } else {
                     timeLeft--;
                     const minutes = Math.floor(timeLeft / 60);
@@ -385,11 +384,11 @@
             }
         }
 
-        function submitExam(e) {
-            if (e) e.preventDefault();
-            
-            // التحقق من أن جميع الأسئلة تم الإجابة عليها قبل التسليم النهائي
+        // دالة التسليم المباشر الآمنة لتجنب أي تعليق في الزر
+        function submitExamDirect() {
             const questions = examModels[currentStudent.model];
+            
+            // التحقق من إجابة جميع الأسئلة
             for (let q of questions) {
                 const checked = document.querySelector(`input[name="q_${q.id}"]:checked`);
                 if (!checked) {
@@ -420,8 +419,10 @@
                 time: timeNow
             };
 
+            // قيد منع تكرار المحاولة محلياً
             localStorage.setItem('unrwa_exam_submitted_v1', JSON.stringify(record));
 
+            // الحفظ السحابي في Firebase
             if (window.saveRecordToFirebase) {
                 window.saveRecordToFirebase(record);
             }
