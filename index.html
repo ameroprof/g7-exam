@@ -7,35 +7,46 @@
     <!-- SheetJS for Excel Export -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes floatEffect {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #f8fafc; margin: 0; padding: 15px; direction: rtl; min-height: 100vh; }
-        .container { max-width: 900px; margin: 0 auto; }
-        .card { background-color: rgba(30, 41, 59, 0.95); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px; padding: 20px; margin-bottom: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); backdrop-filter: blur(10px); }
+        body { background: linear-gradient(135deg, #090d16 0%, #1e1b4b 50%, #0f172a 100%); color: #f8fafc; margin: 0; padding: 15px; direction: rtl; min-height: 100vh; }
+        .container { max-width: 900px; margin: 0 auto; animation: fadeIn 0.6s ease-out; }
+        .card { background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 24px; padding: 24px; margin-bottom: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); backdrop-filter: blur(12px); transition: 0.3s; }
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #06b6d4; padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
-        .badge { background: linear-gradient(90deg, #06b6d4, #3b82f6); color: #0f172a; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; }
-        .btn { background: linear-gradient(90deg, #06b6d4, #0284c7); color: #0f172a; border: none; padding: 12px 24px; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 14px; transition: all 0.2s ease-in-out; }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(6, 182, 212, 0.4); }
+        .badge { background: linear-gradient(90deg, #06b6d4, #8b5cf6); color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 800; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3); }
+        .btn { background: linear-gradient(90deg, #06b6d4, #6366f1); color: #fff; border: none; padding: 14px 28px; border-radius: 14px; font-weight: bold; cursor: pointer; font-size: 15px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
+        .btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(6, 182, 212, 0.6); }
         .btn-secondary { background: #334155; color: #cbd5e1; border: 1px solid #475569; }
-        .btn-success { background: linear-gradient(90deg, #10b981, #059669); color: #0f172a; }
+        .btn-success { background: linear-gradient(90deg, #10b981, #059669); color: #fff; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
         .btn-danger { background: #ef4444; color: #fff; }
-        .form-group { margin-bottom: 15px; text-align: right; }
-        label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 6px; color: #cbd5e1; }
-        input[type="text"], select { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #475569; background-color: #0f172a; color: #fff; font-size: 14px; }
-        .question-card { background-color: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 18px; margin-bottom: 18px; }
-        .question-header { display: flex; justify-content: space-between; font-size: 13px; font-weight: bold; color: #38bdf8; margin-bottom: 10px; }
-        .option-label { display: flex; align-items: center; padding: 10px; margin-top: 8px; background-color: #0f172a; border: 1px solid #334155; border-radius: 10px; cursor: pointer; font-size: 13px; transition: 0.2s; }
-        .option-label:hover { background-color: #1e293b; border-color: #06b6d4; }
-        .option-label input { margin-left: 12px; accent-color: #06b6d4; }
+        .form-group { margin-bottom: 18px; text-align: right; }
+        label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 8px; color: #38bdf8; }
+        input[type="text"], select { width: 100%; padding: 14px; border-radius: 14px; border: 2px solid #475569; background-color: #0f172a; color: #fff; font-size: 15px; transition: 0.3s; }
+        input[type="text"]:focus, select:focus { border-color: #06b6d4; outline: none; box-shadow: 0 0 10px rgba(6, 182, 212, 0.3); }
+        .question-card { background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 20px; margin-bottom: 20px; animation: fadeIn 0.4s ease-out; }
+        .question-header { display: flex; justify-content: space-between; font-size: 15px; font-weight: bold; color: #38bdf8; margin-bottom: 12px; }
+        .option-label { display: flex; align-items: center; padding: 14px; margin-top: 10px; background-color: rgba(30, 41, 59, 0.6); border: 2px solid #334155; border-radius: 12px; cursor: pointer; font-size: 15px; transition: all 0.2s ease; }
+        .option-label:hover { background-color: rgba(6, 182, 212, 0.1); border-color: #06b6d4; transform: translateX(-4px); }
+        .option-label input { margin-left: 12px; accent-color: #06b6d4; transform: scale(1.2); }
         .hidden { display: none !important; }
-        .img-illustration { max-width: 100%; height: auto; max-height: 150px; display: block; margin: 10px auto; border-radius: 12px; border: 2px solid #334155; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: right; font-size: 13px; }
-        th, td { padding: 12px; border-bottom: 1px solid #334155; }
-        th { background-color: #0f172a; color: #94a3b8; }
+        .img-illustration { max-width: 100%; height: auto; max-height: 180px; display: block; margin: 12px auto; border-radius: 14px; border: 2px solid #06b6d4; animation: floatEffect 3s ease-in-out infinite; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: right; font-size: 14px; }
+        th, td { padding: 14px; border-bottom: 1px solid #334155; }
+        th { background-color: #0f172a; color: #38bdf8; }
         .grid-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .stat-box { background-color: #0f172a; border: 1px solid #334155; padding: 15px; border-radius: 14px; text-align: center; }
-        .stat-val { font-size: 26px; font-weight: bold; margin-top: 5px; color: #38bdf8; }
-        .model-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: bold; background: #334155; color: #fbbf24; }
-        .timer-box { background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #f87171; padding: 8px 15px; border-radius: 10px; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .stat-box { background-color: rgba(15, 23, 42, 0.8); border: 1px solid #334155; padding: 18px; border-radius: 16px; text-align: center; }
+        .stat-val { font-size: 28px; font-weight: bold; margin-top: 5px; color: #38bdf8; }
+        .model-badge { display: inline-block; padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: bold; background: #334155; color: #fbbf24; }
+        .timer-box { background: rgba(239, 68, 68, 0.2); border: 1.5px solid #ef4444; color: #f87171; padding: 10px 18px; border-radius: 12px; font-weight: bold; font-size: 15px; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); }
+        .ai-banner { text-align: center; margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -45,27 +56,33 @@
         <div class="card header">
             <div>
                 <span class="badge">وكالة الغوث الدولية (UNRWA) - مدرسة ذكور وادي السير الإعدادية</span>
-                <h2 style="margin: 6px 0 0 0; font-size: 19px; color: #fff;">الواجب البيتي الإلكتروني - المهارات الرقمية (20 علامة)</h2>
-                <span style="font-size: 12px; color: #94a3b8;">الصف السابع | تصميم وإعداد المعلم: عامر كراجه</span>
+                <h2 style="margin: 8px 0 0 0; font-size: 21px; color: #fff;">🤖 الواجب البيتي الذكي - المهارات الرقمية (20 علامة)</h2>
+                <span style="font-size: 13px; color: #94a3b8;">الصف السابع الأساسي | إعداد المعلم: عامر كراجه</span>
             </div>
             <div>
-                <button onclick="switchView('student')" id="btn-tab-student" class="btn">شاشة الطالب</button>
-                <button onclick="promptTeacherLogin()" id="btn-tab-teacher" class="btn btn-secondary">لوحة المعلم 🔒</button>
+                <button onclick="switchView('student')" id="btn-tab-student" class="btn" style="padding: 10px 18px; font-size: 14px;">شاشة الطالب</button>
+                <button onclick="promptTeacherLogin()" id="btn-tab-teacher" class="btn btn-secondary" style="padding: 10px 18px; font-size: 14px;">لوحة المعلم 🔒</button>
             </div>
         </div>
 
         <!-- شاشة الطالب -->
         <div id="view-student">
             <!-- كرت التسجيل واختيار النموذج -->
-            <div id="student-reg-card" class="card" style="text-align: center; max-width: 500px; margin: 0 auto;">
-                <div style="font-size: 45px; margin-bottom: 8px;">🏠⚡</div>
-                <h3 style="color: #38bdf8; margin-top: 0;">تسجيل الدخول للواجب المنزلي</h3>
-                <p style="font-size: 12px; color: #94a3b8; margin-bottom: 15px;">⚠️ تنبيه: لديك 12 دقيقة فقط للإجابة على 12 سؤالاً فور النقر على بدء الواجب!</p>
+            <div id="student-reg-card" class="card" style="text-align: center; max-width: 520px; margin: 0 auto;">
+                <div class="ai-banner">
+                    <svg width="70" height="70" viewBox="0 0 100 100" style="margin: 0 auto; display: block;">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#06b6d4" stroke-width="4" stroke-dasharray="8 4"/>
+                        <circle cx="50" cy="50" r="25" fill="#3b82f6" opacity="0.8"/>
+                        <path d="M35 50 L45 60 L65 38" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <h3 style="color: #38bdf8; margin-top: 0; font-size: 22px;">أهلاً بك يا بطل المستقبل 🚀</h3>
+                <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 20px; line-height: 1.6;">⚠️ تنبيه هامة: متاح لك محاولة واحدة فقط مدتها 12 دقيقة للإجابة على 12 سؤالاً ذكياً!</p>
 
                 <form onsubmit="startExam(event)">
                     <div class="form-group">
-                        <label>اسم الطالب الرباعي:</label>
-                        <input type="text" id="input-student-name" required placeholder="أدخل اسمك كاملاً...">
+                        <label>اسم الطالب الرباعي (من 3 أو 4 مقاطع):</label>
+                        <input type="text" id="input-student-name" required placeholder="مثال: محمد أحمد علي حسن...">
                     </div>
                     <div class="form-group">
                         <label>الشعبة الدراسية:</label>
@@ -77,59 +94,59 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>نموذج الواجب (اختر النموذج الخاص بك):</label>
+                        <label>نموذج الواجب المحدد:</label>
                         <select id="select-exam-model" required style="border-color: #06b6d4;">
                             <option value="">اختر النموذج...</option>
-                            <option value="1">النموذج الأول (A - 12 سؤالاً)</option>
-                            <option value="2">النموذج الثاني (B - 12 سؤالاً)</option>
-                            <option value="3">النموذج الثالث (C - 12 سؤالاً)</option>
+                            <option value="1">النموذج الأول (A - تفاعلي ذكي)</option>
+                            <option value="2">النموذج الثاني (B - تفاعلي ذكي)</option>
+                            <option value="3">النموذج الثالث (C - تفاعلي ذكي)</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn" style="width: 100%; padding: 12px; margin-top: 10px;">بدء الواجب والمؤقت 🚀</button>
+                    <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">بدء الواجب والمؤقت ⚡</button>
                 </form>
             </div>
 
             <!-- رسالة منع المحاولة الثانية -->
-            <div id="student-blocked-card" class="card hidden" style="text-align: center; max-width: 500px; margin: 0 auto;">
-                <div style="font-size: 50px;">⚠️</div>
-                <h3 style="color: #ef4444; margin-bottom: 10px;">عذراً، لقد قمت بإجراء الواجب مسبقاً!</h3>
-                <p style="font-size: 13px; color: #cbd5e1;">مسموح لك بمحاولة واحدة فقط من هذا الجهاز وقد تم تسليمها بنجاح.</p>
-                <div style="background-color: #0f172a; border: 1px solid #334155; padding: 15px; border-radius: 12px; margin: 15px 0; text-align: right;">
-                    <div style="font-size: 13px; color: #94a3b8;" id="blocked-info-name"></div>
-                    <div style="font-size: 16px; font-weight: bold; color: #fbbf24; margin-top: 5px;" id="blocked-info-score"></div>
+            <div id="student-blocked-card" class="card hidden" style="text-align: center; max-width: 520px; margin: 0 auto;">
+                <div style="font-size: 55px;">🛡️</div>
+                <h3 style="color: #ef4444; margin-bottom: 10px; font-size: 20px;">عذراً، لقد قمت بإجراء الواجب مسبقاً!</h3>
+                <p style="font-size: 14px; color: #cbd5e1;">مسموح لك بمحاولة واحدة فقط من هذا الجهاز وتم اعتماد النتيجة.</p>
+                <div style="background-color: #0f172a; border: 1px solid #334155; padding: 18px; border-radius: 16px; margin: 20px 0; text-align: right;">
+                    <div style="font-size: 14px; color: #94a3b8;" id="blocked-info-name"></div>
+                    <div style="font-size: 18px; font-weight: bold; color: #fbbf24; margin-top: 8px;" id="blocked-info-score"></div>
                 </div>
             </div>
 
             <!-- منطقة الأسئلة والمؤقت -->
             <div id="student-exam-area" class="card hidden">
-                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 10px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 12px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
                     <div>
-                        <span id="display-student-info" style="font-size: 13px; font-weight: bold; color: #38bdf8;"></span>
-                        <span id="display-model-info" class="model-badge" style="margin-right: 8px;"></span>
+                        <span id="display-student-info" style="font-size: 14px; font-weight: bold; color: #38bdf8;"></span>
+                        <span id="display-model-info" class="model-badge" style="margin-right: 10px;"></span>
                     </div>
                     <div class="timer-box">
                         <span>⏳ الوقت المتبقي:</span>
-                        <span id="timer-countdown" style="font-family: monospace; font-size: 16px;">12:00</span>
+                        <span id="timer-countdown" style="font-family: monospace; font-size: 18px;">12:00</span>
                     </div>
                 </div>
 
                 <form id="exam-form" onsubmit="submitExam(event)">
                     <div id="questions-container"></div>
-                    <button type="submit" class="btn btn-success" style="width: 100%; padding: 14px; font-size: 16px; margin-top: 15px;">تسليم الواجب النهائي 🏁</button>
+                    <button type="submit" class="btn btn-success" style="width: 100%; padding: 16px; font-size: 17px; margin-top: 20px;">تسليم الواجب النهائي 🏁</button>
                 </form>
             </div>
 
             <!-- كرت النتيجة -->
-            <div id="student-result-card" class="card hidden" style="text-align: center; max-width: 450px; margin: 0 auto;">
-                <div style="font-size: 50px;">🏆</div>
-                <h3 style="color: #38bdf8; margin-bottom: 5px;">تم تسليم الواجب وحفظه بالسحابة!</h3>
-                <p id="result-student-name" style="font-size: 14px; font-weight: bold;"></p>
-                <div style="background-color: #0f172a; border: 2px solid #06b6d4; padding: 20px; border-radius: 14px; margin: 15px 0;">
-                    <span style="font-size: 12px; color: #94a3b8; display: block;">العلامة النهائية</span>
-                    <span id="result-score-display" style="font-size: 38px; font-weight: bold; color: #fbbf24;">0 / 20</span>
+            <div id="student-result-card" class="card hidden" style="text-align: center; max-width: 480px; margin: 0 auto;">
+                <div style="font-size: 55px;">🏆</div>
+                <h3 style="color: #38bdf8; margin-bottom: 8px; font-size: 22px;">أحسنت! تم تسليم الواجب بنجاح</h3>
+                <p id="result-student-name" style="font-size: 15px; font-weight: bold; color: #cbd5e1;"></p>
+                <div style="background-color: #0f172a; border: 2px solid #06b6d4; padding: 22px; border-radius: 18px; margin: 20px 0;">
+                    <span style="font-size: 13px; color: #94a3b8; display: block;">العلامة النهائية في الواجب</span>
+                    <span id="result-score-display" style="font-size: 42px; font-weight: bold; color: #fbbf24;">0 / 20</span>
                 </div>
-                <p id="result-feedback-msg" style="font-size: 13px; font-weight: bold;"></p>
-                <button onclick="location.reload()" class="btn btn-secondary" style="margin-top: 15px;">خروج / إنهاء 🔄</button>
+                <p id="result-feedback-msg" style="font-size: 15px; font-weight: bold; line-height: 1.5;"></p>
+                <button onclick="location.reload()" class="btn btn-secondary" style="margin-top: 18px;">خروج / إنهاء 🔄</button>
             </div>
         </div>
 
@@ -137,27 +154,27 @@
         <div id="view-teacher" class="card hidden">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 15px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
                 <div>
-                    <h3 style="margin: 0; color: #fbbf24;">📊 لوحة المعلم - سجل علامات الواجبات السحابية</h3>
-                    <span style="font-size: 12px; color: #94a3b8;">تصميم المعلم: عامر كراجه</span>
+                    <h3 style="margin: 0; color: #fbbf24; font-size: 20px;">📊 لوحة المعلم - سجل علامات الواجبات الذكية</h3>
+                    <span style="font-size: 13px; color: #94a3b8;">تصميم المعلم: عامر كراجه</span>
                 </div>
                 <div>
-                    <button onclick="exportScoresExcel()" class="btn btn-success" style="font-size: 12px;">تصدير إلى Excel 📄</button>
-                    <button onclick="loadTeacherDashboard()" class="btn btn-secondary" style="font-size: 12px;">تحديث البيانات من السحابة 🔄</button>
-                    <button onclick="clearLocalStorageRecords()" class="btn btn-danger" style="font-size: 12px; margin-right: 5px;">مسح الحظر المحلي 🗑️</button>
+                    <button onclick="exportScoresExcel()" class="btn btn-success" style="font-size: 13px; padding: 10px 18px;">تصدير إلى Excel 📄</button>
+                    <button onclick="loadTeacherDashboard()" class="btn btn-secondary" style="font-size: 13px; padding: 10px 18px;">تحديث من السحابة 🔄</button>
+                    <button onclick="clearLocalStorageRecords()" class="btn btn-danger" style="font-size: 13px; padding: 10px 18px; margin-right: 5px;">مسح الحظر 🗑️</button>
                 </div>
             </div>
 
             <div class="grid-stats">
                 <div class="stat-box">
-                    <span style="font-size: 12px; color: #94a3b8;">إجمالي المسلمين</span>
+                    <span style="font-size: 13px; color: #94a3b8;">إجمالي المسلمين</span>
                     <div id="stat-total-students" class="stat-val">0</div>
                 </div>
                 <div class="stat-box">
-                    <span style="font-size: 12px; color: #94a3b8;">متوسط العلامات</span>
+                    <span style="font-size: 13px; color: #94a3b8;">متوسط العلامات</span>
                     <div id="stat-avg-score" class="stat-val" style="color: #fbbf24;">0 / 20</div>
                 </div>
                 <div class="stat-box">
-                    <span style="font-size: 12px; color: #94a3b8;">نسبة الإنجاز الناجح (≥ 10)</span>
+                    <span style="font-size: 13px; color: #94a3b8;">نسبة الإنجاز (≥ 10)</span>
                     <div id="stat-pass-rate" class="stat-val" style="color: #34d399;">0%</div>
                 </div>
             </div>
@@ -175,7 +192,7 @@
                         </tr>
                     </thead>
                     <tbody id="teacher-scores-tbody">
-                        <tr><td colspan="6" style="text-align: center; color: #94a3b8;">جاري تحميل البيانات من سحابة Firebase...</td></tr>
+                        <tr><td colspan="6" style="text-align: center; color: #38bdf8;">جاري جلب النتائج الحية من سحابة Firebase...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -197,21 +214,17 @@
             appId: "1:1036845348348:web:a60d53b2eb09534b3b2e79"
         };
 
-        // تهيئة Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // جعل متغيرات دوظائف الحفظ والجلب متاحة في النطاق العام (Global scope)
         window.saveRecordToFirebase = async function(record) {
             try {
                 await addDoc(collection(db, "exam_scores"), {
                     ...record,
                     timestamp: new Date()
                 });
-                console.log("تم حفظ النتيجة في سحابة Firebase بنجاح");
             } catch (error) {
                 console.error("خطأ أثناء الحفظ في السحابة:", error);
-                // الحفظ الاحتياطي محلياً في حال فشل الاتصال اللحظي
                 const offlineRecords = JSON.parse(localStorage.getItem('offline_backup_scores') || '[]');
                 offlineRecords.push(record);
                 localStorage.setItem('offline_backup_scores', JSON.stringify(offlineRecords));
@@ -226,22 +239,16 @@
                 querySnapshot.forEach((doc) => {
                     records.push(doc.data());
                 });
-                
-                // دمج النسخ الاحتياطية المحلية إن وجدت
                 const offlineRecords = JSON.parse(localStorage.getItem('offline_backup_scores') || '[]');
-                const combined = [...offlineRecords, ...records];
-                
-                return combined;
+                return [...offlineRecords, ...records];
             } catch (error) {
-                console.error("خطأ في جلب البيانات من السحابة:", error);
-                // الاعتماد على التخزين المحلي كبديل عند انقطاع الإنترنت الكامل
+                console.error("خطأ في جلب البيانات:", error);
                 return JSON.parse(localStorage.getItem('offline_backup_scores') || '[]');
             }
         };
     </script>
 
     <script>
-        // فحص ما إذا كان الطالب قد أدى الاختبار مسبقاً من هذا الجهاز
         window.addEventListener('DOMContentLoaded', () => {
             const savedAttempt = localStorage.getItem('unrwa_exam_submitted_v1');
             if (savedAttempt) {
@@ -256,7 +263,7 @@
         // النماذج الثلاثة الموسعة (12 سؤالاً لكل نموذج - المجموع 20 علامة)
         const examModels = {
             "1": [
-                { id: 1, marks: 1.5, title: "س 1 (اختر - بصري):", question: "تأمل الشكل التوضيحي للمكون المسؤول عن معالجة البيانات وإجراء العمليات الحسابية والمنطقية (دماغ الحاسوب):", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='90' viewBox='0 0 240 90'><rect width='240' height='90' fill='%230f172a'/><rect x='70' y='15' width='100' height='60' fill='%23334155' stroke='%2306b6d4' stroke-width='3' rx='8'/><text x='120' y='52' fill='%2322d3ee' font-size='16' font-weight='bold' text-anchor='middle'>CPU</text></svg>", options: ["وحدة المعالجة المركزية (CPU)", "القرص الصلب", "ذاكرة القراءة ROM", "لوحة المفاتيح"], correct: 0 },
+                { id: 1, marks: 1.5, title: "س 1 (اختر - بصري):", question: "تأمل الشكل التوضيحي للمكون المسؤول عن معالجة البيانات وإجراء العمليات الحسابية والمنطقية (دماغ الحاسوب):", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='100' viewBox='0 0 280 100'><rect width='280' height='100' fill='%230f172a' rx='12'/><rect x='80' y='18' width='120' height='64' fill='%231e293b' stroke='%2306b6d4' stroke-width='4' rx='10'/><text x='140' y='58' fill='%2338bdf8' font-size='20' font-weight='bold' text-anchor='middle'>AI & CPU</text></svg>", options: ["وحدة المعالجة المركزية (CPU)", "القرص الصلب", "ذاكرة القراءة ROM", "لوحة المفاتيح"], correct: 0 },
                 { id: 2, marks: 1.5, title: "س 2 (صح وخطأ):", question: "البيانات هي معلومات تم تنظيمها وتحليلها لتصبح ذات معنى واضح.", options: ["صح", "خطأ"], correct: 1 },
                 { id: 3, marks: 1.5, title: "س 3 (أكمل الفراغ):", question: "الحاسوب ذو القدرة الهائلة المستخدم في مراكز الأبحاث الكبرى والتنبؤ بالطقس يُسمى الحاسوب الـ ......", options: ["المدمج", "الفائق (Supercomputer)", "المكتبي", "الشخصي"], correct: 1 },
                 { id: 4, marks: 1.5, title: "س 4 (فسر):", question: "لماذا تُعتبر ذاكرة الوصول العشوائي (RAM) ذاكرة مؤقتة؟", options: ["لأنها تفقد محتوياتها فور انقطاع الكهرباء", "لأنها تحتفظ بالملفات للأبد", "لأنها بطيئة جداً", "لأنها تخص الصوت فقط"], correct: 0 },
@@ -270,7 +277,7 @@
                 { id: 12, marks: 1.5, title: "س 12 (حواسيب مدمجة):", question: "المعالج المصغر داخل الغسالة الأوتوماتيكية يسمى:", options: ["حاسوب مدمج", "حاسوب فائق", "خادم رئيسي", "حاسوب محمول"], correct: 0 }
             ],
             "2": [
-                { id: 1, marks: 1.5, title: "س 1 (اختر - بصري):", question: "تأمل الرسم التوضيحي لجهاز مصغر داخل آلة أوتوماتيكية لأداء وظيفة محددة:", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='90' viewBox='0 0 240 90'><rect width='240' height='90' fill='%230f172a'/><circle cx='120' cy='45' r='25' fill='%231e293b' stroke='%2338bdf8' stroke-width='3'/><text x='120' y='50' fill='%23fbbf24' font-size='12' font-weight='bold' text-anchor='middle'>Embedded</text></svg>", options: ["الحاسوب المدمج (Embedded)", "الحاسوب المركزي", "الحاسوب المكتبي", "الشاشة الذكية"], correct: 0 },
+                { id: 1, marks: 1.5, title: "س 1 (اختر - بصري):", question: "تأمل الرسم التوضيحي لجهاز مصغر داخل آلة أوتوماتيكية لأداء وظيفة محددة:", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='100' viewBox='0 0 280 100'><rect width='280' height='100' fill='%230f172a' rx='12'/><circle cx='140' cy='50' r='30' fill='%231e293b' stroke='%2338bdf8' stroke-width='4'/><text x='140' y='56' fill='%23fbbf24' font-size='14' font-weight='bold' text-anchor='middle'>Smart Chip</text></svg>", options: ["الحاسوب المدمج (Embedded)", "الحاسوب المركزي", "الحاسوب المكتبي", "الشاشة الذكية"], correct: 0 },
                 { id: 2, marks: 1.5, title: "س 2 (صح وخطأ):", question: "نظام التشغيل يعد الوسيط البرمجي بين المستخدم والمكونات المادية للحاسوب.", options: ["صح", "خطأ"], correct: 0 },
                 { id: 3, marks: 1.5, title: "س 3 (أكمل الفراغ):", question: "الذاكرة التي تحتفظ بتعليمات الإقلاع الأساسية ولا تفقد محتوياتها عند إطفاء الجهاز هي ذاكرة الـ ......", options: ["RAM", "ROM", "Cache", "Flash"], correct: 1 },
                 { id: 4, marks: 1.5, title: "س 4 (فسر):", question: "لماذا تلجأ البنوك الكبرى لاستخدام الحواسيب المركزية (Mainframe)؟", options: ["لقدرتها على معالجة آلاف المعاملات لمستخدمين كثر بنفس الوقت", "لصغر حجمها", "لرخص ثمنها", "لأنها لا تحتاج كهرباء"], correct: 0 },
@@ -284,7 +291,7 @@
                 { id: 12, marks: 1.5, title: "س 12 (حواسيب شخصية):", question: "الحاسوب المكتبي (Desktop) يُصنف ضمن الحواسيب:", options: ["الشخصية", "الفائقة", "المركزية", "المدمجة"], correct: 0 }
             ],
             "3": [
-                { id: 1, marks: 1.5, title: "س 1 (اختر - بصري):", question: "تأمل الرسم التوضيحي لوحدة الإخراج التي تترجم النتائج الرقمية إلى ورق مطبوع:", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='90' viewBox='0 0 240 90'><rect width='240' height='90' fill='%230f172a'/><rect x='70' y='20' width='100' height='50' fill='%23334155' stroke='%2334d399' stroke-width='3'/><text x='120' y='50' fill='%2334d399' font-size='14' font-weight='bold' text-anchor='middle'>Printer</text></svg>", options: ["وحدة الإخراج (الطابعة)", "وحدة الإدخال", "المعالج", "القرص الصلب"], correct: 0 },
+                { id: 1, marks: 1.5, title: "س 1 (اختر - بصري):", question: "تأمل الرسم التوضيحي لوحدة الإخراج التي تترجم النتائج الرقمية إلى ورق مطبوع:", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='100' viewBox='0 0 280 100'><rect width='280' height='100' fill='%230f172a' rx='12'/><rect x='70' y='25' width='140' height='50' fill='%231e293b' stroke='%2334d399' stroke-width='4' rx='8'/><text x='140' y='57' fill='%2334d399' font-size='16' font-weight='bold' text-anchor='middle'>Printer Output</text></svg>", options: ["وحدة الإخراج (الطابعة)", "وحدة الإدخال", "المعالج", "القرص الصلب"], correct: 0 },
                 { id: 2, marks: 1.5, title: "س 2 (صح وخطأ):", question: "علامات الطلبة المدونة بشكل عشوائي قبل ترتيبها وتحليلها تُسمى معلومات.", options: ["صح", "خطأ"], correct: 1 },
                 { id: 3, marks: 1.5, title: "س 3 (أكمل الفراغ):", question: "تؤثر زيادة سعة ذاكرة الوصول العشوائي (......) مباشرة على سرعة تنفيذ البرامج.", options: ["RAM", "ROM", "CPU", "USB"], correct: 0 },
                 { id: 4, marks: 1.5, title: "س 4 (فسر):", question: "لماذا تعد الغسالة الأوتوماتيكية مثالاً على الحواسيب المدمجة؟", options: ["لأنها تحتوي معالجاً مصغراً للتحكم بدورة الغسيل فقط", "لأنها تستخدم لتصفح الإنترنت", "لأنها تحتاج شاشة ضخمة", "لأنها حاسوب فائق"], correct: 0 },
@@ -316,8 +323,8 @@
                         <span>${q.title}</span>
                         <span class="badge" style="background: rgba(6,182,212,0.15); color: #22d3ee;">${q.marks} علامات</span>
                     </div>
-                    <p style="font-size: 14px; font-weight: bold; margin: 6px 0 10px 0; line-height: 1.5; color: #fff;">${q.question}</p>
-                    ${q.img ? `<img src="${q.img}" class="img-illustration" alt="شكل توضيحي">` : ''}
+                    <p style="font-size: 16px; font-weight: bold; margin: 8px 0 12px 0; line-height: 1.6; color: #fff;">${q.question}</p>
+                    ${q.img ? `<img src="${q.img}" class="img-illustration" alt="شكل توضيحي ذكي">` : ''}
                     <div>
                         ${q.options.map((opt, optIdx) => `
                             <label class="option-label">
@@ -391,10 +398,8 @@
                 time: timeNow
             };
 
-            // 1. القيد المحلي لمنع تكرار المحاولة من نفس الجهاز
             localStorage.setItem('unrwa_exam_submitted_v1', JSON.stringify(record));
 
-            // 2. الحفظ السحابي المباشر في Firebase Firestore
             if (window.saveRecordToFirebase) {
                 window.saveRecordToFirebase(record);
             }
@@ -405,13 +410,13 @@
             
             const msgEl = document.getElementById('result-feedback-msg');
             if (totalScore >= 16) {
-                msgEl.innerText = "🌟 ممتاز جداً! أداء متميز في الواجب البيتي الإلكتروني.";
+                msgEl.innerText = "🌟 ممتاز جداً! أداء متميز ورائع في الواجب البيتي الذكي.";
                 msgEl.style.color = "#34d399";
             } else if (totalScore >= 10) {
-                msgEl.innerText = "👍 جيد جداً! أداء طيب ومقبول.";
+                msgEl.innerText = "👍 جيد جداً! أداء طيب ومقبول، استمر في التقدم.";
                 msgEl.style.color = "#38bdf8";
             } else {
-                msgEl.innerText = "⚠️ بحاجة لمراجعة المفاهيم النظرية ومتابعة المادة.";
+                msgEl.innerText = "⚠️ بحاجة لمراجعة المفاهيم النظرية في الكتاب المدرسي.";
                 msgEl.style.color = "#fbbf24";
             }
 
@@ -442,13 +447,12 @@
             }
         }
 
-        // جلب وعرض بيانات لوحة المعلم مباشرة من Firebase
         async function loadTeacherDashboard() {
             const tbody = document.getElementById('teacher-scores-tbody');
-            tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #38bdf8;">جاري جلب النتائج الحية من سحابة Firebase...</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #38bdf8;">جاري جلب النتائج من السحابة...</td></tr>`;
 
             if (!window.fetchRecordsFromFirebase) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #ef4444;">تعذر الاتصال بقاعدة البيانات السحابية.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #ef4444;">تعذر الاتصال بقاعدة البيانات.</td></tr>`;
                 return;
             }
 
@@ -469,7 +473,7 @@
                     <td>${rec.section}</td>
                     <td><span class="model-badge">نموذج ${rec.model}</span></td>
                     <td style="font-weight: bold; color: #fbbf24;">${rec.score} / 20</td>
-                    <td style="color: #94a3b8; font-size: 11px;">${rec.time || 'وقت سابق'}</td>
+                    <td style="color: #94a3b8; font-size: 12px;">${rec.time || 'وقت سابق'}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -479,7 +483,7 @@
             document.getElementById('stat-pass-rate').innerText = cloudResults.length ? `${Math.round((passCount / cloudResults.length) * 100)}%` : '0%';
 
             if (cloudResults.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #94a3b8;">لا توجد نتائج مسجلة في السحابة حتى الآن.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #94a3b8;">لا توجد نتائج مسجلة حتى الآن.</td></tr>`;
             }
         }
 
@@ -504,7 +508,7 @@
             const worksheet = XLSX.utils.json_to_sheet(dataToExport);
             const workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, "نتائج الواجب");
-            XLSX.writeFile(workbook, "نتائج_الواجب_البيتي_الصف_السابع.xlsx");
+            XLSX.writeFile(workbook, "نتائج_الواجب_الذكي_الصف_السابع.xlsx");
         }
 
         function clearLocalStorageRecords() {
