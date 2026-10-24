@@ -11,37 +11,43 @@
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes neonPulse {
+            0% { box-shadow: 0 0 10px rgba(0, 242, 254, 0.4); }
+            50% { box-shadow: 0 0 25px rgba(157, 78, 221, 0.8); }
+            100% { box-shadow: 0 0 10px rgba(0, 242, 254, 0.4); }
+        }
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: linear-gradient(135deg, #090d16 0%, #1e1b4b 50%, #0f172a 100%); color: #f8fafc; margin: 0; padding: 15px; direction: rtl; min-height: 100vh; }
-        .container { max-width: 900px; margin: 0 auto; animation: fadeIn 0.6s ease-out; }
-        .card { background: rgba(30, 41, 59, 0.9); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 24px; padding: 24px; margin-bottom: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); backdrop-filter: blur(12px); }
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #06b6d4; padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
-        .badge { background: linear-gradient(90deg, #06b6d4, #8b5cf6); color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 800; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3); }
-        .btn { background: linear-gradient(90deg, #06b6d4, #6366f1); color: #fff; border: none; padding: 14px 28px; border-radius: 14px; font-weight: bold; cursor: pointer; font-size: 15px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
-        .btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(6, 182, 212, 0.6); }
-        .btn-secondary { background: #334155; color: #cbd5e1; border: 1px solid #475569; }
-        .btn-success { background: linear-gradient(90deg, #10b981, #059669); color: #fff; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
+        body { background: linear-gradient(135deg, #070913 0%, #120e2e 50%, #051329 100%); color: #f8fafc; margin: 0; padding: 15px; direction: rtl; min-height: 100vh; }
+        .container { max-width: 920px; margin: 0 auto; animation: fadeIn 0.5s ease-out; }
+        .card { background: rgba(18, 24, 43, 0.92); border: 1.5px solid rgba(0, 242, 254, 0.3); border-radius: 24px; padding: 25px; margin-bottom: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); backdrop-filter: blur(15px); }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #00f2fe; padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+        .badge { background: linear-gradient(90deg, #00f2fe, #9d4edd); color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .btn { background: linear-gradient(90deg, #00f2fe, #7b2cbf); color: #fff; border: none; padding: 14px 28px; border-radius: 14px; font-weight: bold; cursor: pointer; font-size: 16px; transition: all 0.3s ease; box-shadow: 0 4px 18px rgba(0, 242, 254, 0.4); text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        .btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(157, 78, 221, 0.7); }
+        .btn-secondary { background: #242b3d; color: #cbd5e1; border: 1px solid #3b4760; }
+        .btn-success { background: linear-gradient(90deg, #10b981, #059669); color: #fff; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.5); }
         .btn-danger { background: #ef4444; color: #fff; }
         .form-group { margin-bottom: 18px; text-align: right; }
-        label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 8px; color: #38bdf8; }
-        input[type="text"], select { width: 100%; padding: 14px; border-radius: 14px; border: 2px solid #475569; background-color: #0f172a; color: #fff; font-size: 15px; transition: 0.3s; }
-        input[type="text"]:focus, select:focus { border-color: #06b6d4; outline: none; box-shadow: 0 0 10px rgba(6, 182, 212, 0.3); }
-        .question-card { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 18px; padding: 20px; margin-bottom: 20px; }
-        .question-header { display: flex; justify-content: space-between; font-size: 15px; font-weight: bold; color: #38bdf8; margin-bottom: 12px; }
-        .option-label { display: flex; align-items: center; padding: 14px; margin-top: 10px; background-color: rgba(30, 41, 59, 0.7); border: 2px solid #334155; border-radius: 12px; cursor: pointer; font-size: 15px; transition: all 0.2s ease; }
-        .option-label:hover { background-color: rgba(6, 182, 212, 0.15); border-color: #06b6d4; transform: translateX(-4px); }
-        .option-label input { margin-left: 12px; accent-color: #06b6d4; transform: scale(1.2); }
+        label { display: block; font-size: 15px; font-weight: bold; margin-bottom: 8px; color: #00f2fe; }
+        input[type="text"], select { width: 100%; padding: 15px; border-radius: 14px; border: 2px solid #3b4760; background-color: #0b1120; color: #fff; font-size: 16px; transition: 0.3s; }
+        input[type="text"]:focus, select:focus { border-color: #00f2fe; outline: none; box-shadow: 0 0 15px rgba(0, 242, 254, 0.4); }
+        .question-card { background: rgba(11, 17, 32, 0.85); border: 1.5px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 22px; margin-bottom: 22px; transition: 0.3s; }
+        .question-card:hover { border-color: rgba(0, 242, 254, 0.4); }
+        .question-header { display: flex; justify-content: space-between; font-size: 16px; font-weight: bold; color: #00f2fe; margin-bottom: 12px; }
+        .option-label { display: flex; align-items: center; padding: 16px; margin-top: 12px; background-color: rgba(26, 35, 57, 0.7); border: 2px solid #2d374e; border-radius: 14px; cursor: pointer; font-size: 16px; transition: all 0.2s ease; }
+        .option-label:hover { background-color: rgba(0, 242, 254, 0.15); border-color: #00f2fe; transform: translateX(-5px); }
+        .option-label input { margin-left: 14px; accent-color: #00f2fe; transform: scale(1.3); }
         .hidden { display: none !important; }
-        .visual-box { background: linear-gradient(135deg, #1e293b, #0f172a); border: 2px dashed #06b6d4; padding: 15px; border-radius: 14px; text-align: center; margin: 12px 0; font-size: 18px; color: #38bdf8; font-weight: bold; }
+        .visual-box { background: linear-gradient(135deg, #131b2e, #0b1120); border: 2px dashed #00f2fe; padding: 16px; border-radius: 16px; text-align: center; margin: 14px 0; font-size: 20px; color: #38bdf8; font-weight: bold; }
         table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: right; font-size: 14px; }
-        th, td { padding: 14px; border-bottom: 1px solid #334155; }
-        th { background-color: #0f172a; color: #38bdf8; }
+        th, td { padding: 14px; border-bottom: 1px solid #2d374e; }
+        th { background-color: #0b1120; color: #00f2fe; }
         .grid-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .stat-box { background-color: rgba(15, 23, 42, 0.8); border: 1px solid #334155; padding: 18px; border-radius: 16px; text-align: center; }
-        .stat-val { font-size: 28px; font-weight: bold; margin-top: 5px; color: #38bdf8; }
-        .model-badge { display: inline-block; padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: bold; background: #334155; color: #fbbf24; }
-        .scenario-tag { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: bold; background: rgba(139, 92, 246, 0.25); color: #c084fc; border: 1px solid #a855f7; margin-left: 8px; }
-        .timer-box { background: rgba(239, 68, 68, 0.2); border: 1.5px solid #ef4444; color: #f87171; padding: 10px 18px; border-radius: 12px; font-weight: bold; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+        .stat-box { background-color: rgba(11, 17, 32, 0.9); border: 1px solid #2d374e; padding: 18px; border-radius: 16px; text-align: center; }
+        .stat-val { font-size: 30px; font-weight: bold; margin-top: 5px; color: #00f2fe; }
+        .model-badge { display: inline-block; padding: 4px 12px; border-radius: 8px; font-size: 13px; font-weight: bold; background: #242b3d; color: #fbbf24; border: 1px solid #fbbf24; }
+        .scenario-tag { display: inline-block; padding: 3px 10px; border-radius: 8px; font-size: 12px; font-weight: bold; background: rgba(157, 78, 221, 0.25); color: #e0aaff; border: 1px solid #9d4edd; margin-left: 8px; }
+        .timer-box { background: rgba(239, 68, 68, 0.2); border: 2px solid #ef4444; color: #f87171; padding: 10px 20px; border-radius: 14px; font-weight: bold; font-size: 16px; display: flex; align-items: center; gap: 8px; animation: neonPulse 2s infinite; }
     </style>
 </head>
 <body>
@@ -51,7 +57,7 @@
         <div class="card header">
             <div>
                 <span class="badge">وكالة الغوث الدولية (UNRWA) - مدرسة ذكور وادي السير الإعدادية</span>
-                <h2 style="margin: 8px 0 0 0; font-size: 21px; color: #fff;">🤖 الواجب البيتي الذكي - المهارات الرقمية (20 علامة)</h2>
+                <h2 style="margin: 8px 0 0 0; font-size: 22px; color: #fff;">🎮 التحدي البيتي الذكي - المهارات الرقمية (20 علامة)</h2>
                 <span style="font-size: 13px; color: #94a3b8;">الصف السابع الأساسي | إعداد المعلم: عامر كراجه</span>
             </div>
             <div>
@@ -63,10 +69,10 @@
         <!-- شاشة الطالب -->
         <div id="view-student">
             <!-- كرت التسجيل واختيار النموذج -->
-            <div id="student-reg-card" class="card" style="text-align: center; max-width: 520px; margin: 0 auto;">
-                <div style="font-size: 50px; margin-bottom: 10px;">💻⚡</div>
-                <h3 style="color: #38bdf8; margin-top: 0; font-size: 22px;">أهلاً بك يا بطل المستقبل 🚀</h3>
-                <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 20px; line-height: 1.6;">⚠️ تنبيه: متاح لك محاولة واحدة فقط مدتها 12 دقيقة للإجابة على الأسئلة الشمولية وسيناريوهات التفكير الناقد!</p>
+            <div id="student-reg-card" class="card" style="text-align: center; max-width: 540px; margin: 0 auto;">
+                <div style="font-size: 55px; margin-bottom: 10px;">⚡🖥️🚀</div>
+                <h3 style="color: #00f2fe; margin-top: 0; font-size: 24px;">أهلاً بك يا بطل المستقبل!</h3>
+                <p style="font-size: 14px; color: #cbd5e1; margin-bottom: 22px; line-height: 1.6;">⚠️ لديك 12 دقيقة لإنجاز 16 سؤالاً وتحدياً ذكياً. تأكد من إجابة كافة الأسئلة قبل التسليم!</p>
 
                 <form onsubmit="startExam(event)">
                     <div class="form-group">
@@ -84,23 +90,23 @@
                     </div>
                     <div class="form-group">
                         <label>نموذج الواجب المحدد:</label>
-                        <select id="select-exam-model" required style="border-color: #06b6d4;">
+                        <select id="select-exam-model" required style="border-color: #00f2fe;">
                             <option value="">اختر النموذج...</option>
-                            <option value="1">النموذج الأول (A - شامل وسيناريوهات ذكية)</option>
-                            <option value="2">النموذج الثاني (B - شامل وسيناريوهات ذكية)</option>
-                            <option value="3">النموذج الثالث (C - شامل وسيناريوهات ذكية)</option>
+                            <option value="1">النموذج الأول (A - تفاعلي ذكي)</option>
+                            <option value="2">النموذج الثاني (B - تفاعلي ذكي)</option>
+                            <option value="3">النموذج الثالث (C - تفاعلي ذكي)</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">بدء الواجب والمؤقت ⚡</button>
+                    <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">بدء التحدي والمؤقت ⚡</button>
                 </form>
             </div>
 
             <!-- رسالة منع المحاولة الثانية -->
             <div id="student-blocked-card" class="card hidden" style="text-align: center; max-width: 520px; margin: 0 auto;">
-                <div style="font-size: 55px;">🛡️</div>
-                <h3 style="color: #ef4444; margin-bottom: 10px; font-size: 20px;">عذراً، لقد قمت بإجراء الواجب مسبقاً!</h3>
-                <p style="font-size: 14px; color: #cbd5e1;">مسموح لك بمحاولة واحدة فقط من هذا الجهاز وتم اعتماد النتيجة.</p>
-                <div style="background-color: #0f172a; border: 1px solid #334155; padding: 18px; border-radius: 16px; margin: 20px 0; text-align: right;">
+                <div style="font-size: 60px;">🛡️</div>
+                <h3 style="color: #ef4444; margin-bottom: 10px; font-size: 22px;">عذراً، لقد أديت الواجب مسبقاً!</h3>
+                <p style="font-size: 14px; color: #cbd5e1;">مسموح لك بمحاولة واحدة فقط من هذا الجهاز وتم حفظ نتيجتك بنجاح.</p>
+                <div style="background-color: #0b1120; border: 1px solid #2d374e; padding: 18px; border-radius: 16px; margin: 20px 0; text-align: right;">
                     <div style="font-size: 14px; color: #94a3b8;" id="blocked-info-name"></div>
                     <div style="font-size: 18px; font-weight: bold; color: #fbbf24; margin-top: 8px;" id="blocked-info-score"></div>
                 </div>
@@ -108,47 +114,46 @@
 
             <!-- منطقة الأسئلة والمؤقت -->
             <div id="student-exam-area" class="card hidden">
-                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 12px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2d374e; padding-bottom: 14px; margin-bottom: 22px; flex-wrap: wrap; gap: 10px;">
                     <div>
-                        <span id="display-student-info" style="font-size: 14px; font-weight: bold; color: #38bdf8;"></span>
+                        <span id="display-student-info" style="font-size: 15px; font-weight: bold; color: #00f2fe;"></span>
                         <span id="display-model-info" class="model-badge" style="margin-right: 10px;"></span>
                     </div>
                     <div class="timer-box">
                         <span>⏳ الوقت المتبقي:</span>
-                        <span id="timer-countdown" style="font-family: monospace; font-size: 18px;">12:00</span>
+                        <span id="timer-countdown" style="font-family: monospace; font-size: 19px;">12:00</span>
                     </div>
                 </div>
 
                 <div id="questions-container"></div>
-                <!-- تم تحويل زر التسليم إلى دالة onclick مباشرة لتجنب أي مشاكل في النماذج -->
-                <button type="button" onclick="submitExamDirect()" class="btn btn-success" style="width: 100%; padding: 16px; font-size: 17px; margin-top: 20px;">تسليم الواجب النهائي 🏁</button>
+                <button type="button" onclick="submitExamDirect()" class="btn btn-success" style="width: 100%; padding: 18px; font-size: 18px; margin-top: 25px;">تسليم الواجب النهائي 🏁</button>
             </div>
 
             <!-- كرت النتيجة -->
-            <div id="student-result-card" class="card hidden" style="text-align: center; max-width: 480px; margin: 0 auto;">
-                <div style="font-size: 55px;">🏆</div>
-                <h3 style="color: #38bdf8; margin-bottom: 8px; font-size: 22px;">أحسنت! تم تسليم الواجب بنجاح</h3>
-                <p id="result-student-name" style="font-size: 15px; font-weight: bold; color: #cbd5e1;"></p>
-                <div style="background-color: #0f172a; border: 2px solid #06b6d4; padding: 22px; border-radius: 18px; margin: 20px 0;">
-                    <span style="font-size: 13px; color: #94a3b8; display: block;">العلامة النهائية في الواجب</span>
-                    <span id="result-score-display" style="font-size: 42px; font-weight: bold; color: #fbbf24;">0 / 20</span>
+            <div id="student-result-card" class="card hidden" style="text-align: center; max-width: 500px; margin: 0 auto;">
+                <div style="font-size: 60px;">🏆</div>
+                <h3 style="color: #00f2fe; margin-bottom: 8px; font-size: 24px;">مبارك! تم تسليم التحدي بنجاح</h3>
+                <p id="result-student-name" style="font-size: 16px; font-weight: bold; color: #cbd5e1;"></p>
+                <div style="background-color: #0b1120; border: 2px solid #00f2fe; padding: 25px; border-radius: 20px; margin: 20px 0;">
+                    <span style="font-size: 14px; color: #94a3b8; display: block;">العلامة النهائية في الواجب</span>
+                    <span id="result-score-display" style="font-size: 45px; font-weight: bold; color: #fbbf24;">0 / 20</span>
                 </div>
-                <p id="result-feedback-msg" style="font-size: 15px; font-weight: bold; line-height: 1.5;"></p>
-                <button onclick="location.reload()" class="btn btn-secondary" style="margin-top: 18px;">خروج / إنهاء 🔄</button>
+                <p id="result-feedback-msg" style="font-size: 16px; font-weight: bold; line-height: 1.5;"></p>
+                <button onclick="location.reload()" class="btn btn-secondary" style="margin-top: 18px;">إنهاء / إغلاق 🔄</button>
             </div>
         </div>
 
         <!-- شاشة المعلم -->
         <div id="view-teacher" class="card hidden">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 15px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2d374e; padding-bottom: 15px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
                 <div>
-                    <h3 style="margin: 0; color: #fbbf24; font-size: 20px;">📊 لوحة المعلم - سجل علامات الواجبات الذكية</h3>
-                    <span style="font-size: 13px; color: #94a3b8;">تصميم المعلم: عامر كراجه</span>
+                    <h3 style="margin: 0; color: #fbbf24; font-size: 20px;">📊 لوحة المعلم - سجل علامات الواجبات السحابية</h3>
+                    <span style="font-size: 13px; color: #94a3b8;">تصميم وإعداد المعلم: عامر كراجه</span>
                 </div>
                 <div>
                     <button onclick="exportScoresExcel()" class="btn btn-success" style="font-size: 13px; padding: 10px 18px;">تصدير إلى Excel 📄</button>
-                    <button onclick="loadTeacherDashboard()" class="btn btn-secondary" style="font-size: 13px; padding: 10px 18px;">تحديث من السحابة 🔄</button>
-                    <button onclick="clearLocalStorageRecords()" class="btn btn-danger" style="font-size: 13px; padding: 10px 18px; margin-right: 5px;">مسح الحظر 🗑️</button>
+                    <button onclick="loadTeacherDashboard()" class="btn btn-secondary" style="font-size: 13px; padding: 10px 18px;">تحديث النتائج 🔄</button>
+                    <button onclick="clearLocalStorageRecords()" class="btn btn-danger" style="font-size: 13px; padding: 10px 18px; margin-right: 5px;">مسح الحظر المحلي 🗑️</button>
                 </div>
             </div>
 
@@ -162,7 +167,7 @@
                     <div id="stat-avg-score" class="stat-val" style="color: #fbbf24;">0 / 20</div>
                 </div>
                 <div class="stat-box">
-                    <span style="font-size: 13px; color: #94a3b8;">نسبة الإنجاز (≥ 10)</span>
+                    <span style="font-size: 13px; color: #94a3b8;">نسبة النجاح (≥ 10)</span>
                     <div id="stat-pass-rate" class="stat-val" style="color: #34d399;">0%</div>
                 </div>
             </div>
@@ -180,14 +185,14 @@
                         </tr>
                     </thead>
                     <tbody id="teacher-scores-tbody">
-                        <tr><td colspan="6" style="text-align: center; color: #38bdf8;">جاري جلب النتائج الحية من سحابة Firebase...</td></tr>
+                        <tr><td colspan="6" style="text-align: center; color: #00f2fe;">جاري جلب النتائج الحية من سحابة Firebase...</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- كود ربط Firebase (Modular SDK) -->
+    <!-- كود ربط Firebase المحدث (Modular SDK) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
@@ -247,60 +252,60 @@
             }
         });
 
-        // بنك الأسئلة الشامل (16 سؤالاً لكل نموذج)
+        // بنك الأسئلة الشامل المعدل (16 سؤالاً لكل نموذج مع توزيع متوازن للإجابات الصحيحة)
         const examModels = {
             "1": [
-                { id: 1, marks: 1, title: "س 1 (اختر - بصري):", question: "تأمل الشكل التوضيحي للمكون المسؤول عن معالجة البيانات وإجراء العمليات الحسابية والمنطقية (دماغ الحاسوب):", visual: "🖥️ [ وحدة المعالجة المركزية CPU ] 🧠", options: ["وحدة المعالجة المركزية (CPU)", "القرص الصلب", "ذاكرة القراءة ROM", "لوحة المفاتيح"], correct: 0 },
+                { id: 1, marks: 1, title: "س 1 (اختر - بصري):", question: "تأمل الشكل التوضيحي للمكون المسؤول عن معالجة البيانات وإجراء العمليات الحسابية والمنطقية (دماغ الحاسوب):", visual: "🖥️ [ وحدة المعالجة المركزية CPU ] 🧠", options: ["القرص الصلب", "وحدة المعالجة المركزية (CPU)", "ذاكرة القراءة ROM", "لوحة المفاتيح"], correct: 1 },
                 { id: 2, marks: 1, title: "س 2 (صح وخطأ):", question: "البيانات هي معلومات تم تنظيمها وتحليلها لتصبح ذات معنى واضح.", options: ["صح", "خطأ"], correct: 1 },
-                { id: 3, marks: 1, title: "س 3 (أكمل الفراغ):", question: "الحاسوب ذو القدرة الهائلة المستخدم في مراكز الأبحاث الكبرى والتنبؤ بالطقس يُسمى الحاسوب الـ ......", options: ["المدمج", "الفائق (Supercomputer)", "المكتبي", "الشخصي"], correct: 1 },
-                { id: 4, marks: 1, title: "س 4 (فسر):", question: "لماذا تُعتبر ذاكرة الوصول العشوائي (RAM) ذاكرة مؤقتة؟", options: ["لأنها تفقد محتوياتها فور انقطاع الكهرباء", "لأنها تحتفظ بالملفات للأبد", "لأنها بطيئة جداً", "لأنها تخص الصوت فقط"], correct: 0 },
-                { id: 5, marks: 1.5, title: "س 5 (سيناريو واقعي 1):", isScenario: true, question: "كان زميلك أحمد يكتب بحثاً مدرسياً على حاسوب المختبر، وفجأة انقطع التيار الكهربائي قبل أن يحفظ الملف. عندما أعدنا تشغيل الجهاز لم يجد البحث! ما المكون المسؤول عن هذا الفقدان وكيف يتجنب ذلك مستقبلاً؟", options: ["السبب ذاكرة ROM، ويتجنب ذلك بشراء شاشة جديدة", "السبب ذاكرة RAM لأنها مؤقتة، ويتجنب ذلك بالنقر المستمر على حفظ (Save) على القرص الصلب", "السبب لوحة المفاتيح، ويتجنب ذلك بالكتابة بشكل أسرع", "السبب نظام التشغيل ويندوز"], correct: 1 },
+                { id: 3, marks: 1, title: "س 3 (أكمل الفراغ):", question: "الحاسوب ذو القدرة الهائلة المستخدم في مراكز الأبحاث الكبرى والتنبؤ بالطقس يُسمى الحاسوب الـ ......", options: ["المدمج", "المكتبي", "الفائق (Supercomputer)", "الشخصي"], correct: 2 },
+                { id: 4, marks: 1, title: "س 4 (فسر):", question: "لماذا تُعتبر ذاكرة الوصول العشوائي (RAM) ذاكرة مؤقتة؟", options: ["لأنها تحتفظ بالملفات للأبد", "لأنها بطيئة جداً", "لأنها تفقد محتوياتها فور انقطاع الكهرباء", "لأنها تخص الصوت فقط"], correct: 2 },
+                { id: 5, marks: 1.5, title: "س 5 (سيناريو واقعي 1):", isScenario: true, question: "كان زميلك أحمد يكتب بحثاً مدرسياً على حاسوب المختبر، وفجأة انقطع التيار الكهربائي قبل أن يحفظ الملف. عندما أعدنا تشغيل الجهاز لم يجد البحث! ما المكون المسؤول عن هذا الفقدان وكيف يتجنب ذلك مستقبلاً؟", options: ["السبب ذاكرة ROM، ويتجنب ذلك بشراء شاشة جديدة", "السبب لوحة المفاتيح، ويتجنب ذلك بالكتابة بشكل أسرع", "السبب نظام التشغيل ويندوز", "السبب ذاكرة RAM لأنها مؤقتة، ويتجنب ذلك بالنقر المستمر على حفظ (Save) على القرص الصلب"], correct: 3 },
                 { id: 6, marks: 1.5, title: "س 6 (سيناريو واقعي 2):", isScenario: true, question: "أراد والدك شراء حاسوب لمهندس معماري يحتاج إلى تشغيل برامج رسم ثلاثية الأبعاد ثقيلة جداً. أي المواصفات التالية هي الأكثر أهمية للنصح بها؟", options: ["سعة ذاكرة RAM عالية (16GB فأكثر) ومعالج CPU قوي بطاقة شاشة منفصلة", "شاشة كبيرة فقط بدون الاهتمام بالمعالج", "حاسوب مدمج مثل الموجود في الغسالة", "ذاكرة ROM كبيرة فقط"], correct: 0 },
                 { id: 7, marks: 1.5, title: "س 7 (سيناريو واقعي 3):", isScenario: true, question: "أثناء دراستك على منصة المدرسة الإلكترونية، ظهرت لك نافذة منبثقة ملونة تقول: 'لقد فزت بهاتف ذكي! اضغط هنا وأدخل كلمة مرور حسابك المدرسي لتستلم الجائزة'. كيف تتصرف بحكمة؟", options: ["أدخل كلمة المرور فوراً لأحصل على الهاتف", "أغلق النافذة فوراً ولا أشارك كلمة مروري أبداً لحماية حسابي من الاختراق", "أرسل الرابط لجميع أصدقائي في الصف", "أعطي كلمة المرور لزميلي ليجرب بدلاً مني"], correct: 1 },
-                { id: 8, marks: 1.5, title: "س 8 (سيناريو واقعي 4):", isScenario: true, question: "أقامت المدرسة حصة افتراضية عبر الإنترنت، لكن صوت المعلم كان يتقطع والتطبيق يتوقف باستمرار رغم أن الجهاز جديد. قام معلم الحاسوب بإغلاق 10 تطبيقات كانت تعمل في الخلفية فعاد الصوت واضحاً! فسر ما حدث:", options: ["التطبيقات الكثيرة كانت تستهلك سعة ذاكرة RAM والمعالج مما أبطأ الجهاز", "الطابعة كانت مطفأة", "نظام التشغيل كان بحاجة لإعادة تثبيت", "الشاشة كانت غير نظيفة"], correct: 0 },
-                { id: 9, marks: 1, title: "س 9 (برمجيات):", question: "نظام التشغيل (Windows) يُصنف ضمن:", options: ["برمجيات النظام (System Software)", "البرامج التطبيقية", "أدوات الإدخال", "التخزين الخارجي"], correct: 0 },
-                { id: 10, marks: 1, title: "س 10 (مواطنة رقمية):", question: "التصرف الصحيح عند الانتهاء من استخدام حاسوب مشترك هو:", options: ["ترك الحساب مفتوحاً", "حفظ كلمة المرور بالمتصفح", "تسجيل الخروج من الحسابات وإغلاق الجهاز أصولاً", "تنزيل برامج غريبة"], correct: 2 },
-                { id: 11, marks: 1, title: "س 11 (مبدأ عمل):", question: "المرحلة الأولى من مراحل عمل الحاسوب الأساسية هي:", options: ["الإخراج", "الإدخال (Input)", "المعالجة", "التخزين"], correct: 1 },
+                { id: 8, marks: 1.5, title: "س 8 (سيناريو واقعي 4):", isScenario: true, question: "أقامت المدرسة حصة افتراضية عبر الإنترنت، لكن صوت المعلم كان يتقطع والتطبيق يتوقف باستمرار رغم أن الجهاز جديد. قام معلم الحاسوب بإغلاق 10 تطبيقات كانت تعمل في الخلفية فعاد الصوت واضحاً! فسر ما حدث:", options: ["الطابعة كانت مطفأة", "التطبيقات الكثيرة كانت تستهلك سعة ذاكرة RAM والمعالج مما أبطأ الجهاز", "نظام التشغيل كان بحاجة لإعادة تثبيت", "الشاشة كانت غير نظيفة"], correct: 1 },
+                { id: 9, marks: 1, title: "س 9 (برمجيات):", question: "نظام التشغيل (Windows) يُصنف ضمن:", options: ["البرامج التطبيقية", "برمجيات النظام (System Software)", "أدوات الإدخال", "التخزين الخارجي"], correct: 1 },
+                { id: 10, marks: 1, title: "س 10 (مواطنة رقمية):", question: "التصرف الصحيح عند الانتهاء من استخدام حاسوب مشترك هو:", options: ["ترك الحساب مفتوحاً", "حفظ كلمة المرور بالمتصفح", "تنزيل برامج غريبة", "تسجيل الخروج من الحسابات وإغلاق الجهاز أصولاً"], correct: 3 },
+                { id: 11, marks: 1, title: "س 11 (مبدأ عمل):", question: "المرحلة الأولى من مراحل عمل الحاسوب الأساسية هي:", options: ["الإدخال (Input)", "الإخراج", "المعالجة", "التخزين"], correct: 0 },
                 { id: 12, marks: 1, title: "س 12 (ذاكرة ROM):", question: "ذاكرة تحتفظ بتعليمات التشغيل الأساسية ولا تتأثر بانقطاع الكهرباء:", options: ["RAM", "ROM", "Cache", "Buffer"], correct: 1 },
-                { id: 13, marks: 1, title: "س 13 (تطبيقات):", question: "أي مما يلي يُعد مثالاً على البرمجيات التطبيقية؟", options: ["برنامج الرسام (Paint)", "نظام Windows", "نظام Linux", "مشغل التعريفات"], correct: 0 },
-                { id: 14, marks: 1, title: "س 14 (إدخال وإخراج):", question: "لوحة المفاتيح تعتبر وحدة:", options: ["إدخال", "إخراج", "تخزين", "معالجة"], correct: 0 },
+                { id: 13, marks: 1, title: "س 13 (تطبيقات):", question: "أي مما يلي يُعد مثالاً على البرمجيات التطبيقية؟", options: ["نظام Windows", "نظام Linux", "برنامج الرسام (Paint)", "مشغل التعريفات"], correct: 2 },
+                { id: 14, marks: 1, title: "س 14 (إدخال وإخراج):", question: "لوحة المفاتيح تعتبر وحدة:", options: ["إخراج", "إدخال", "تخزين", "معالجة"], correct: 1 },
                 { id: 15, marks: 1, title: "س 15 (تفكير ناقد):", question: "عند انقطاع التيار الكهربائي فجأة، البيانات غير المحفوظة تفقد من:", options: ["القرص الصلب", "ذاكرة الوصول العشوائي RAM", "ذاكرة ROM", "اللوحة الأم"], correct: 1 },
                 { id: 16, marks: 1, title: "س 16 (حواسيب مدمجة):", question: "المعالج المصغر داخل الغسالة الأوتوماتيكية يسمى:", options: ["حاسوب مدمج", "حاسوب فائق", "خادم رئيسي", "حاسوب محمول"], correct: 0 }
             ],
             "2": [
-                { id: 1, marks: 1, title: "س 1 (اختر - بصري):", question: "تأمل الرسم التوضيحي لجهاز مصغر داخل آلة أوتوماتيكية لأداء وظيفة محددة:", visual: "⚙️ [ شريحة الحاسوب المدمج Embedded Chip ] 🔄", options: ["الحاسوب المدمج (Embedded)", "الحاسوب المركزي", "الحاسوب المكتبي", "الشاشة الذكية"], correct: 0 },
+                { id: 1, marks: 1, title: "س 1 (اختر - بصري):", question: "تأمل الرسم التوضيحي لجهاز مصغر داخل آلة أوتوماتيكية لأداء وظيفة محددة:", visual: "⚙️ [ شريحة الحاسوب المدمج Embedded Chip ] 🔄", options: ["الحاسوب المركزي", "الحاسوب المكتبي", "الحاسوب المدمج (Embedded)", "الشاشة الذكية"], correct: 2 },
                 { id: 2, marks: 1, title: "س 2 (صح وخطأ):", question: "نظام التشغيل يعد الوسيط البرمجي بين المستخدم والمكونات المادية للحاسوب.", options: ["صح", "خطأ"], correct: 0 },
                 { id: 3, marks: 1, title: "س 3 (أكمل الفراغ):", question: "الذاكرة التي تحتفظ بتعليمات الإقلاع الأساسية ولا تفقد محتوياتها عند إطفاء الجهاز هي ذاكرة الـ ......", options: ["RAM", "ROM", "Cache", "Flash"], correct: 1 },
-                { id: 4, marks: 1, title: "س 4 (فسر):", question: "لماذا تلجأ البنوك الكبرى لاستخدام الحواسيب المركزية (Mainframe)؟", options: ["لقدرتها على معالجة آلاف المعاملات لمستخدمين كثر بنفس الوقت", "لصغر حجمها", "لرخص ثمنها", "لأنها لا تحتاج كهرباء"], correct: 0 },
-                { id: 5, marks: 1.5, title: "س 5 (سيناريو واقعي 1):", isScenario: true, question: "قامت مريم بإنشاء جدول لمواعيد الاختبارات في برنامج MS Word، ثم قامت بتنسيق الألوان وطباعته على الورق. حدد الترتيب الوظيفي الصحيح الذي قامت به أجزاء الحاسوب أثناء عمل مريم:", options: ["إدخال عبر لوحة المفاتيح ➔ معالجة بالـ CPU وتخزين مؤقت في RAM ➔ إخراج عبر الطابعة", "إخراج عبر الشاشة ➔ إدخال عبر الطابعة ➔ معالجة بالقرص الصلب", "معالجة بالطابعة ➔ إدخال بالفأرة ➔ تخزين بالـ ROM", "تخزين باللوحة الأم ➔ إخراج بالمعالج"], correct: 0 },
-                { id: 6, marks: 1.5, title: "س 6 (سيناريو واقعي 2):", isScenario: true, question: "اشترت عائلة خالد جهاز تكييف حديث ينظم درجة حرارة الغرفة تلقائياً حسب الجو الخارجي دون تدخل إنسان. ما نوع الحاسوب الموجود داخل التكييف؟", options: ["حاسوب فائق", "حاسوب مدمج (Embedded Computer)", "حاسوب مكتبي", "خادم شبكة"], correct: 1 },
+                { id: 4, marks: 1, title: "س 4 (فسر):", question: "لماذا تلجأ البنوك الكبرى لاستخدام الحواسيب المركزية (Mainframe)؟", options: ["صغر حجمها ورخص ثمنها", "لقدرتها على معالجة آلاف المعاملات لمستخدمين كثر بنفس الوقت", "لأنها لا تحتاج كهرباء", "لأنها تعمل بالبطارية فقط"], correct: 1 },
+                { id: 5, marks: 1.5, title: "س 5 (سيناريو واقعي 1):", isScenario: true, question: "قامت مريم بإنشاء جدول لمواعيد الاختبارات في برنامج MS Word، ثم قامت بتنسيق الألوان وطباعته على الورق. حدد الترتيب الوظيفي الصحيح الذي قامت به أجزاء الحاسوب أثناء عمل مريم:", options: ["إخراج عبر الشاشة ➔ إدخال عبر الطابعة ➔ معالجة بالقرص الصلب", "إدخال عبر لوحة المفاتيح ➔ معالجة بالـ CPU وتخزين مؤقت في RAM ➔ إخراج عبر الطابعة", "معالجة بالطابعة ➔ إدخال بالفأرة ➔ تخزين بالـ ROM", "تخزين باللوحة الأم ➔ إخراج بالمعالج"], correct: 1 },
+                { id: 6, marks: 1.5, title: "س 6 (سيناريو واقعي 2):", isScenario: true, question: "اشترت عائلة خالد جهاز تكييف حديث ينظم درجة حرارة الغرفة تلقائياً حسب الجو الخارجي دون تدخل إنسان. ما نوع الحاسوب الموجود داخل التكييف؟", options: ["حاسوب فائق", "حاسوب مكتبي", "حاسوب مدمج (Embedded Computer)", "خادم شبكة"], correct: 2 },
                 { id: 7, marks: 1.5, title: "س 7 (سيناريو واقعي 3):", isScenario: true, question: "لاحظ معلم المهارات الرقمية أن أحد الطلاب ترك حسابه المنصي المدرسية مفتوحاً على حاسوب المختبر وغادر الصف. ما هو السلوك الأخلاقي الصحيح الذي يجب على الطالب التالي فعله؟", options: ["استغلال الحساب وتغيير كلمة مرور زميله", "تسجيل الخروج من حساب زميله بهدوء وإبلاغ المعلم لحمايته", "تصفح رسائل زميله الشخصية", "إبقاء الحساب مفتوحاً واللعب به"], correct: 1 },
-                { id: 8, marks: 1.5, title: "س 8 (سيناريو واقعي 4):", isScenario: true, question: "يريد المركز الوطني للأرصاد الجوية حساب ملايين الاحتمالات اليومية لحركة الرياح والأمطار وتوقع الطقس للأسبوع القادم. أي أنواع الحواسيب هو الوحيد القادر على ذلك؟", options: ["الحاسوب الفائق (Supercomputer)", "الحاسوب المدمج", "الهاتف المحمول", "الحاسوب المكتبي العادي"], correct: 0 },
-                { id: 9, marks: 1, title: "س 9 (تطبيقات):", question: "أي من البرامج التالية يُعتبر برنامجاً تطبيقياً (Application)؟", options: ["برنامج معالج النصوص MS Word", "نظام Windows", "نظام Linux", "نظام Android"], correct: 0 },
-                { id: 10, marks: 1, title: "س 10 (أمان رقمي):", question: "من قواعد الحفاظ على سرية حسابك المدرسي:", options: ["مشاركة كلمة المرور", "استخدام كلمة مرور قوية وعدم إعطائها لأحد", "كتابة الباسورد على الطاولة", "ترك الحساب مفتوحاً"], correct: 1 },
-                { id: 11, marks: 1, title: "س 11 (ترتيب العمليات):", question: "التسلسل الصحيح لمراحل عمل الحاسوب هو:", options: ["إخراج ➔ معالجة ➔ إدخال", "إدخال ➔ معالجة ➔ إخراج", "تخزين ➔ إخراج ➔ معالجة", "معالجة ➔ تخزين"], correct: 1 },
-                { id: 12, marks: 1, title: "س 12 (تعريفات):", question: "الأرقام والحقائق الخام التي لم يتم معالجتها تسمى:", options: ["معلومات", "بيانات (Data)", "تقارير", "برمجيات"], correct: 1 },
+                { id: 8, marks: 1.5, title: "س 8 (سيناريو واقعي 4):", isScenario: true, question: "يريد المركز الوطني للأرصاد الجوية حساب ملايين الاحتمالات اليومية لحركة الرياح والأمطار وتوقع الطقس للأسبوع القادم. أي أنواع الحواسيب هو الوحيد القادر على ذلك؟", options: ["الحاسوب المدمج", "الهاتف المحمول", "الحاسوب الفائق (Supercomputer)", "الحاسوب المكتبي العادي"], correct: 2 },
+                { id: 9, marks: 1, title: "س 9 (تطبيقات):", question: "أي من البرامج التالية يُعتبر برنامجاً تطبيقياً (Application)؟", options: ["نظام Windows", "برنامج معالج النصوص MS Word", "نظام Linux", "نظام Android"], correct: 1 },
+                { id: 10, marks: 1, title: "س 10 (أمان رقمي):", question: "من قواعد الحفاظ على سرية حسابك المدرسي:", options: ["مشاركة كلمة المرور", "كتابة الباسورد على الطاولة", "استخدام كلمة مرور قوية وعدم إعطائها لأحد", "ترك الحساب مفتوحاً"], correct: 2 },
+                { id: 11, marks: 1, title: "س 11 (ترتيب العمليات):", question: "التسلسل الصحيح لمراحل عمل الحاسوب هو:", options: ["إخراج ➔ معالجة ➔ إدخال", "تخزين ➔ إخراج ➔ معالجة", "إدخال ➔ معالجة ➔ إخراج", "معالجة ➔ تخزين"], correct: 2 },
+                { id: 12, marks: 1, title: "س 12 (تعريفات):", question: "الأرقام والحقائق الخام التي لم يتم معالجتها تسمى:", options: ["معلومات", "تقارير", "بيانات (Data)", "برمجيات"], correct: 2 },
                 { id: 13, marks: 1, title: "س 13 (أجهزة إخراج):", question: "الشاشة (Monitor) تعتبر وحدة:", options: ["إدخال", "إخراج", "تخزين", "معالجة"], correct: 1 },
                 { id: 14, marks: 1, title: "س 14 (سرعة الجهاز):", question: "تؤثر سعة ذاكرة الوصول العشوائي RAM مباشرة على:", options: ["سرعة تنفيذ التطبيقات وتعدد المهام", "لون الشاشة الخارجي", "حجم لوحة المفاتيح", "سرعة الإنترنت"], correct: 0 },
-                { id: 15, marks: 1, title: "س 15 (برمجيات النظام):", question: "أي مما يلي يعتبر جزءاً من برمجيات النظام؟", options: ["أنظمة التشغيل", "الألعاب الترفيهية", "برامج الرسم", "متصفحات الصور"], correct: 0 },
+                { id: 15, marks: 1, title: "س 15 (برمجيات النظام):", question: "أي مما يلي يعتبر جزءاً من برمجيات النظام؟", options: ["الألعاب الترفيهية", "أنظمة التشغيل", "برامج الرسم", "متصفحات الصور"], correct: 1 },
                 { id: 16, marks: 1, title: "س 16 (حواسيب شخصية):", question: "الحاسوب المكتبي (Desktop) يُصنف ضمن الحواسيب:", options: ["الشخصية", "الفائقة", "المركزية", "المدمجة"], correct: 0 }
             ],
             "3": [
-                { id: 1, marks: 1, title: "س 1 (اختر - بصري):", question: "تأمل الرسم التوضيحي لوحدة الإخراج التي تترجم النتائج الرقمية إلى ورق مطبوع:", visual: "🖨️ [ طابعة المستندات والرسومات Printer Output ] 📄", options: ["وحدة الإخراج (الطابعة)", "وحدة الإدخال", "المعالج", "القرص الصلب"], correct: 0 },
+                { id: 1, marks: 1, title: "س 1 (اختر - بصري):", question: "تأمل الرسم التوضيحي لوحدة الإخراج التي تترجم النتائج الرقمية إلى ورق مطبوع:", visual: "🖨️ [ طابعة المستندات والرسومات Printer Output ] 📄", options: ["وحدة الإدخال", "وحدة الإخراج (الطابعة)", "المعالج", "القرص الصلب"], correct: 1 },
                 { id: 2, marks: 1, title: "س 2 (صح وخطأ):", question: "علامات الطلبة المدونة بشكل عشوائي قبل ترتيبها وتحليلها تُسمى معلومات.", options: ["صح", "خطأ"], correct: 1 },
-                { id: 3, marks: 1, title: "س 3 (أكمل الفراغ):", question: "تؤثر زيادة سعة ذاكرة الوصول العشوائي (......) مباشرة على سرعة تنفيذ البرامج.", options: ["RAM", "ROM", "CPU", "USB"], correct: 0 },
+                { id: 3, marks: 1, title: "س 3 (أكمل الفراغ):", question: "تؤثر زيادة سعة ذاكرة الوصول العشوائي (......) مباشرة على سرعة تنفيذ البرامج.", options: ["ROM", "CPU", "RAM", "USB"], correct: 2 },
                 { id: 4, marks: 1, title: "س 4 (فسر):", question: "لماذا تعد الغسالة الأوتوماتيكية مثالاً على الحواسيب المدمجة؟", options: ["لأنها تحتوي معالجاً مصغراً للتحكم بدورة الغسيل فقط", "لأنها تستخدم لتصفح الإنترنت", "لأنها تحتاج شاشة ضخمة", "لأنها حاسوب فائق"], correct: 0 },
-                { id: 5, marks: 1.5, title: "س 5 (سيناريو واقعي 1):", isScenario: true, question: "يقوم البنك العربي بالتعامل مع أكثر من 50,000 عملية سحب وإيداع مالي في نفس الدقيقة من مختلف المحافظات. ما نوع نظام الحاسوب المركزي الـ (Mainframe) الذي يضمن عدم تضارب هذه العمليات؟", options: ["حاسوب ذو قدرة معالجة مركزية ضخمة يدعم آلاف المستخدمين بالتوازي", "حاسوب محمول عريض الشاشة", "مجموعة هواتف ذكية متصلة ببعضها", "حاسوب مدمج مثل الموجود بالسيارات"], correct: 0 },
+                { id: 5, marks: 1.5, title: "س 5 (سيناريو واقعي 1):", isScenario: true, question: "يقوم البنك العربي بالتعامل مع أكثر من 50,000 عملية سحب وإيداع مالي في نفس الدقيقة من مختلف المحافظات. ما نوع نظام الحاسوب المركزي الـ (Mainframe) الذي يضمن عدم تضارب هذه العمليات؟", options: ["حاسوب محمول عريض الشاشة", "حاسوب ذو قدرة معالجة مركزية ضخمة يدعم آلاف المستخدمين بالتوازي", "مجموعة هواتف ذكية متصلة ببعضها", "حاسوب مدمج مثل الموجود بالسيارات"], correct: 1 },
                 { id: 6, marks: 1.5, title: "س 6 (سيناريو واقعي 2):", isScenario: true, question: "أدخل يوسف قرص فلاش (USB) في حاسوب المكتبة الوطنية لنقل ملف، فظهرت رسالة من نظام التشغيل: 'تم اكتشاف تهديد أمني محتمل وتم عزله'. من المسؤول عن هذا الإجراء؟", options: ["برنامج حماية مدمج يعمل تحت مظلة نظام التشغيل (System Software)", "برنامج معالج النصوص MS Word", "لوحة المفاتيح", "ذاكرة ROM"], correct: 0 },
-                { id: 7, marks: 1.5, title: "س 7 (سيناريو واقعي 3):", isScenario: true, question: "طُلب منك التمييز بين (البيانات) و(المعلومات) في مدرستك. أي من الخيارات التالية يُعتبر (معلومات مفيدة)؟", options: ["تقرير ينبئ بـ 'ارتفاع نسبة التفوق في المهارات الرقمية لـ 85% هذا الشهر'", "قائمة أرقام هواتف غير معنونة", "أسماء طلاب عشوائية دون شعب", "رموز وأرقام مبهمة"], correct: 0 },
-                { id: 8, marks: 1.5, title: "س 8 (سيناريو واقعي 4):", isScenario: true, question: "سأل طارق أستاذه: 'لماذا يباع الحاسوب الذي يحتوي على قرص SSD بسعر أعلى ويكون أسرع في تشغيل الويندوز من القرص الصلب العادي HDD؟'. أجام الأستاذ لأن وحدة التخزين الحديثة أسرع في:", options: ["قراءة ونقل البيانات إلى الذاكرة والمعالج أثناء الإقلاع", "تكبير حجم الشاشة", "زيادة شدة الصوت", "توفير الحبر بالطابعة"], correct: 0 },
-                { id: 9, marks: 1, title: "س 9 (تكامل وظيفي):", question: "عند النقر على زر طباعة تقرير، ما المسؤول عن تنسيق وإرسال الأمر للطابعة؟", options: ["نظام التشغيل (برمجيات النظام)", "السماعات", "الشاشة وحدها", "لوحة المفاتيح"], correct: 0 },
+                { id: 7, marks: 1.5, title: "س 7 (سيناريو واقعي 3):", isScenario: true, question: "طُلب منك التمييز بين (البيانات) و(المعلومات) في مدرستك. أي من الخيارات التالية يُعتبر (معلومات مفيدة)؟", options: ["قائمة أرقام هواتف غير معنونة", "أسماء طلاب عشوائية دون شعب", "تقرير ينبئ بـ 'ارتفاع نسبة التفوق في المهارات الرقمية لـ 85% هذا الشهر'", "رموز وأرقام مبهمة"], correct: 2 },
+                { id: 8, marks: 1.5, title: "س 8 (سيناريو واقعي 4):", isScenario: true, question: "سأل طارق أستاذه: 'لماذا يباع الحاسوب الذي يحتوي على قرص SSD بسعر أعلى ويكون أسرع في تشغيل الويندوز من القرص الصلب العادي HDD؟'. أجاب الأستاذ لأن وحدة التخزين الحديثة أسرع في:", options: ["تكبير حجم الشاشة", "زيادة شدة الصوت", "قراءة ونقل البيانات إلى الذاكرة والمعالج أثناء الإقلاع", "توفير الحبر بالطابعة"], correct: 2 },
+                { id: 9, marks: 1, title: "س 9 (تكامل وظيفي):", question: "عند النقر على زر طباعة تقرير، ما المسؤول عن تنسيق وإرسال الأمر للطابعة؟", options: ["السماعات", "نظام التشغيل (برمجيات النظام)", "الشاشة وحدها", "لوحة المفاتيح"], correct: 1 },
                 { id: 10, marks: 1, title: "س 10 (أمان):", question: "من قواعد الحفاظ على الخصوصية الرقمية:", options: ["مشاركة كلمة المرور مع الجميع", "عدم حفظ كلمات المرور على الأجهزة المشتركة", "تنزيل برامج غير موثوقة", "ترك الحساب مفتوحاً"], correct: 1 },
                 { id: 11, marks: 1, title: "س 11 (حواسيب فائقة):", question: "تُستخدم الحواسيب الفائقة في:", options: ["التنبؤ بالطقس والأبحاث العلمية المعقدة", "كتابة النصوص المدرسية البسيطة", "الألعاب الخفيفة", "تصفح البريد فقط"], correct: 0 },
-                { id: 12, marks: 1, title: "س 12 (تعريف المعلومات):", question: "البيانات بعد معالجتها وتنظيمها تصبح:", options: ["معلومات (Information)", "أرقاماً خاماً", "أخطاء برمجية", "ملفات تالفة"], correct: 0 },
+                { id: 12, marks: 1, title: "س 12 (تعريف المعلومات):", question: "البيانات بعد معالجتها وتنظيمها تصبح:", options: ["أرقاماً خاماً", "أخطاء برمجية", "معلومات (Information)", "ملفات تالفة"], correct: 2 },
                 { id: 13, marks: 1, title: "س 13 (التخزين الثانوي):", question: "القرص الصلب (Hard Disk) يُستخدم بشكل أساسي في:", options: ["التخزين دائم السعة والاحتفاظ بالملفات", "المعالجة السريعة المؤقتة", "إدخال النصوص", "عرض الصور"], correct: 0 },
-                { id: 14, marks: 1, title: "س 14 (مكونات مادية):", question: "أية وحدة تعتبر من وحدات الإدخال الأساسية:", options: ["الفأرة (Mouse)", "الطابعة", "السماعة", "العارض الضوئي"], correct: 0 },
-                { id: 15, marks: 1, title: "س 15 (برمجيات):", question: "برامج العروض التقديمية (PowerPoint) تعتبر:", options: ["برمجيات تطبيقية", "برمجيات نظام", "أجزاء مادية صلبة", "ذاكرة تخزين"], correct: 0 },
+                { id: 14, marks: 1, title: "س 14 (مكونات مادية):", question: "أية وحدة تعتبر من وحدات الإدخال الأساسية:", options: ["الطابعة", "الفأرة (Mouse)", "السماعة", "العارض الضوئي"], correct: 1 },
+                { id: 15, marks: 1, title: "س 15 (برمجيات):", question: "برامج العروض التقديمية (PowerPoint) تعتبر:", options: ["برمجيات نظام", "أجزاء مادية صلبة", "برمجيات تطبيقية", "ذاكرة تخزين"], correct: 2 },
                 { id: 16, marks: 1, title: "س 16 (استخدامات الحاسوب):", question: "المؤسسات الكبرى كالبنوك تستخدم:", options: ["الحواسيب المركزية Mainframe", "الحواسيب اللوحية فقط", "الأجهزة المدمجة البسيطة", "الساعات الذكية"], correct: 0 }
             ]
         };
@@ -317,15 +322,16 @@
             questions.forEach((q) => {
                 const card = document.createElement('div');
                 card.className = "question-card";
+                card.id = `q_card_${q.id}`;
                 card.innerHTML = `
                     <div class="question-header">
                         <div>
                             <span>${q.title}</span>
                             ${q.isScenario ? `<span class="scenario-tag">💡 سيناريو تفكير ناقد</span>` : ''}
                         </div>
-                        <span class="badge" style="background: rgba(6,182,212,0.15); color: #22d3ee;">${q.marks} علامات</span>
+                        <span class="badge" style="background: rgba(0, 242, 254, 0.15); color: #00f2fe; border: 1px solid #00f2fe;">${q.marks} علامة</span>
                     </div>
-                    <p style="font-size: 16px; font-weight: bold; margin: 8px 0 12px 0; line-height: 1.6; color: #fff;">${q.question}</p>
+                    <p style="font-size: 17px; font-weight: bold; margin: 8px 0 12px 0; line-height: 1.6; color: #fff;">${q.question}</p>
                     ${q.visual ? `<div class="visual-box">${q.visual}</div>` : ''}
                     <div>
                         ${q.options.map((opt, optIdx) => `
@@ -346,7 +352,7 @@
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
                     alert("انتهى الوقت المحدد للواجب (12 دقيقة)! سيتم تسليم إجاباتك تلقائياً.");
-                    submitExamDirect();
+                    submitExamDirect(true);
                 } else {
                     timeLeft--;
                     const minutes = Math.floor(timeLeft / 60);
@@ -384,18 +390,20 @@
             }
         }
 
-        // دالة التسليم المباشر الآمنة لتجنب أي تعليق في الزر
-        function submitExamDirect() {
+        // دالة التسليم المباشر والآمنة
+        function submitExamDirect(forceSubmit = false) {
             const questions = examModels[currentStudent.model];
             
-            // التحقق من إجابة جميع الأسئلة
-            for (let q of questions) {
-                const checked = document.querySelector(`input[name="q_${q.id}"]:checked`);
-                if (!checked) {
-                    alert(`⚠️ تنبيه: يرجى الإجابة على السؤال رقم (${q.id}) قبل تسليم الواجب النهائي.`);
-                    const el = document.querySelector(`input[name="q_${q.id}"]`);
-                    if (el) el.closest('.question-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    return;
+            if (!forceSubmit) {
+                // التأكد من إجابة جميع الأسئلة
+                for (let q of questions) {
+                    const checked = document.querySelector(`input[name="q_${q.id}"]:checked`);
+                    if (!checked) {
+                        alert(`⚠️ تنبيه: يرجى الإجابة على السؤال رقم (${q.id}) قبل تسليم الواجب النهائي.`);
+                        const cardEl = document.getElementById(`q_card_${q.id}`);
+                        if (cardEl) cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        return;
+                    }
                 }
             }
 
@@ -419,10 +427,10 @@
                 time: timeNow
             };
 
-            // قيد منع تكرار المحاولة محلياً
+            // قيد حظر إعادة المحاولة
             localStorage.setItem('unrwa_exam_submitted_v1', JSON.stringify(record));
 
-            // الحفظ السحابي في Firebase
+            // الحفظ السحابي
             if (window.saveRecordToFirebase) {
                 window.saveRecordToFirebase(record);
             }
@@ -433,10 +441,10 @@
             
             const msgEl = document.getElementById('result-feedback-msg');
             if (totalScore >= 16) {
-                msgEl.innerText = "🌟 ممتاز جداً! أداء متميز ورائع في حل سيناريوهات الواجب الذكي.";
+                msgEl.innerText = "🌟 ممتاز جداً! أداء متميز ورائع في حل سيناريوهات التحدي الذكي.";
                 msgEl.style.color = "#34d399";
             } else if (totalScore >= 10) {
-                msgEl.innerText = "👍 جيد جداً! أداء طيب ومقبول، استمر في التقدم.";
+                msgEl.innerText = "👍 جيد جداً! أداء طيب ومقبول، استمر في التقدم والتعلم.";
                 msgEl.style.color = "#38bdf8";
             } else {
                 msgEl.innerText = "⚠️ بحاجة لمراجعة المفاهيم النظرية وسيناريوهات الكتاب المدرسي.";
@@ -473,7 +481,7 @@
 
         async function loadTeacherDashboard() {
             const tbody = document.getElementById('teacher-scores-tbody');
-            tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #38bdf8;">جاري جلب النتائج من السحابة...</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #00f2fe;">جاري جلب النتائج من السحابة...</td></tr>`;
 
             if (!window.fetchRecordsFromFirebase) {
                 tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #ef4444;">تعذر الاتصال بقاعدة البيانات.</td></tr>`;
@@ -539,7 +547,7 @@
             if (confirm("هل أنت متأكد من مسح قيد منع المحاولة وحذف الذاكرة المؤقتة من هذا الجهاز؟")) {
                 localStorage.removeItem('unrwa_exam_submitted_v1');
                 localStorage.removeItem('offline_backup_scores');
-                alert("تمت مسح قيود الجهاز بنجاح.");
+                alert("تم مسح قيود الجهاز بنجاح.");
                 loadTeacherDashboard();
             }
         }
