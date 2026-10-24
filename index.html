@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الواجب البيتي المحوسب - المهارات الرقمية (الصف السابع)</title>
-    <!-- Firebase SDK (Compat) -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <title>الواجب البيتي الإلكتروني - المهارات الرقمية (الصف السابع)</title>
     <!-- SheetJS for Excel Export -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
@@ -38,8 +35,7 @@
         .stat-box { background-color: #0f172a; border: 1px solid #334155; padding: 15px; border-radius: 14px; text-align: center; }
         .stat-val { font-size: 26px; font-weight: bold; margin-top: 5px; color: #38bdf8; }
         .model-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: bold; background: #334155; color: #fbbf24; }
-        .timer-box { background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #f87171; padding: 8px 15px; border-radius: 10px; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 8px; animation: pulse 1s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.75; } 100% { opacity: 1; } }
+        .timer-box { background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #f87171; padding: 8px 15px; border-radius: 10px; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 8px; }
     </style>
 </head>
 <body>
@@ -49,7 +45,7 @@
         <div class="card header">
             <div>
                 <span class="badge">وكالة الغوث الدولية (UNRWA) - مدرسة ذكور وادي السير الإعدادية</span>
-                <h2 style="margin: 6px 0 0 0; font-size: 19px; color: #fff;">الواجب البيتي المحوسب - المهارات الرقمية (20 علامة)</h2>
+                <h2 style="margin: 6px 0 0 0; font-size: 19px; color: #fff;">الواجب البيتي الإلكتروني - المهارات الرقمية (20 علامة)</h2>
                 <span style="font-size: 12px; color: #94a3b8;">الصف السابع | تصميم وإعداد المعلم: عامر كراجه</span>
             </div>
             <div>
@@ -63,8 +59,8 @@
             <!-- كرت التسجيل واختيار النموذج -->
             <div id="student-reg-card" class="card" style="text-align: center; max-width: 500px; margin: 0 auto;">
                 <div style="font-size: 45px; margin-bottom: 8px;">🏠⚡</div>
-                <h3 style="color: #38bdf8; margin-top: 0;">تسجيل دخول الواجب البيتي</h3>
-                <p style="font-size: 12px; color: #94a3b8; margin-bottom: 15px;">⚠️ تنبيه صارم: لديك محاولة واحدة فقط و**12 دقيقة محددة بالمؤقت** للإجابة على 12 سؤالاً فور اضغط على بدء الاختبار!</p>
+                <h3 style="color: #38bdf8; margin-top: 0;">تسجيل الدخول للواجب المنزلي</h3>
+                <p style="font-size: 12px; color: #94a3b8; margin-bottom: 15px;">⚠️ تنبيه: لديك 12 دقيقة فقط للإجابة على 12 سؤالاً فور النقر على بدء الواجب!</p>
 
                 <form onsubmit="startExam(event)">
                     <div class="form-group">
@@ -89,15 +85,15 @@
                             <option value="3">النموذج الثالث (C - 12 سؤالاً)</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn" style="width: 100%; padding: 12px; margin-top: 10px;">بدء الواجب والمؤقت (12 دقيقة) 🚀</button>
+                    <button type="submit" class="btn" style="width: 100%; padding: 12px; margin-top: 10px;">بدء الواجب والمؤقت 🚀</button>
                 </form>
             </div>
 
             <!-- رسالة منع المحاولة الثانية -->
             <div id="student-blocked-card" class="card hidden" style="text-align: center; max-width: 500px; margin: 0 auto;">
                 <div style="font-size: 50px;">⚠️</div>
-                <h3 style="color: #ef4444; margin-bottom: 10px;">عذراً، لقد قمت بإجراء تسليم الواجب مسبقاً!</h3>
-                <p style="font-size: 13px; color: #cbd5e1;">مسموح لك بمحاولة واحدة فقط من هذا الجهاز وقد تم حفظ إجاباتك بنجاح.</p>
+                <h3 style="color: #ef4444; margin-bottom: 10px;">عذراً، لقد قمت بإجراء الواجب مسبقاً!</h3>
+                <p style="font-size: 13px; color: #cbd5e1;">مسموح لك بمحاولة واحدة فقط من هذا الجهاز وقد تم تسليمها بنجاح.</p>
                 <div style="background-color: #0f172a; border: 1px solid #334155; padding: 15px; border-radius: 12px; margin: 15px 0; text-align: right;">
                     <div style="font-size: 13px; color: #94a3b8;" id="blocked-info-name"></div>
                     <div style="font-size: 16px; font-weight: bold; color: #fbbf24; margin-top: 5px;" id="blocked-info-score"></div>
@@ -119,20 +115,21 @@
 
                 <form id="exam-form" onsubmit="submitExam(event)">
                     <div id="questions-container"></div>
-                    <button type="submit" class="btn btn-success" style="width: 100%; padding: 14px; font-size: 16px; margin-top: 15px;">تسليم الواجب النهائي وإظهار النتيجة 🏁</button>
+                    <button type="submit" class="btn btn-success" style="width: 100%; padding: 14px; font-size: 16px; margin-top: 15px;">تسليم الواجب النهائي 🏁</button>
                 </form>
             </div>
 
             <!-- كرت النتيجة -->
             <div id="student-result-card" class="card hidden" style="text-align: center; max-width: 450px; margin: 0 auto;">
                 <div style="font-size: 50px;">🏆</div>
-                <h3 style="color: #38bdf8; margin-bottom: 5px;">تم تسليم الواجب وحفظ النتيجة!</h3>
+                <h3 style="color: #38bdf8; margin-bottom: 5px;">تم تسليم الواجب وحفظه بالسحابة!</h3>
                 <p id="result-student-name" style="font-size: 14px; font-weight: bold;"></p>
                 <div style="background-color: #0f172a; border: 2px solid #06b6d4; padding: 20px; border-radius: 14px; margin: 15px 0;">
-                    <span style="font-size: 12px; color: #94a3b8; display: block;">علامتك النهائية في الواجب</span>
+                    <span style="font-size: 12px; color: #94a3b8; display: block;">العلامة النهائية</span>
                     <span id="result-score-display" style="font-size: 38px; font-weight: bold; color: #fbbf24;">0 / 20</span>
                 </div>
                 <p id="result-feedback-msg" style="font-size: 13px; font-weight: bold;"></p>
+                <button onclick="location.reload()" class="btn btn-secondary" style="margin-top: 15px;">خروج / إنهاء 🔄</button>
             </div>
         </div>
 
@@ -140,19 +137,19 @@
         <div id="view-teacher" class="card hidden">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 15px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
                 <div>
-                    <h3 style="margin: 0; color: #fbbf24;">📊 لوحة المعلم - سجل تسليمات الواجب البيتي</h3>
-                    <span style="font-size: 12px; color: #94a3b8;">إعداد وتصميم المعلم: عامر كراجه</span>
+                    <h3 style="margin: 0; color: #fbbf24;">📊 لوحة المعلم - سجل علامات الواجبات السحابية</h3>
+                    <span style="font-size: 12px; color: #94a3b8;">تصميم المعلم: عامر كراجه</span>
                 </div>
                 <div>
                     <button onclick="exportScoresExcel()" class="btn btn-success" style="font-size: 12px;">تصدير إلى Excel 📄</button>
-                    <button onclick="loadTeacherDashboard()" class="btn btn-secondary" style="font-size: 12px;">تحديث القائمة 🔄</button>
-                    <button onclick="clearAllScores()" class="btn btn-danger" style="font-size: 12px; margin-right: 5px;">مسح السجل 🗑️</button>
+                    <button onclick="loadTeacherDashboard()" class="btn btn-secondary" style="font-size: 12px;">تحديث البيانات من السحابة 🔄</button>
+                    <button onclick="clearLocalStorageRecords()" class="btn btn-danger" style="font-size: 12px; margin-right: 5px;">مسح الحظر المحلي 🗑️</button>
                 </div>
             </div>
 
             <div class="grid-stats">
                 <div class="stat-box">
-                    <span style="font-size: 12px; color: #94a3b8;">إجمالي الطلاب المسلمين</span>
+                    <span style="font-size: 12px; color: #94a3b8;">إجمالي المسلمين</span>
                     <div id="stat-total-students" class="stat-val">0</div>
                 </div>
                 <div class="stat-box">
@@ -177,45 +174,86 @@
                             <th>وقت التسليم</th>
                         </tr>
                     </thead>
-                    <tbody id="teacher-scores-tbody"></tbody>
+                    <tbody id="teacher-scores-tbody">
+                        <tr><td colspan="6" style="text-align: center; color: #94a3b8;">جاري تحميل البيانات من سحابة Firebase...</td></tr>
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <script>
-        // إعدادات Firebase
-        let db = null;
-        try {
-            const firebaseConfig = {
-                apiKey: "AIzaSyDummyKeyForDemo-DigitalSkills7",
-                authDomain: "unrwa-exam-7.firebaseapp.com",
-                projectId: "unrwa-exam-7",
-                storageBucket: "unrwa-exam-7.appspot.com",
-                messagingSenderId: "123456789",
-                appId: "1:123456789:web:abcdef"
-            };
-            if (typeof firebase !== 'undefined' && !firebase.apps.length) {
-                firebase.initializeApp(firebaseConfig);
-                db = firebase.firestore();
-            }
-        } catch(e) {
-            console.log("Firebase system running in local mode.");
-        }
+    <!-- كود ربط Firebase المحدث (Modular SDK) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
 
-        // منع التكرار والمحاولة الثانية
+        // إعدادات Firebase الخاصة بك
+        const firebaseConfig = {
+            apiKey: "AIzaSyBmBqblt9btr7wJafY5Mh6mY5h2u9YE7o8",
+            authDomain: "g7-exam.firebaseapp.com",
+            projectId: "g7-exam",
+            storageBucket: "g7-exam.firebasestorage.app",
+            messagingSenderId: "1036845348348",
+            appId: "1:1036845348348:web:a60d53b2eb09534b3b2e79"
+        };
+
+        // تهيئة Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // جعل متغيرات دوظائف الحفظ والجلب متاحة في النطاق العام (Global scope)
+        window.saveRecordToFirebase = async function(record) {
+            try {
+                await addDoc(collection(db, "exam_scores"), {
+                    ...record,
+                    timestamp: new Date()
+                });
+                console.log("تم حفظ النتيجة في سحابة Firebase بنجاح");
+            } catch (error) {
+                console.error("خطأ أثناء الحفظ في السحابة:", error);
+                // الحفظ الاحتياطي محلياً في حال فشل الاتصال اللحظي
+                const offlineRecords = JSON.parse(localStorage.getItem('offline_backup_scores') || '[]');
+                offlineRecords.push(record);
+                localStorage.setItem('offline_backup_scores', JSON.stringify(offlineRecords));
+            }
+        };
+
+        window.fetchRecordsFromFirebase = async function() {
+            try {
+                const q = query(collection(db, "exam_scores"), orderBy("timestamp", "desc"));
+                const querySnapshot = await getDocs(q);
+                let records = [];
+                querySnapshot.forEach((doc) => {
+                    records.push(doc.data());
+                });
+                
+                // دمج النسخ الاحتياطية المحلية إن وجدت
+                const offlineRecords = JSON.parse(localStorage.getItem('offline_backup_scores') || '[]');
+                const combined = [...offlineRecords, ...records];
+                
+                return combined;
+            } catch (error) {
+                console.error("خطأ في جلب البيانات من السحابة:", error);
+                // الاعتماد على التخزين المحلي كبديل عند انقطاع الإنترنت الكامل
+                return JSON.parse(localStorage.getItem('offline_backup_scores') || '[]');
+            }
+        };
+    </script>
+
+    <script>
+        // فحص ما إذا كان الطالب قد أدى الاختبار مسبقاً من هذا الجهاز
         window.addEventListener('DOMContentLoaded', () => {
-            const savedAttempt = localStorage.getItem('unrwa_homework_submitted_v2');
+            const savedAttempt = localStorage.getItem('unrwa_exam_submitted_v1');
             if (savedAttempt) {
                 const data = JSON.parse(savedAttempt);
                 document.getElementById('student-reg-card').classList.add('hidden');
                 document.getElementById('student-blocked-card').classList.remove('hidden');
                 document.getElementById('blocked-info-name').innerText = `اسم الطالب: ${data.name} (${data.section})`;
-                document.getElementById('blocked-info-score').innerText = `علامتك المسجلة: ${data.score} / 20`;
+                document.getElementById('blocked-info-score').innerText = `النتيجة المسجلة: ${data.score} / 20`;
             }
         });
 
-        // النماذج الثلاثة الموسعة - 12 سؤالاً لكل نموذج (المجموع = 20 علامة لكل نموذج)
+        // النماذج الثلاثة الموسعة (12 سؤالاً لكل نموذج - المجموع 20 علامة)
         const examModels = {
             "1": [
                 { id: 1, marks: 1.5, title: "س 1 (اختر - بصري):", question: "تأمل الشكل التوضيحي للمكون المسؤول عن معالجة البيانات وإجراء العمليات الحسابية والمنطقية (دماغ الحاسوب):", img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='90' viewBox='0 0 240 90'><rect width='240' height='90' fill='%230f172a'/><rect x='70' y='15' width='100' height='60' fill='%23334155' stroke='%2306b6d4' stroke-width='3' rx='8'/><text x='120' y='52' fill='%2322d3ee' font-size='16' font-weight='bold' text-anchor='middle'>CPU</text></svg>", options: ["وحدة المعالجة المركزية (CPU)", "القرص الصلب", "ذاكرة القراءة ROM", "لوحة المفاتيح"], correct: 0 },
@@ -228,7 +266,7 @@
                 { id: 8, marks: 1.5, title: "س 8 (ذاكرة ROM):", question: "ذاكرة تحتفظ بتعليمات التشغيل الأساسية ولا تتأثر بانقطاع الكهرباء:", options: ["RAM", "ROM", "Cache", "Buffer"], correct: 1 },
                 { id: 9, marks: 1.5, title: "س 9 (تطبيقات):", question: "أي مما يلي يُعد مثالاً على البرمجيات التطبيقية؟", options: ["برنامج الرسام (Paint)", "نظام Windows", "نظام Linux", "مشغل التعريفات"], correct: 0 },
                 { id: 10, marks: 1.5, title: "س 10 (إدخال وإخراج):", question: "لوحة المفاتيح تعتبر وحدة:", options: ["إدخال", "إخراج", "تخزين", "معالجة"], correct: 0 },
-                { id: 11, marks: 1.5, title: "س 11 (تفكير ناقد):", question: "عند انقطاع التيار الكهربائي فجأة، البيانات غير المنسوخة تفقد من:", options: ["القرص الصلب", "ذاكرة الوصول العشوائي RAM", "ذاكرة ROM", "اللوحة الأم"], correct: 1 },
+                { id: 11, marks: 1.5, title: "س 11 (تفكير ناقد):", question: "عند انقطاع التيار الكهربائي فجأة، البيانات غير المحفوظة تفقد من:", options: ["القرص الصلب", "ذاكرة الوصول العشوائي RAM", "ذاكرة ROM", "اللوحة الأم"], correct: 1 },
                 { id: 12, marks: 1.5, title: "س 12 (حواسيب مدمجة):", question: "المعالج المصغر داخل الغسالة الأوتوماتيكية يسمى:", options: ["حاسوب مدمج", "حاسوب فائق", "خادم رئيسي", "حاسوب محمول"], correct: 0 }
             ],
             "2": [
@@ -263,7 +301,7 @@
 
         let currentStudent = { name: "", section: "", model: "1" };
         let timerInterval = null;
-        let timeLeft = 12 * 60; // 12 دقيقة محددة صارمة
+        let timeLeft = 12 * 60; // 12 دقيقة
 
         function renderQuestions(modelId) {
             const container = document.getElementById('questions-container');
@@ -293,6 +331,23 @@
             });
         }
 
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert("انتهى الوقت المحدد للواجب (12 دقيقة)! سيتم تسليم إجاباتك تلقائياً.");
+                    submitExam();
+                } else {
+                    timeLeft--;
+                    const minutes = Math.floor(timeLeft / 60);
+                    const seconds = timeLeft % 60;
+                    document.getElementById('timer-countdown').innerText = 
+                        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
         function startExam(e) {
             e.preventDefault();
             const name = document.getElementById('input-student-name').value.trim();
@@ -310,25 +365,6 @@
                 renderQuestions(model);
                 startTimer();
             }
-        }
-
-        function startTimer() {
-            timeLeft = 12 * 60; // 12 دقيقة
-            if (timerInterval) clearInterval(timerInterval);
-            
-            timerInterval = setInterval(() => {
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    alert("⏰ انتهى الوقت المحدد للواجب (12 دقيقة)! سيتم تسليم إجاباتك تلقائياً الآن.");
-                    submitExam();
-                } else {
-                    timeLeft--;
-                    const minutes = Math.floor(timeLeft / 60);
-                    const seconds = timeLeft % 60;
-                    document.getElementById('timer-countdown').innerText = 
-                        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                }
-            }, 1000);
         }
 
         function submitExam(e) {
@@ -355,22 +391,12 @@
                 time: timeNow
             };
 
-            // 1. القيد المحلي لحظر المحاولة الثانية
-            localStorage.setItem('unrwa_homework_submitted_v2', JSON.stringify(record));
+            // 1. القيد المحلي لمنع تكرار المحاولة من نفس الجهاز
+            localStorage.setItem('unrwa_exam_submitted_v1', JSON.stringify(record));
 
-            // 2. الحفظ المحلي في قاعدة البيانات
-            const allScores = JSON.parse(localStorage.getItem('unrwa_homework_all_scores') || '[]');
-            allScores.unshift(record);
-            localStorage.setItem('unrwa_homework_all_scores', JSON.stringify(allScores));
-
-            // 3. الحفظ في Firebase (إذا كان متوفراً)
-            if (db) {
-                try {
-                    db.collection("homework_scores").add({
-                        ...record,
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                } catch(err) { console.log("Firebase sync fallback activated."); }
+            // 2. الحفظ السحابي المباشر في Firebase Firestore
+            if (window.saveRecordToFirebase) {
+                window.saveRecordToFirebase(record);
             }
 
             document.getElementById('student-exam-area').classList.add('hidden');
@@ -379,13 +405,13 @@
             
             const msgEl = document.getElementById('result-feedback-msg');
             if (totalScore >= 16) {
-                msgEl.innerText = "🌟 ممتاز جداً! إنجاز رائع ومتميز في الواجب المنزلي.";
+                msgEl.innerText = "🌟 ممتاز جداً! أداء متميز في الواجب البيتي الإلكتروني.";
                 msgEl.style.color = "#34d399";
             } else if (totalScore >= 10) {
                 msgEl.innerText = "👍 جيد جداً! أداء طيب ومقبول.";
                 msgEl.style.color = "#38bdf8";
             } else {
-                msgEl.innerText = "⚠️ بحاجة لمراجعة المفاهيم النظرية بالكتاب المدرسي.";
+                msgEl.innerText = "⚠️ بحاجة لمراجعة المفاهيم النظرية ومتابعة المادة.";
                 msgEl.style.color = "#fbbf24";
             }
 
@@ -416,16 +442,23 @@
             }
         }
 
-        function loadTeacherDashboard() {
+        // جلب وعرض بيانات لوحة المعلم مباشرة من Firebase
+        async function loadTeacherDashboard() {
             const tbody = document.getElementById('teacher-scores-tbody');
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #38bdf8;">جاري جلب النتائج الحية من سحابة Firebase...</td></tr>`;
+
+            if (!window.fetchRecordsFromFirebase) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #ef4444;">تعذر الاتصال بقاعدة البيانات السحابية.</td></tr>`;
+                return;
+            }
+
+            const cloudResults = await window.fetchRecordsFromFirebase();
             tbody.innerHTML = '';
 
-            const localResults = JSON.parse(localStorage.getItem('unrwa_homework_all_scores') || '[]');
-            
             let totalMarks = 0;
             let passCount = 0;
 
-            localResults.forEach((rec, idx) => {
+            cloudResults.forEach((rec, idx) => {
                 totalMarks += rec.score;
                 if (rec.score >= 10) passCount++;
 
@@ -436,46 +469,49 @@
                     <td>${rec.section}</td>
                     <td><span class="model-badge">نموذج ${rec.model}</span></td>
                     <td style="font-weight: bold; color: #fbbf24;">${rec.score} / 20</td>
-                    <td style="color: #94a3b8; font-size: 11px;">${rec.time}</td>
+                    <td style="color: #94a3b8; font-size: 11px;">${rec.time || 'وقت سابق'}</td>
                 `;
                 tbody.appendChild(tr);
             });
 
-            document.getElementById('stat-total-students').innerText = localResults.length;
-            document.getElementById('stat-avg-score').innerText = localResults.length ? `${Math.round((totalMarks / localResults.length) * 10) / 10} / 20` : '0 / 20';
-            document.getElementById('stat-pass-rate').innerText = localResults.length ? `${Math.round((passCount / localResults.length) * 100)}%` : '0%';
+            document.getElementById('stat-total-students').innerText = cloudResults.length;
+            document.getElementById('stat-avg-score').innerText = cloudResults.length ? `${Math.round(totalMarks / cloudResults.length * 10) / 10} / 20` : '0 / 20';
+            document.getElementById('stat-pass-rate').innerText = cloudResults.length ? `${Math.round((passCount / cloudResults.length) * 100)}%` : '0%';
 
-            if (localResults.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #94a3b8;">لا توجد تسليمات مسجلة حتى الآن.</td></tr>`;
+            if (cloudResults.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #94a3b8;">لا توجد نتائج مسجلة في السحابة حتى الآن.</td></tr>`;
             }
         }
 
-        function exportScoresExcel() {
-            const localResults = JSON.parse(localStorage.getItem('unrwa_homework_all_scores') || '[]');
-            if (!localResults.length) {
-                alert("لا توجد تسليمات مسجلة لتصديرها!");
+        async function exportScoresExcel() {
+            if (!window.fetchRecordsFromFirebase) return;
+            const cloudResults = await window.fetchRecordsFromFirebase();
+            
+            if (!cloudResults.length) {
+                alert("لا توجد نتائج مسجلة لتصديرها!");
                 return;
             }
 
-            let dataToExport = localResults.map((r, i) => ({
+            let dataToExport = cloudResults.map((r, i) => ({
                 "الرقم": i + 1,
                 "اسم الطالب": r.name,
                 "الشعبة": r.section,
                 "النموذج": `نموذج ${r.model}`,
                 "العلامة (من 20)": r.score,
-                "وقت التسليم": r.time
+                "وقت التسليم": r.time || 'غير محدد'
             }));
 
             const worksheet = XLSX.utils.json_to_sheet(dataToExport);
             const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "نتائج الواجب البيت");
+            XLSX.utils.book_append_sheet(workbook, worksheet, "نتائج الواجب");
             XLSX.writeFile(workbook, "نتائج_الواجب_البيتي_الصف_السابع.xlsx");
         }
 
-        function clearAllScores() {
-            if (confirm("هل أنت متأكد من مسح كافة السجلات والنتائج المسجلة للواجب البيتي؟")) {
-                localStorage.removeItem('unrwa_homework_all_scores');
-                localStorage.removeItem('unrwa_homework_submitted_v2');
+        function clearLocalStorageRecords() {
+            if (confirm("هل أنت متأكد من مسح قيد منع المحاولة وحذف الذاكرة المؤقتة من هذا الجهاز؟")) {
+                localStorage.removeItem('unrwa_exam_submitted_v1');
+                localStorage.removeItem('offline_backup_scores');
+                alert("تمت مسح قيود الجهاز بنجاح.");
                 loadTeacherDashboard();
             }
         }
